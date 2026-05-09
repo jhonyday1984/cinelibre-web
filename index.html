@@ -2,376 +2,458 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>CineLibre – TV en Vivo del Mundo + Películas Gratis Online | cinelibre.cl</title>
-<meta name="description" content="CineLibre: la guía de TV más completa. Canales en vivo 24/7 de Chile, Argentina, México, Brasil, Japón, Australia, Europa. Películas gratis, telenovelas y series. Sin registro, sin pago."/>
-<meta name="keywords" content="tv en vivo gratis, canales en vivo youtube, ver televisión online, películas gratis chile, canales chile en vivo, tv latinoamerica gratis, telenovelas en vivo, canales japon en vivo, australia tv en vivo, canales mundo gratis 24/7, cinelibre, tv online gratis"/>
-<meta name="robots" content="index,follow,max-image-preview:large"/>
-<meta name="author" content="CineLibre.cl"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover"/>
+<title>CineLibre – TV en Vivo · Radios del Mundo · Documentales · Películas Gratis | cinelibre.cl</title>
+<meta name="description" content="CineLibre: la guía completa de entretenimiento gratuita. 80+ canales TV en vivo, radio K-pop de Korea, jazz, salsa, clásica, documentales 24/7 y películas gratis. Chile, Japón, Brasil, Europa. Sin registro."/>
+<meta name="keywords" content="tv en vivo gratis chile, radio kpop korea en vivo, radios del mundo gratis, documentales gratis 24h, canales youtube en vivo, radio online gratis, kpop radio en vivo, jazz radio 24h, salsa radio online, peliculas gratis online, cinelibre, television gratis internet"/>
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1"/>
+<meta name="theme-color" content="#06060c"/>
 <link rel="canonical" href="https://cinelibre.cl/"/>
 <meta property="og:type" content="website"/>
 <meta property="og:url" content="https://cinelibre.cl/"/>
-<meta property="og:title" content="CineLibre – TV Mundial en Vivo + Películas Gratis"/>
-<meta property="og:description" content="Más de 60 canales en vivo de todo el mundo + películas gratis. Chile, Argentina, México, Japón, Australia, Europa. Sin registro."/>
-<meta property="og:image" content="https://cinelibre.cl/og.jpg"/>
+<meta property="og:title" content="CineLibre – TV · Radio · Docs · Cine. Todo Gratis 24/7"/>
+<meta property="og:description" content="80+ canales TV, radio K-pop de Korea, documentales y películas. La guía más completa. Sin registro."/>
 <meta property="og:locale" content="es_CL"/>
 <meta property="og:site_name" content="CineLibre"/>
 <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:title" content="CineLibre – TV Mundial en Vivo Gratis"/>
-<meta name="twitter:description" content="60+ canales en vivo + películas. Todo gratis, sin registro."/>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"CineLibre","alternateName":"cinelibre.cl","url":"https://cinelibre.cl","description":"Guía de televisión mundial en vivo y películas gratuitas en español — Chile, Argentina, México, Brasil, Japón, Australia, Europa","potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://cinelibre.cl/?q={search_term_string}"},"query-input":"required name=search_term_string"}}</script>
-<!-- MONETIZACIÓN: Red publicitaria externa -->
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"CineLibre","url":"https://cinelibre.cl","description":"Guía completa: TV mundial en vivo, radios del mundo, documentales 24/7 y películas gratis en español","potentialAction":{"@type":"SearchAction","target":"https://cinelibre.cl/?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
 <script src="https://quge5.com/88/tag.min.js" data-zone="237619" async data-cfasync="false"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet"/>
 <style>
 :root{
-  --bg:#07070d;--s1:#0d0d15;--s2:#12121c;--card:#181824;--card2:#1e1e2c;
-  --b0:rgba(255,255,255,.05);--b1:rgba(255,255,255,.09);--b2:rgba(255,255,255,.16);
-  --gold:#d4a843;--gold2:#f0c96a;--red:#e03545;--red2:#ff6070;
-  --blue:#4a9eff;--green:#3dd68c;--purple:#b06ef5;--orange:#f97316;--teal:#2dd4bf;
-  --text:#ede9e2;--muted:#706a7a;--muted2:#a09aaa;
-  --r:8px;--r2:12px;
+  --bg:#06060c;--s1:#0b0b13;--s2:#101018;--card:#15151f;--card2:#1a1a26;
+  --b0:rgba(255,255,255,.04);--b1:rgba(255,255,255,.08);--b2:rgba(255,255,255,.16);
+  --gold:#d4a843;--gold2:#f0c96a;--red:#e03545;--red2:#ff5f6d;
+  --blue:#4a9eff;--grn:#3dd68c;--pur:#a855f7;--org:#f97316;--teal:#2dd4bf;--pink:#f472b6;
+  --txt:#ede9e2;--mut:#6b6575;--mut2:#9990a8;
   --fh:'Bebas Neue',sans-serif;
-  --fb:'Crimson Pro',Georgia,serif;
+  --fb:'Lora',Georgia,serif;
   --fu:'DM Sans',system-ui,sans-serif;
+  --r:10px;--r2:14px;
+  --header-h:56px;
+  --mob-nav-h:60px;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-html{scroll-behavior:smooth;}
-body{background:var(--bg);color:var(--text);font-family:var(--fu);overflow-x:hidden;min-height:100vh;}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
+body{background:var(--bg);color:var(--txt);font-family:var(--fu);overflow-x:hidden;min-height:100vh;}
 a{color:inherit;text-decoration:none;}
-button{font-family:var(--fu);}
-::-webkit-scrollbar{width:4px;height:4px;}
-::-webkit-scrollbar-track{background:transparent;}
-::-webkit-scrollbar-thumb{background:rgba(255,255,255,.15);border-radius:2px;}
+button{font-family:var(--fu);cursor:pointer;-webkit-tap-highlight-color:transparent;}
+img{display:block;max-width:100%;}
+::-webkit-scrollbar{width:3px;height:3px;}
+::-webkit-scrollbar-thumb{background:rgba(255,255,255,.1);border-radius:2px;}
 
-/* ══ LIVE DOT ══ */
-.ld{display:inline-flex;align-items:center;gap:5px;font-size:.68rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--red2);}
-.ld::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--red2);animation:blink 1.5s ease infinite;}
-@keyframes blink{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.4;transform:scale(1.35);}}
+/* ── LIVE DOT ── */
+.ld{display:inline-flex;align-items:center;gap:5px;font-size:.63rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--red2);}
+.ld::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--red2);animation:blink 1.6s ease infinite;}
+@keyframes blink{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.3;transform:scale(1.5);}}
 
-/* ══ HEADER ══ */
-header{position:sticky;top:0;z-index:400;background:rgba(7,7,13,.97);backdrop-filter:blur(24px);border-bottom:1px solid var(--b1);}
-.nav{max-width:1600px;margin:0 auto;padding:0 20px;height:58px;display:flex;align-items:center;gap:14px;}
-.logo{font-family:var(--fh);font-size:1.75rem;letter-spacing:3px;flex-shrink:0;line-height:1;white-space:nowrap;}
-.logo .CL{color:var(--gold);}
-.logo .dot{color:var(--red);}
-.ntabs{display:flex;gap:2px;list-style:none;overflow-x:auto;scrollbar-width:none;}
-.ntabs::-webkit-scrollbar{display:none;}
-.ntabs button{background:none;border:none;cursor:pointer;font-size:.76rem;font-weight:500;letter-spacing:.8px;text-transform:uppercase;color:var(--muted2);padding:6px 13px;border-radius:100px;transition:all .2s;white-space:nowrap;}
-.ntabs button:hover{color:var(--text);background:var(--b0);}
-.ntabs button.on{color:var(--gold);background:rgba(212,168,67,.1);border:1px solid rgba(212,168,67,.22);}
-.srch{margin-left:auto;display:flex;align-items:center;gap:8px;background:var(--b0);border:1px solid var(--b1);border-radius:100px;padding:7px 16px;transition:border-color .2s;min-width:200px;flex-shrink:0;}
+/* ── HEADER ── */
+header{position:sticky;top:0;z-index:500;height:var(--header-h);background:rgba(6,6,12,.97);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid var(--b1);}
+.nav{max-width:1800px;margin:0 auto;padding:0 16px;height:100%;display:flex;align-items:center;gap:10px;}
+.logo{font-family:var(--fh);font-size:1.6rem;letter-spacing:3px;flex-shrink:0;white-space:nowrap;line-height:1;}
+.logo .L{color:var(--gold);}
+.logo .dt{color:var(--red);}
+.dtabs{display:flex;gap:2px;list-style:none;overflow-x:auto;scrollbar-width:none;}
+.dtabs::-webkit-scrollbar{display:none;}
+.dtabs button{background:none;border:none;font-size:.72rem;font-weight:500;letter-spacing:.7px;text-transform:uppercase;color:var(--mut2);padding:5px 11px;border-radius:100px;transition:all .18s;white-space:nowrap;}
+.dtabs button:hover{color:var(--txt);background:var(--b0);}
+.dtabs button.on{color:var(--gold);background:rgba(212,168,67,.1);border:1px solid rgba(212,168,67,.22);}
+.srch{margin-left:auto;display:flex;align-items:center;gap:7px;background:var(--b0);border:1px solid var(--b1);border-radius:100px;padding:6px 13px;transition:border-color .2s;min-width:170px;flex-shrink:0;}
 .srch:focus-within{border-color:var(--gold);}
-.srch svg{color:var(--muted);flex-shrink:0;}
-.srch input{background:none;border:none;outline:none;color:var(--text);font-size:.85rem;width:100%;}
-.srch input::placeholder{color:var(--muted);}
-@media(max-width:900px){.ntabs{display:none;}}
-@media(max-width:550px){.srch{min-width:130px;}}
+.srch svg{color:var(--mut);flex-shrink:0;}
+.srch input{background:none;border:none;outline:none;color:var(--txt);font-size:.82rem;width:100%;}
+.srch input::placeholder{color:var(--mut);}
+@media(max-width:860px){.dtabs{display:none;}.srch{min-width:120px;}}
 
-/* ══ PAGES ══ */
-.pg{display:none;}.pg.on{display:block;animation:fadeUp .35s ease both;}
-@keyframes fadeUp{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:none;}}
+/* ── PAGES ── */
+.pg{display:none;}
+.pg.on{display:block;animation:fadeUp .3s ease both;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:none;}}
 
-/* ══ HERO ══ */
-.hero{min-height:74vh;display:flex;align-items:flex-end;padding:clamp(22px,5vw,70px);position:relative;overflow:hidden;
-  background:radial-gradient(ellipse 65% 55% at 12% 65%,rgba(212,168,67,.15) 0%,transparent 55%),
-             radial-gradient(ellipse 45% 40% at 88% 25%,rgba(224,53,69,.11) 0%,transparent 50%),
-             radial-gradient(ellipse 35% 30% at 55% 85%,rgba(74,158,255,.07) 0%,transparent 45%),var(--bg);}
-.hero-scan{position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(255,255,255,.009) 3px,rgba(255,255,255,.009) 6px);animation:hscan 10s linear infinite;}
-@keyframes hscan{to{background-position:0 -300px;}}
-.hero-content{position:relative;z-index:2;max-width:720px;animation:fadeUp .9s cubic-bezier(.16,1,.3,1) both;}
-.hero-badge{display:inline-flex;align-items:center;gap:10px;background:rgba(212,168,67,.1);border:1px solid rgba(212,168,67,.28);padding:6px 16px;border-radius:100px;margin-bottom:22px;flex-wrap:wrap;}
-.hero h1{font-family:var(--fh);font-size:clamp(2.8rem,8vw,7.2rem);line-height:.88;letter-spacing:2px;margin-bottom:18px;}
-.hero h1 .g{background:linear-gradient(135deg,var(--gold),var(--gold2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.hero h1 .r{background:linear-gradient(135deg,var(--red),var(--red2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.hero p{font-family:var(--fb);font-size:1.1rem;color:rgba(237,233,226,.62);line-height:1.72;margin-bottom:30px;max-width:500px;}
-.hstats{display:flex;gap:28px;flex-wrap:wrap;}
+/* ── HERO ── */
+.hero{min-height:78vh;display:flex;align-items:flex-end;padding:clamp(20px,5vw,64px);position:relative;overflow:hidden;
+  background:
+    radial-gradient(ellipse 65% 55% at 8% 68%,rgba(212,168,67,.14) 0%,transparent 52%),
+    radial-gradient(ellipse 40% 35% at 92% 20%,rgba(224,53,69,.1) 0%,transparent 48%),
+    radial-gradient(ellipse 30% 28% at 55% 90%,rgba(74,158,255,.06) 0%,transparent 44%),
+    radial-gradient(ellipse 28% 25% at 75% 55%,rgba(168,85,247,.06) 0%,transparent 42%),
+    var(--bg);}
+.hero-scan{position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(255,255,255,.007) 3px,rgba(255,255,255,.007) 6px);animation:scan 14s linear infinite;}
+@keyframes scan{to{background-position:0 -300px;}}
+.hero-c{position:relative;z-index:2;max-width:720px;animation:fadeUp .9s cubic-bezier(.16,1,.3,1) both;}
+.hero-eye{display:flex;align-items:center;gap:10px;margin-bottom:18px;flex-wrap:wrap;}
+.hero h1{font-family:var(--fh);font-size:clamp(2.5rem,7.5vw,6.8rem);line-height:.88;letter-spacing:2px;margin-bottom:14px;}
+.h-g{background:linear-gradient(135deg,var(--gold),var(--gold2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.h-r{background:linear-gradient(135deg,var(--red),var(--red2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.h-p{background:linear-gradient(135deg,var(--pur),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.hero p{font-family:var(--fb);font-size:1rem;color:rgba(237,233,226,.6);line-height:1.72;margin-bottom:26px;max-width:500px;}
+.hst{display:flex;gap:22px;flex-wrap:wrap;}
 .hs{display:flex;flex-direction:column;gap:2px;}
-.hs-n{font-family:var(--fh);font-size:1.95rem;letter-spacing:1px;color:var(--gold);line-height:1;}
-.hs-l{font-size:.67rem;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);}
+.hs-n{font-family:var(--fh);font-size:1.75rem;letter-spacing:1px;color:var(--gold);line-height:1;}
+.hs-l{font-size:.62rem;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--mut);}
 
-/* ══ SECTIONS ══ */
-.sec{padding:clamp(28px,4vw,52px) 20px;}
-.w{max-width:1600px;margin:0 auto;}
-.sh{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;gap:12px;flex-wrap:wrap;}
-.st{font-family:var(--fh);font-size:clamp(1.6rem,3vw,2.4rem);letter-spacing:2px;}
-.st span{color:var(--gold);}
+/* ── SECTIONS ── */
+.sec{padding:clamp(22px,3.5vw,46px) 16px;}
+.w{max-width:1800px;margin:0 auto;}
+.sh{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;gap:10px;flex-wrap:wrap;}
+.st{font-family:var(--fh);font-size:clamp(1.45rem,2.8vw,2.2rem);letter-spacing:2px;}
+.st span,.st .g{color:var(--gold);}
 .st .r{color:var(--red2);}
-.sm{font-size:.74rem;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);background:none;border:none;cursor:pointer;transition:color .2s;}
-.sm:hover{color:var(--gold);}
+.st .p{color:var(--pur);}
+.st .t{color:var(--teal);}
+.st .pi{color:var(--pink);}
+.more-btn{background:none;border:none;font-size:.7rem;font-weight:500;letter-spacing:1.2px;text-transform:uppercase;color:var(--mut2);transition:color .18s;}
+.more-btn:hover{color:var(--gold);}
 
-/* ══ PILLS FILTRO ══ */
-.pills{display:flex;gap:7px;overflow-x:auto;padding:4px 0;scrollbar-width:none;flex-wrap:nowrap;}
+/* ── PILLS ── */
+.pills{display:flex;gap:6px;overflow-x:auto;padding:3px 0;scrollbar-width:none;}
 .pills::-webkit-scrollbar{display:none;}
-.pil{flex-shrink:0;font-size:.73rem;font-weight:500;letter-spacing:.7px;text-transform:uppercase;padding:7px 15px;border-radius:100px;border:1px solid var(--b1);background:transparent;color:var(--muted2);cursor:pointer;transition:all .18s;white-space:nowrap;}
-.pil:hover{color:var(--text);border-color:var(--b2);}
+.pil{flex-shrink:0;font-size:.7rem;font-weight:500;letter-spacing:.6px;text-transform:uppercase;padding:6px 13px;border-radius:100px;border:1px solid var(--b1);background:transparent;color:var(--mut2);transition:all .16s;white-space:nowrap;}
+.pil:hover{color:var(--txt);border-color:var(--b2);}
 .pil.on{background:var(--gold);color:#000;border-color:var(--gold);font-weight:600;}
 
-/* ══ COUNTRY TABS ══ */
-.ctabs{display:flex;gap:7px;overflow-x:auto;padding:14px 20px;border-bottom:1px solid var(--b1);background:var(--s1);scrollbar-width:none;}
+/* ── COUNTRY TABS ── */
+.ctabs{display:flex;gap:6px;overflow-x:auto;padding:11px 16px;border-bottom:1px solid var(--b1);background:var(--s1);scrollbar-width:none;}
 .ctabs::-webkit-scrollbar{display:none;}
-.ctab{flex-shrink:0;display:inline-flex;align-items:center;gap:7px;font-size:.77rem;font-weight:500;letter-spacing:.5px;padding:8px 16px;border-radius:100px;border:1px solid var(--b1);background:var(--b0);color:var(--muted2);cursor:pointer;transition:all .18s;white-space:nowrap;}
-.ctab:hover{color:var(--text);border-color:var(--b2);}
+.ctab{flex-shrink:0;display:inline-flex;align-items:center;gap:6px;font-size:.71rem;font-weight:500;padding:7px 13px;border-radius:100px;border:1px solid var(--b1);background:var(--b0);color:var(--mut2);transition:all .16s;white-space:nowrap;}
+.ctab:hover{color:var(--txt);border-color:var(--b2);}
 .ctab.on{background:var(--gold);color:#000;border-color:var(--gold);font-weight:600;}
 
-/* ══ CHANNEL GRID ══ */
-.cgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px;}
-@media(max-width:600px){.cgrid{grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:10px;}}
+/* ── CHANNEL GRID ── */
+.gch{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:12px;}
+.gsm{display:grid;grid-template-columns:repeat(auto-fill,minmax(165px,1fr));gap:11px;}
+@media(max-width:640px){
+  .gch{grid-template-columns:repeat(2,1fr);gap:9px;}
+  .gsm{grid-template-columns:repeat(2,1fr);gap:8px;}
+}
+@media(max-width:360px){
+  .gch,.gsm{grid-template-columns:1fr 1fr;gap:7px;}
+}
 
-/* ══ CHANNEL CARD ══ */
-.cc{background:var(--card);border:1px solid var(--b1);border-radius:var(--r);overflow:hidden;cursor:pointer;transition:transform .28s cubic-bezier(.16,1,.3,1),box-shadow .28s,border-color .2s;}
-.cc:hover{transform:translateY(-6px) scale(1.018);box-shadow:0 18px 38px rgba(0,0,0,.55),0 0 0 1px rgba(212,168,67,.22);border-color:rgba(212,168,67,.22);}
-.cc:focus{outline:2px solid var(--gold);outline-offset:2px;}
-.cc-thumb{aspect-ratio:16/9;background:var(--s2);overflow:hidden;position:relative;}
-.cc-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .45s;}
-.cc:hover .cc-thumb img{transform:scale(1.07);}
-.cc-ov{position:absolute;inset:0;background:rgba(0,0,0,.6);opacity:0;transition:opacity .25s;display:flex;align-items:center;justify-content:center;}
-.cc:hover .cc-ov{opacity:1;}
-.pr{width:50px;height:50px;border-radius:50%;background:rgba(212,168,67,.92);display:flex;align-items:center;justify-content:center;transform:scale(.55);transition:transform .22s;}
-.cc:hover .pr{transform:scale(1);}
-.cc-live{position:absolute;top:8px;left:8px;}
-.cc-badge{position:absolute;top:8px;right:8px;font-size:.6rem;font-weight:700;letter-spacing:.8px;text-transform:uppercase;padding:3px 9px;border-radius:100px;}
-.cb-n{background:rgba(74,158,255,.25);color:#7fc3ff;}
-.cb-e{background:rgba(61,214,140,.2);color:#3dd68c;}
-.cb-d{background:rgba(249,115,22,.2);color:#f97316;}
-.cb-m{background:rgba(176,110,245,.2);color:#b06ef5;}
-.cb-c{background:rgba(212,168,67,.2);color:var(--gold);}
-.cb-np{background:rgba(45,212,191,.2);color:var(--teal);}
-.cc-body{padding:11px 13px;}
-.cc-name{font-size:.88rem;font-weight:600;line-height:1.25;margin-bottom:4px;color:var(--text);}
-.cc-meta{font-size:.71rem;color:var(--muted);}
+/* ── CHANNEL CARD ── */
+.cc{background:var(--card);border:1px solid var(--b1);border-radius:var(--r);overflow:hidden;cursor:pointer;-webkit-tap-highlight-color:transparent;
+  transition:transform .24s cubic-bezier(.16,1,.3,1),box-shadow .24s,border-color .18s;}
+.cc:hover,.cc:focus{transform:translateY(-4px) scale(1.014);box-shadow:0 14px 32px rgba(0,0,0,.5),0 0 0 1px rgba(212,168,67,.18);border-color:rgba(212,168,67,.18);outline:none;}
+.cc-th{aspect-ratio:16/9;background:var(--s2);overflow:hidden;position:relative;}
+.cc-th img{width:100%;height:100%;object-fit:cover;transition:transform .38s;}
+.cc:hover .cc-th img,.cc:focus .cc-th img{transform:scale(1.06);}
+.cc-ov{position:absolute;inset:0;background:rgba(0,0,0,.55);opacity:0;transition:opacity .2s;display:flex;align-items:center;justify-content:center;}
+.cc:hover .cc-ov,.cc:focus .cc-ov{opacity:1;}
+.prbtn{width:46px;height:46px;border-radius:50%;background:rgba(212,168,67,.9);display:flex;align-items:center;justify-content:center;transform:scale(.5);transition:transform .2s;}
+.cc:hover .prbtn,.cc:focus .prbtn{transform:scale(1);}
+.cc-live{position:absolute;top:7px;left:7px;}
+.cbadge{position:absolute;top:7px;right:7px;font-size:.57rem;font-weight:700;letter-spacing:.7px;text-transform:uppercase;padding:3px 8px;border-radius:100px;}
+.bn{background:rgba(74,158,255,.28);color:#7fc3ff;}
+.be{background:rgba(61,214,140,.22);color:#3dd68c;}
+.bd{background:rgba(249,115,22,.22);color:#f97316;}
+.bm{background:rgba(168,85,247,.22);color:#c49ef8;}
+.bc{background:rgba(212,168,67,.22);color:var(--gold);}
+.bnp{background:rgba(45,212,191,.22);color:var(--teal);}
+.bp{background:rgba(244,114,182,.22);color:#f472b6;}
+.br{background:rgba(224,53,69,.22);color:#ff5f6d;}
+.cc-body{padding:9px 11px;}
+.cc-name{font-size:.84rem;font-weight:600;line-height:1.22;margin-bottom:3px;}
+.cc-meta{font-size:.67rem;color:var(--mut);}
 
-/* ══ MOVIE GRID ══ */
-.mgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(178px,1fr));gap:15px;}
-@media(max-width:480px){.mgrid{grid-template-columns:repeat(auto-fill,minmax(138px,1fr));gap:10px;}}
+/* ── RADIO CARD ── */
+.rc{background:var(--card);border:1px solid var(--b1);border-radius:var(--r);overflow:hidden;cursor:pointer;-webkit-tap-highlight-color:transparent;
+  transition:transform .24s cubic-bezier(.16,1,.3,1),box-shadow .24s,border-color .18s;}
+.rc:hover,.rc:focus{transform:translateY(-4px) scale(1.014);box-shadow:0 14px 32px rgba(0,0,0,.5),0 0 0 1px rgba(212,168,67,.18);border-color:rgba(212,168,67,.18);outline:none;}
+.rc-vis{aspect-ratio:16/9;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+.rc-ico{font-size:2rem;position:relative;z-index:2;}
+.rc-ov2{position:absolute;inset:0;background:rgba(0,0,0,.38);opacity:0;transition:opacity .2s;display:flex;align-items:center;justify-content:center;z-index:3;}
+.rc:hover .rc-ov2,.rc:focus .rc-ov2{opacity:1;}
+.rc-rbadge{position:absolute;top:7px;right:7px;font-size:.57rem;font-weight:700;letter-spacing:.7px;text-transform:uppercase;padding:3px 8px;border-radius:100px;z-index:4;}
+/* animated equalizer */
+.eq{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);display:flex;gap:3px;align-items:flex-end;height:20px;z-index:4;}
+.eq span{width:3px;border-radius:2px;animation:eq 1s ease infinite;}
+.eq span:nth-child(1){background:rgba(255,255,255,.7);animation-delay:0s;height:7px;}
+.eq span:nth-child(2){background:rgba(255,255,255,.8);animation-delay:.13s;height:14px;}
+.eq span:nth-child(3){background:rgba(255,255,255,.9);animation-delay:.26s;height:20px;}
+.eq span:nth-child(4){background:rgba(255,255,255,.8);animation-delay:.13s;height:14px;}
+.eq span:nth-child(5){background:rgba(255,255,255,.7);animation-delay:0s;height:7px;}
+@keyframes eq{0%,100%{transform:scaleY(.4);}50%{transform:scaleY(1);}}
+.rc-body{padding:9px 11px;}
+.rc-name{font-size:.84rem;font-weight:600;line-height:1.22;margin-bottom:3px;}
+.rc-meta{font-size:.67rem;color:var(--mut);}
 
-/* ══ MOVIE CARD ══ */
-.mc{background:var(--card);border:1px solid var(--b1);border-radius:var(--r);overflow:hidden;cursor:pointer;transition:transform .28s cubic-bezier(.16,1,.3,1),box-shadow .28s;}
-.mc:hover{transform:translateY(-7px) scale(1.018);box-shadow:0 20px 40px rgba(0,0,0,.6),0 0 0 1px rgba(212,168,67,.2);}
-.mc:focus{outline:2px solid var(--gold);outline-offset:2px;}
-.mp{aspect-ratio:2/3;background:var(--s2);overflow:hidden;position:relative;}
-.mp img{width:100%;height:100%;object-fit:cover;transition:transform .45s;}
-.mc:hover .mp img{transform:scale(1.06);}
-.mov{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.9) 0%,transparent 55%);opacity:0;transition:opacity .25s;display:flex;align-items:center;justify-content:center;}
-.mc:hover .mov{opacity:1;}
-.mt{position:absolute;top:8px;left:8px;font-size:.6rem;font-weight:700;letter-spacing:.8px;text-transform:uppercase;padding:3px 8px;border-radius:100px;}
-.tc{background:#c8912e;color:#3d2b00;}.tg{background:#3dd68c;color:#0a4023;}.tl{background:#4a9eff;color:#002d63;}.tt{background:#e03545;color:#fff;}.tn{background:#a855f7;color:#fff;}
-.mc-body{padding:11px 12px;}
-.mc-title{font-size:.87rem;font-weight:500;line-height:1.3;margin-bottom:5px;}
-.mc-meta{font-size:.71rem;color:var(--muted);}
+/* ── MOVIE CARD ── */
+.gmv{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:12px;}
+@media(max-width:640px){.gmv{grid-template-columns:repeat(3,1fr);gap:8px;}}
+@media(max-width:380px){.gmv{grid-template-columns:repeat(2,1fr);gap:7px;}}
+.mc{background:var(--card);border:1px solid var(--b1);border-radius:var(--r);overflow:hidden;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .24s cubic-bezier(.16,1,.3,1),box-shadow .24s;}
+.mc:hover,.mc:focus{transform:translateY(-5px) scale(1.014);box-shadow:0 16px 36px rgba(0,0,0,.55),0 0 0 1px rgba(212,168,67,.18);outline:none;}
+.mc-pos{aspect-ratio:2/3;background:var(--s2);overflow:hidden;position:relative;}
+.mc-pos img{width:100%;height:100%;object-fit:cover;transition:transform .38s;}
+.mc:hover .mc-pos img{transform:scale(1.05);}
+.mc-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.88) 0%,transparent 55%);opacity:0;transition:opacity .2s;display:flex;align-items:center;justify-content:center;}
+.mc:hover .mc-ov,.mc:focus .mc-ov{opacity:1;}
+.mt{position:absolute;top:7px;left:7px;font-size:.56rem;font-weight:700;letter-spacing:.7px;text-transform:uppercase;padding:3px 7px;border-radius:100px;}
+.tg{background:#3dd68c;color:#0a4023;}.tc{background:#c8912e;color:#3d2b00;}.tl{background:#4a9eff;color:#002d63;}.tt{background:#e03545;color:#fff;}.tn{background:#a855f7;color:#fff;}
+.mc-body{padding:9px 11px;}
+.mc-title{font-size:.83rem;font-weight:500;line-height:1.25;margin-bottom:3px;}
+.mc-meta{font-size:.67rem;color:var(--mut);}
 
-/* ══ FEATURED CHANNEL ══ */
-.feat{display:grid;grid-template-columns:1fr 1fr;gap:0;background:var(--card);border:1px solid var(--b1);border-radius:var(--r2);overflow:hidden;margin-bottom:28px;}
-@media(max-width:768px){.feat{grid-template-columns:1fr;}}
-.feat-player{aspect-ratio:16/9;background:#000;position:relative;}
-.feat-player iframe{position:absolute;inset:0;width:100%;height:100%;border:none;}
-.feat-info{padding:24px 22px;display:flex;flex-direction:column;gap:14px;justify-content:center;background:var(--card2);}
-.fi-eyebrow{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
-.fi-title{font-family:var(--fh);font-size:1.9rem;letter-spacing:2px;line-height:1;}
-.fi-desc{font-family:var(--fb);font-size:.95rem;color:rgba(237,233,226,.65);line-height:1.72;}
-.fi-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.78rem;color:var(--muted2);}
-.fi-btn{display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:#000;padding:11px 22px;border-radius:100px;font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;border:none;cursor:pointer;transition:background .18s;width:fit-content;}
+/* ── FEATURED ── */
+.feat{display:grid;grid-template-columns:1fr 1fr;gap:0;background:var(--card);border:1px solid var(--b1);border-radius:var(--r2);overflow:hidden;margin-bottom:24px;}
+@media(max-width:680px){.feat{grid-template-columns:1fr;}}
+.feat-pl{aspect-ratio:16/9;background:#000;position:relative;}
+.feat-pl iframe{position:absolute;inset:0;width:100%;height:100%;border:none;}
+.feat-info{padding:20px 18px;display:flex;flex-direction:column;gap:11px;justify-content:center;background:var(--card2);}
+.fi-ti{font-family:var(--fh);font-size:1.75rem;letter-spacing:2px;line-height:1.02;}
+.fi-desc{font-family:var(--fb);font-size:.9rem;color:rgba(237,233,226,.6);line-height:1.7;}
+.fi-meta{display:flex;gap:10px;flex-wrap:wrap;font-size:.72rem;color:var(--mut2);}
+.fi-btn{display:inline-flex;align-items:center;gap:7px;background:var(--gold);color:#000;padding:10px 18px;border-radius:100px;font-size:.74rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;border:none;transition:background .16s;width:fit-content;}
 .fi-btn:hover{background:var(--gold2);}
 
-/* ══ COUNTRY SECTION ══ */
-.csec{margin-bottom:8px;}
-.chead{display:flex;align-items:center;gap:12px;padding:14px 20px;background:var(--s2);border-top:1px solid var(--b1);border-bottom:1px solid var(--b1);position:sticky;top:58px;z-index:10;}
-.cf{font-size:1.5rem;}
-.cn{font-family:var(--fh);font-size:1.45rem;letter-spacing:2px;}
-.cc2{font-size:.71rem;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-left:auto;}
-.cgrid2{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;padding:16px 20px;}
-@media(max-width:600px){.cgrid2{grid-template-columns:repeat(auto-fill,minmax(155px,1fr));padding:12px;gap:9px;}}
+/* ── MUNDO PAGE: COUNTRY SECTIONS ── */
+.wsec{margin-bottom:4px;}
+.whead{display:flex;align-items:center;gap:10px;padding:11px 16px;background:var(--s2);border-top:1px solid var(--b1);border-bottom:1px solid var(--b1);}
+.wfl{font-size:1.3rem;}
+.wnm{font-family:var(--fh);font-size:1.35rem;letter-spacing:2px;}
+.wcnt{font-size:.67rem;color:var(--mut);letter-spacing:1px;text-transform:uppercase;margin-left:auto;}
+.wgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:10px;padding:12px 16px;}
+@media(max-width:640px){.wgrid{grid-template-columns:repeat(2,1fr);padding:10px;gap:8px;}}
 
-/* ══ AD SLOT ══ */
-.ad-slot{background:var(--s2);border:1px dashed var(--b1);border-radius:var(--r);padding:12px;text-align:center;margin:20px 0;font-size:.72rem;color:var(--muted);letter-spacing:1px;min-height:90px;display:flex;align-items:center;justify-content:center;}
+/* ── AD SLOTS ── */
+.ad-slot{background:var(--s2);border:1px dashed rgba(255,255,255,.08);border-radius:var(--r);min-height:90px;display:flex;align-items:center;justify-content:center;font-size:.68rem;color:var(--mut);letter-spacing:1px;margin:16px 0;}
 
-/* ══ SEO BLOCK ══ */
-.seo-wrap{background:var(--s1);border-top:1px solid var(--b1);padding:clamp(28px,4vw,52px) 20px;}
-.seo-grid{max-width:1600px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:26px;}
-.seo-item h3{font-family:var(--fh);font-size:1.3rem;letter-spacing:1px;color:var(--gold);margin-bottom:10px;}
-.seo-item p{font-family:var(--fb);font-size:.95rem;color:rgba(237,233,226,.58);line-height:1.76;}
-.seo-item h3.r{color:var(--red2);}
-.seo-item h3.b{color:var(--blue);}
-.seo-item h3.p{color:var(--purple);}
-.seo-item h3.t{color:var(--teal);}
+/* ── STATS BAR ── */
+.stats-bar{background:var(--s1);border-bottom:1px solid var(--b1);padding:14px 16px;}
+.stats-in{max-width:1800px;margin:0 auto;display:flex;gap:20px;flex-wrap:wrap;align-items:center;}
+.stat{display:flex;flex-direction:column;gap:1px;}
+.stat-n{font-family:var(--fh);font-size:1.6rem;letter-spacing:1px;color:var(--gold);line-height:1;}
+.stat-l{font-size:.6rem;font-weight:500;letter-spacing:1.3px;text-transform:uppercase;color:var(--mut);}
 
-/* ══ FOOTER ══ */
-footer{background:#040409;border-top:1px solid var(--b1);padding:44px 20px 22px;}
-.fi{max-width:1600px;margin:0 auto;}
-.fg{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr;gap:28px;margin-bottom:28px;}
-@media(max-width:1100px){.fg{grid-template-columns:1fr 1fr;}}
-@media(max-width:480px){.fg{grid-template-columns:1fr;}}
-.fl{font-family:var(--fh);font-size:1.65rem;letter-spacing:3px;margin-bottom:10px;}
-.fl .CL{color:var(--gold);}.fl .dot{color:var(--red);}
-.fbr p{font-size:.85rem;color:var(--muted);line-height:1.65;max-width:260px;}
-.fcol h4{font-size:.67rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:12px;}
-.fcol ul{list-style:none;display:flex;flex-direction:column;gap:8px;}
-.fcol ul a{font-size:.84rem;color:rgba(237,233,226,.48);transition:color .2s;}
+/* ── FILTER BAR ── */
+.fbar{background:var(--s2);border-bottom:1px solid var(--b1);padding:8px 16px;}
+
+/* ── SEO ── */
+.seo{background:var(--s1);border-top:1px solid var(--b1);padding:clamp(24px,3.5vw,46px) 16px;}
+.seo-g{max-width:1800px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:22px;}
+.seo-i h3{font-family:var(--fh);font-size:1.2rem;letter-spacing:1px;margin-bottom:8px;}
+.seo-i p{font-family:var(--fb);font-size:.9rem;color:rgba(237,233,226,.52);line-height:1.74;}
+
+/* ── FOOTER ── */
+footer{background:#040408;border-top:1px solid var(--b1);padding:36px 16px 20px;}
+.fi{max-width:1800px;margin:0 auto;}
+.fg{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr;gap:24px;margin-bottom:24px;}
+@media(max-width:1100px){.fg{grid-template-columns:1fr 1fr 1fr;}}
+@media(max-width:580px){.fg{grid-template-columns:1fr 1fr;}}
+.flo{font-family:var(--fh);font-size:1.55rem;letter-spacing:3px;margin-bottom:9px;}
+.flo .L{color:var(--gold);}.flo .dt{color:var(--red);}
+.fbr p{font-size:.81rem;color:var(--mut);line-height:1.6;max-width:230px;}
+.fcol h4{font-size:.64rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--mut);margin-bottom:10px;}
+.fcol ul{list-style:none;display:flex;flex-direction:column;gap:7px;}
+.fcol ul a{font-size:.8rem;color:rgba(237,233,226,.44);transition:color .16s;}
 .fcol ul a:hover{color:var(--gold);}
-.fbot{border-top:1px solid var(--b1);padding-top:18px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;font-size:.73rem;color:var(--muted);}
-.fleg{display:flex;gap:16px;}
-.fleg a{color:var(--muted);transition:color .2s;}.fleg a:hover{color:var(--gold);}
+.fbot{border-top:1px solid var(--b1);padding-top:14px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;font-size:.69rem;color:var(--mut);}
+.fleg{display:flex;gap:12px;}
+.fleg a{color:var(--mut);}.fleg a:hover{color:var(--gold);}
 
-/* ══ MODAL ══ */
-.mbg{position:fixed;inset:0;z-index:600;background:rgba(0,0,0,.93);backdrop-filter:blur(16px);display:flex;align-items:center;justify-content:center;padding:14px;opacity:0;pointer-events:none;transition:opacity .22s;}
+/* ── MODAL ── */
+.mbg{position:fixed;inset:0;z-index:700;background:rgba(0,0,0,.94);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);display:flex;align-items:center;justify-content:center;padding:12px;padding-bottom:max(12px,env(safe-area-inset-bottom));opacity:0;pointer-events:none;transition:opacity .2s;}
 .mbg.open{opacity:1;pointer-events:all;}
-.mbox{background:var(--card);border-radius:var(--r2);border:1px solid var(--b2);max-width:1050px;width:100%;overflow:hidden;transform:scale(.9);transition:transform .28s cubic-bezier(.16,1,.3,1);}
+.mbox{background:var(--card);border-radius:var(--r2);border:1px solid var(--b2);max-width:1000px;width:100%;overflow:hidden;transform:scale(.88);transition:transform .25s cubic-bezier(.16,1,.3,1);}
 .mbg.open .mbox{transform:scale(1);}
-.mh{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid var(--b1);}
-.mht{font-family:var(--fh);font-size:1.45rem;letter-spacing:1px;}
-.mx{width:32px;height:32px;border-radius:50%;background:var(--b0);border:none;color:var(--text);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.9rem;transition:background .2s;}
+.mh{display:flex;align-items:center;justify-content:space-between;padding:11px 16px;border-bottom:1px solid var(--b1);}
+.mht{font-family:var(--fh);font-size:1.35rem;letter-spacing:1px;}
+.mx{width:30px;height:30px;border-radius:50%;background:var(--b0);border:none;color:var(--txt);display:flex;align-items:center;justify-content:center;font-size:.85rem;transition:background .16s;}
 .mx:hover{background:var(--red);}
 .mpl{position:relative;aspect-ratio:16/9;background:#000;}
 .mpl iframe{position:absolute;inset:0;width:100%;height:100%;border:none;}
-.mw{display:none;position:absolute;inset:0;background:#060610;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center;padding:24px;}
-.mw.show{display:flex;}
-.mw .ico{font-size:2.2rem;}
-.mw p{font-size:.9rem;color:var(--muted2);max-width:340px;line-height:1.65;}
-.mw a{display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:#000;padding:11px 22px;border-radius:100px;font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;}
-.mfoot{padding:12px 20px;display:flex;gap:14px;flex-wrap:wrap;font-size:.79rem;color:var(--muted2);border-top:1px solid var(--b1);}
-.mfoot strong{color:var(--text);}
-.ok{color:var(--green);margin-left:auto;}
+.mwarn{display:none;position:absolute;inset:0;background:#07070f;flex-direction:column;align-items:center;justify-content:center;gap:11px;text-align:center;padding:20px;}
+.mwarn.show{display:flex;}
+.mwarn .wico{font-size:1.9rem;}
+.mwarn p{font-size:.86rem;color:var(--mut2);max-width:300px;line-height:1.6;}
+.mwarn a{display:inline-flex;align-items:center;gap:6px;background:var(--gold);color:#000;padding:10px 20px;border-radius:100px;font-size:.76rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;}
+.mfoot{padding:10px 16px;display:flex;gap:10px;flex-wrap:wrap;font-size:.75rem;color:var(--mut2);border-top:1px solid var(--b1);}
+.mfoot strong{color:var(--txt);}
+.ok{color:var(--grn);margin-left:auto;}
 
-/* ══ EMPTY ══ */
-.empty{grid-column:1/-1;text-align:center;padding:50px 20px;color:var(--muted);}
-.empty h3{font-family:var(--fh);font-size:1.8rem;color:var(--text);margin-bottom:8px;}
+/* ── MOBILE BOTTOM NAV ── */
+.mob-nav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:450;background:rgba(6,6,12,.98);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid var(--b1);height:var(--mob-nav-h);padding-bottom:env(safe-area-inset-bottom,0);}
+.mob-nav ul{display:flex;height:100%;list-style:none;}
+.mob-nav li{flex:1;}
+.mob-nav button{width:100%;height:100%;background:none;border:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:.56rem;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--mut);padding:6px 4px;transition:color .16s;}
+.mob-nav button.on,.mob-nav button:hover{color:var(--gold);}
+.mob-nav .mico{font-size:1.18rem;line-height:1;}
+@media(max-width:860px){
+  .mob-nav{display:flex;align-items:stretch;}
+  body{padding-bottom:calc(var(--mob-nav-h) + env(safe-area-inset-bottom,0));}
+}
 
-/* ══ REVEAL ══ */
-.rev{opacity:0;transform:translateY(18px);transition:opacity .55s,transform .55s;}
-.rev.in{opacity:1;transform:none;}
+/* ── EMPTY ── */
+.empty{grid-column:1/-1;text-align:center;padding:42px 16px;color:var(--mut);}
+.empty h3{font-family:var(--fh);font-size:1.6rem;color:var(--txt);margin-bottom:6px;}
+
+/* ── REVEAL ── */
+.rv{opacity:0;transform:translateY(14px);transition:opacity .5s,transform .5s;}
+.rv.in{opacity:1;transform:none;}
 </style>
 </head>
 <body>
 
-<!-- ══════════════ HEADER ══════════════ -->
 <header>
 <nav class="nav">
-  <div class="logo">CINE<span class="CL">LIBRE</span><span class="dot">.</span></div>
-  <ul class="ntabs" id="navTabs">
-    <li><button class="on" data-pg="home">Inicio</button></li>
+  <div class="logo">CINE<span class="L">LIBRE</span><span class="dt">.</span></div>
+  <ul class="dtabs" id="dTabs">
+    <li><button class="on" data-pg="home">🏠 Inicio</button></li>
     <li><button data-pg="tv">📺 TV en Vivo</button></li>
+    <li><button data-pg="radio">🎵 Radio Mundial</button></li>
+    <li><button data-pg="docs">🎥 Documentales</button></li>
     <li><button data-pg="movies">🎬 Películas</button></li>
-    <li><button data-pg="telenovelas">💕 Telenovelas</button></li>
-    <li><button data-pg="mundo">🌍 TV Mundial</button></li>
+    <li><button data-pg="mundo">🌍 Por País</button></li>
   </ul>
   <div class="srch">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-    <input id="qInput" type="search" placeholder="Buscar canal, película…" autocomplete="off"/>
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <input id="qInput" type="search" placeholder="Buscar…" autocomplete="off"/>
   </div>
 </nav>
 </header>
 
-<!-- ══════════════ HERO ══════════════ -->
+<!-- ════ HERO ════ -->
 <div class="hero" id="page-home">
   <div class="hero-scan" aria-hidden="true"></div>
-  <div class="hero-content">
-    <div class="hero-badge">
-      <div class="ld">En vivo ahora</div>
-      <span style="font-size:.7rem;color:var(--muted2);letter-spacing:1.5px;text-transform:uppercase;">cinelibre.cl</span>
-    </div>
-    <h1>Tu <span class="g">televisión</span><br>y <span class="r">cine</span><br>del mundo.</h1>
-    <p>La guía más completa: canales en vivo 24/7 de Chile, Latinoamérica, Japón, Australia y Europa. Telenovelas, noticias, deportes y películas gratis. Todo en un solo lugar.</p>
-    <div class="hstats">
-      <div class="hs"><span class="hs-n">65+</span><span class="hs-l">Canales en vivo</span></div>
-      <div class="hs"><span class="hs-n">20+</span><span class="hs-l">Países</span></div>
-      <div class="hs"><span class="hs-n">24/7</span><span class="hs-l">Siempre activo</span></div>
+  <div class="hero-c">
+    <div class="hero-eye"><div class="ld">En vivo ahora</div><span style="font-size:.65rem;color:var(--mut2);letter-spacing:1.5px;text-transform:uppercase;">cinelibre.cl</span></div>
+    <h1>TV · <span class="h-g">Radio</span><br>Docs · <span class="h-r">Cine</span><br>del <span class="h-p">Mundo.</span></h1>
+    <p>La guía más completa: TV 24/7, radio K-pop de Corea 🇰🇷, jazz, salsa, clásica, documentales y películas gratis. Sin registro, sin pago.</p>
+    <div class="hst">
+      <div class="hs"><span class="hs-n">80+</span><span class="hs-l">Canales TV</span></div>
+      <div class="hs"><span class="hs-n">40+</span><span class="hs-l">Radios</span></div>
+      <div class="hs"><span class="hs-n">30+</span><span class="hs-l">Documentales</span></div>
       <div class="hs"><span class="hs-n">100%</span><span class="hs-l">Gratis</span></div>
     </div>
   </div>
 </div>
 
-<!-- HOME: Canal destacado + preview canales + preview peliculas -->
+<!-- HOME BODY -->
 <div class="pg on" id="home-body">
-  <!-- CANAL DESTACADO -->
   <section class="sec" style="background:var(--s1);border-top:1px solid var(--b1);">
     <div class="w">
-      <div class="sh rev"><h2 class="st">Canal <span>destacado</span> hoy</h2><div class="ld">En vivo</div></div>
-      <div class="feat rev">
-        <div class="feat-player">
-          <iframe src="https://www.youtube.com/embed/ArKbAx1K-2U?rel=0&modestbranding=1" allowfullscreen allow="encrypted-media" title="A24 Argentina en vivo" loading="lazy"></iframe>
-        </div>
+      <div class="sh rv"><h2 class="st">Canal <span>destacado</span></h2><div class="ld">En vivo</div></div>
+      <div class="feat rv">
+        <div class="feat-pl"><iframe src="https://www.youtube.com/embed/ArKbAx1K-2U?rel=0&modestbranding=1" allowfullscreen allow="encrypted-media" loading="lazy" title="A24 Argentina"></iframe></div>
         <div class="feat-info">
-          <div class="fi-eyebrow"><div class="ld">En vivo 24h</div><span style="font-size:.72rem;color:var(--muted2);">🇦🇷 ARGENTINA</span></div>
-          <div class="fi-title">A24 Argentina</div>
-          <div class="fi-desc">Noticias de Argentina y el mundo las 24 horas. Canal de referencia para millones de hispanohablantes, con cobertura política, económica y de actualidad permanente.</div>
-          <div class="fi-meta"><span>Noticias · Política</span><span>Canal oficial YouTube</span><span>HD</span></div>
-          <button class="fi-btn" onclick="openModal('A24 Argentina','ArKbAx1K-2U','Argentina','Noticias 24h','Canal oficial YouTube')">▶ Ver pantalla completa</button>
+          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;"><div class="ld">En vivo 24h</div><span style="font-size:.68rem;color:var(--mut2);">🇦🇷 ARGENTINA</span></div>
+          <div class="fi-ti">A24 Argentina</div>
+          <div class="fi-desc">Noticias de Argentina y el mundo, 24 horas. Canal de referencia para millones de hispanohablantes.</div>
+          <div class="fi-meta"><span>📺 Noticias</span><span>Canal oficial YT</span><span>HD</span></div>
+          <button class="fi-btn" onclick="open_m('A24 Argentina','ArKbAx1K-2U','🇦🇷 Argentina','Noticias 24h')">▶ Ver pantalla completa</button>
         </div>
       </div>
     </div>
   </section>
-
-  <!-- AD SLOT HOME 1 -->
-  <div class="w" style="padding:0 20px"><div class="ad-slot">PUBLICIDAD</div></div>
-
-  <!-- CANALES POPULARES HOME -->
+  <div class="w" style="padding:0 16px"><div class="ad-slot">PUBLICIDAD</div></div>
   <section class="sec">
     <div class="w">
-      <div class="sh rev">
-        <h2 class="st">Canales <span>populares</span></h2>
-        <button class="sm" onclick="switchPage('tv')">Ver todos los canales →</button>
-      </div>
-      <div class="cgrid" id="homeChGrid"></div>
+      <div class="sh rv"><h2 class="st">TV en <span>Vivo</span></h2><button class="more-btn" onclick="sp('tv')">Ver todos →</button></div>
+      <div class="gch" id="hTV"></div>
     </div>
   </section>
-
-  <!-- AD SLOT HOME 2 -->
-  <div class="w" style="padding:0 20px"><div class="ad-slot">PUBLICIDAD</div></div>
-
-  <!-- PELÍCULAS HOME -->
   <section class="sec" style="background:var(--s1);border-top:1px solid var(--b1);">
     <div class="w">
-      <div class="sh rev">
-        <h2 class="st">Películas <span>gratis</span></h2>
-        <button class="sm" onclick="switchPage('movies')">Ver catálogo →</button>
-      </div>
-      <div class="mgrid" id="homeMovGrid"></div>
+      <div class="sh rv"><h2 class="st">Radio <span class="p">Mundial</span></h2><button class="more-btn" onclick="sp('radio')">Ver todas →</button></div>
+      <div class="gsm" id="hRadio"></div>
+    </div>
+  </section>
+  <div class="w" style="padding:0 16px"><div class="ad-slot">PUBLICIDAD</div></div>
+  <section class="sec">
+    <div class="w">
+      <div class="sh rv"><h2 class="st">Documentales <span class="t">24/7</span></h2><button class="more-btn" onclick="sp('docs')">Ver todos →</button></div>
+      <div class="gch" id="hDocs"></div>
+    </div>
+  </section>
+  <section class="sec" style="background:var(--s1);border-top:1px solid var(--b1);">
+    <div class="w">
+      <div class="sh rv"><h2 class="st">Películas <span>Gratis</span></h2><button class="more-btn" onclick="sp('movies')">Ver catálogo →</button></div>
+      <div class="gmv" id="hMov"></div>
     </div>
   </section>
 </div>
 
-<!-- ══════════════ TV EN VIVO ══════════════ -->
+<!-- ════ TV EN VIVO ════ -->
 <div class="pg" id="page-tv">
-  <div class="ctabs" id="ctabs">
+  <div class="ctabs" id="tvCtabs">
     <button class="ctab on" data-c="all">🌎 Todos</button>
     <button class="ctab" data-c="Chile">🇨🇱 Chile</button>
     <button class="ctab" data-c="Argentina">🇦🇷 Argentina</button>
     <button class="ctab" data-c="México">🇲🇽 México</button>
     <button class="ctab" data-c="Colombia">🇨🇴 Colombia</button>
     <button class="ctab" data-c="Brasil">🇧🇷 Brasil</button>
-    <button class="ctab" data-c="USA">🇺🇸 USA·Español</button>
+    <button class="ctab" data-c="USA">🇺🇸 USA·ESP</button>
     <button class="ctab" data-c="España">🇪🇸 España</button>
+    <button class="ctab" data-c="Korea">🇰🇷 Korea</button>
     <button class="ctab" data-c="Japón">🇯🇵 Japón</button>
     <button class="ctab" data-c="Australia">🇦🇺 Australia</button>
     <button class="ctab" data-c="Europa">🇪🇺 Europa</button>
     <button class="ctab" data-c="Mundo">🌐 Mundo</button>
   </div>
-  <div style="background:var(--s2);border-bottom:1px solid var(--b1);padding:10px 20px;">
-    <div class="pills" id="catPills">
+  <div class="fbar">
+    <div class="pills" id="tvCatP">
       <button class="pil on" data-cat="all">Todos</button>
       <button class="pil" data-cat="noticias">Noticias</button>
-      <button class="pil" data-cat="entretenimiento">Entretenimiento</button>
-      <button class="pil" data-cat="deportes">Deportes</button>
+      <button class="pil" data-cat="entretenimiento">EntreT</button>
       <button class="pil" data-cat="musica">Música</button>
-      <button class="pil" data-cat="cultura">Cultura · Docs</button>
-      <button class="pil" data-cat="economia">Economía</button>
+      <button class="pil" data-cat="cultura">Cultura</button>
       <button class="pil" data-cat="naturaleza">Naturaleza</button>
     </div>
   </div>
-  <div style="padding:16px 20px;font-size:.78rem;color:var(--muted);" id="tvCount">Cargando canales…</div>
-  <div class="cgrid" id="tvGrid" style="padding:0 20px 24px;"></div>
+  <div style="padding:10px 16px;font-size:.72rem;color:var(--mut);" id="tvCnt">—</div>
+  <div class="gch" id="tvGrid" style="padding:0 16px 22px;"></div>
 </div>
 
-<!-- ══════════════ PELÍCULAS ══════════════ -->
+<!-- ════ RADIO MUNDIAL ════ -->
+<div class="pg" id="page-radio">
+  <div class="stats-bar">
+    <div class="stats-in">
+      <div class="stat"><span class="stat-n">40+</span><span class="stat-l">Radios activas</span></div>
+      <div class="stat"><span class="stat-n">24/7</span><span class="stat-l">Sin interrupciones</span></div>
+      <div class="stat"><span class="stat-n">🇰🇷</span><span class="stat-l">K-pop Korea</span></div>
+      <div class="stat"><span class="stat-n">🌍</span><span class="stat-l">Mundo entero</span></div>
+    </div>
+  </div>
+  <div class="ctabs" id="radioCtabs">
+    <button class="ctab on" data-rc="all">🌎 Todas</button>
+    <button class="ctab" data-rc="kpop">🇰🇷 K-pop</button>
+    <button class="ctab" data-rc="latina">🌎 Latina</button>
+    <button class="ctab" data-rc="jazz">🎷 Jazz</button>
+    <button class="ctab" data-rc="clasica">🎻 Clásica</button>
+    <button class="ctab" data-rc="lofi">☁️ Lo-Fi</button>
+    <button class="ctab" data-rc="electronica">⚡ Electrónica</button>
+    <button class="ctab" data-rc="reggae">🌿 Reggae</button>
+    <button class="ctab" data-rc="rock">🎸 Rock</button>
+    <button class="ctab" data-rc="ambiental">🌊 Ambiental</button>
+    <button class="ctab" data-rc="pop">🎤 Pop</button>
+  </div>
+  <div style="padding:10px 16px;font-size:.72rem;color:var(--mut);" id="radioCnt">—</div>
+  <div class="gsm" id="radioGrid" style="padding:0 16px 22px;"></div>
+</div>
+
+<!-- ════ DOCUMENTALES ════ -->
+<div class="pg" id="page-docs">
+  <div class="ctabs" id="docsCtabs">
+    <button class="ctab on" data-dc="all">🎥 Todos</button>
+    <button class="ctab" data-dc="naturaleza">🦁 Naturaleza</button>
+    <button class="ctab" data-dc="espacio">🚀 Espacio</button>
+    <button class="ctab" data-dc="historia">📜 Historia</button>
+    <button class="ctab" data-dc="ciencia">🔬 Ciencia</button>
+    <button class="ctab" data-dc="sociedad">👥 Sociedad</button>
+    <button class="ctab" data-dc="crimen">🕵️ Crimen</button>
+    <button class="ctab" data-dc="tecnologia">💻 Tech</button>
+  </div>
+  <div style="padding:10px 16px;font-size:.72rem;color:var(--mut);" id="docsCnt">—</div>
+  <div class="gch" id="docsGrid" style="padding:0 16px 22px;"></div>
+</div>
+
+<!-- ════ PELÍCULAS ════ -->
 <div class="pg" id="page-movies">
   <section class="sec">
     <div class="w">
-      <div class="sh">
-        <h2 class="st">Películas <span>gratis</span></h2>
-        <span id="movCount" style="font-size:.75rem;color:var(--muted);letter-spacing:1px;text-transform:uppercase;">—</span>
-      </div>
-      <div class="pills" id="movPills" style="margin-bottom:22px;">
+      <div class="sh"><h2 class="st">Películas <span>Gratis</span></h2><span id="movCnt" style="font-size:.72rem;color:var(--mut);">—</span></div>
+      <div class="pills" id="movP" style="margin-bottom:20px;">
         <button class="pil on" data-mf="all">Todo</button>
         <button class="pil" data-mf="clasico">Clásicos</button>
         <button class="pil" data-mf="terror">Terror</button>
@@ -382,69 +464,55 @@ footer{background:#040409;border-top:1px solid var(--b1);padding:44px 20px 22px;
         <button class="pil" data-mf="documental">Documental</button>
         <button class="pil" data-mf="sci-fi">Sci-Fi</button>
       </div>
-      <div class="mgrid" id="movGrid"></div>
+      <div class="gmv" id="movGrid"></div>
     </div>
   </section>
 </div>
 
-<!-- ══════════════ TELENOVELAS ══════════════ -->
-<div class="pg" id="page-telenovelas">
-  <section class="sec">
-    <div class="w">
-      <div class="sh">
-        <h2 class="st">Telenovelas <span>& Series</span></h2>
-        <div class="ld">Canales 24/7</div>
-      </div>
-      <p style="font-family:var(--fb);color:rgba(237,233,226,.6);margin-bottom:26px;max-width:700px;line-height:1.72;">Canales oficiales especializados en telenovelas, series y entretenimiento latinoamericano disponibles las 24 horas en YouTube. Desde los clásicos de Televisa hasta producciones actuales de Telemundo.</p>
-      <div class="cgrid" id="telGrid"></div>
-    </div>
-  </section>
-</div>
-
-<!-- ══════════════ TV MUNDIAL ══════════════ -->
+<!-- ════ MUNDO (POR PAÍS) ════ -->
 <div class="pg" id="page-mundo">
   <div id="mundoContent"></div>
 </div>
 
-<!-- ══════════════ SEO CONTENT ══════════════ -->
-<div class="seo-wrap">
-  <div class="seo-grid">
-    <div class="seo-item rev"><h3>Canales de Chile en Vivo</h3><p>Accede gratuitamente a TVN 24 Horas, CNN Chile, Mega y Canal 13. Toda la televisión abierta chilena en internet, sin necesidad de cable ni antena. Noticias, entretenimiento y cultura chilena las 24 horas del día.</p></div>
-    <div class="seo-item rev"><h3>TV Argentina 24/7</h3><p>A24, TN Todo Noticias, América TV, Infobae TV y más. Los mejores canales de noticias y entretenimiento argentinos, transmitiendo en vivo por YouTube sin costo. Seguimiento en tiempo real de la política y economía argentina.</p></div>
-    <div class="seo-item rev"><h3 class="r">TV México en Vivo</h3><p>Milenio TV, Foro TV, Canal Once, ADN40 y canales de entretenimiento mexicanos disponibles 24/7 de forma gratuita. La cobertura más completa de noticias y cultura de México, accesible desde cualquier dispositivo.</p></div>
-    <div class="seo-item rev"><h3 class="b">Japón y Asia</h3><p>NHK World Japan, el canal internacional oficial del mayor grupo de radiodifusión de Asia. Noticias, documentales y cultura japonesa en inglés las 24 horas. CNA de Singapur y más canales asiáticos disponibles.</p></div>
-    <div class="seo-item rev"><h3 class="t">Australia y Oceanía</h3><p>ABC News Australia, la cadena pública más importante de Oceanía. Cobertura de noticias australianas, internacionales y del Pacífico Sur disponible en YouTube las 24 horas. Perspectiva única del hemisferio sur.</p></div>
-    <div class="seo-item rev"><h3 class="p">Europa en Español</h3><p>France 24 Español, DW Español, Euronews y BBC News Mundo. La mejor cobertura internacional de los grandes medios europeos, disponible en español y completamente gratuita en YouTube.</p></div>
-    <div class="seo-item rev"><h3>Telenovelas 24/7</h3><p>Canales especializados en telenovelas latinoamericanas transmitiendo sin parar: TLNovelas de Televisa, Telemundo Internacional, Canela TV y más. Los clásicos que marcaron generaciones y las producciones más recientes.</p></div>
-    <div class="seo-item rev"><h3>Películas Dominio Público</h3><p>Cientos de clásicos del cine legalmente disponibles: Nosferatu, Metrópolis, Tiempos Modernos de Chaplin, Buster Keaton, Eisenstein y más. Dominio público, completamente gratis y legales en YouTube.</p></div>
+<!-- ════ SEO CONTENT ════ -->
+<div class="seo">
+  <div class="seo-g">
+    <div class="seo-i rv"><h3 style="color:var(--gold);">TV Chile en Vivo</h3><p>Canales chilenos 24/7: 24 Horas TVN, CNN Chile, Mega, Canal 13. Toda la televisión abierta de Chile gratis en internet, sin cable ni antena, desde cualquier dispositivo.</p></div>
+    <div class="seo-i rv"><h3 style="color:var(--red2);">Radio K-pop de Korea</h3><p>Escucha radio K-pop en vivo desde Corea del Sur las 24 horas. KBS World, Arirang, The K-POP 24/7 y más. BTS, BLACKPINK, NewJeans y todos los ídolos del K-pop en transmisión continua.</p></div>
+    <div class="seo-i rv"><h3 style="color:var(--pur);">Radios del Mundo</h3><p>Jazz de Nueva York, salsa latina, clásica de Europa, lo-fi para estudiar, reggae, electrónica, rock clásico. Más de 40 radios de todo el mundo transmitiendo sin parar en YouTube.</p></div>
+    <div class="seo-i rv"><h3 style="color:var(--teal);">Documentales 24/7</h3><p>Nature Wildlife 24h, NASA TV en vivo, documentales de historia, ciencia y tecnología. Los mejores canales documentales del mundo transmitiendo sin parar, completamente gratis.</p></div>
+    <div class="seo-i rv"><h3 style="color:var(--blue);">TV Internacional</h3><p>NHK World de Japón, BBC News, ABC Australia, France 24, DW Español. La televisión de todo el mundo disponible gratis en Chile y toda Latinoamérica sin restricciones.</p></div>
+    <div class="seo-i rv"><h3 style="color:var(--grn);">Películas Dominio Público</h3><p>Nosferatu, Metrópolis, Chaplin, Buster Keaton y cientos de clásicos del cine en dominio público. Legales, gratis y disponibles ahora mismo sin necesidad de registro.</p></div>
   </div>
 </div>
 
-<!-- ══════════════ FOOTER ══════════════ -->
+<!-- ════ FOOTER ════ -->
 <footer>
   <div class="fi">
     <div class="fg">
       <div class="fbr">
-        <div class="fl">CINE<span class="CL">LIBRE</span><span class="dot">.</span></div>
-        <p>La guía de televisión mundial más completa de Chile. Más de 65 canales en vivo del mundo + películas gratis. Sin registro, sin pago, siempre activo las 24 horas.</p>
+        <div class="flo">CINE<span class="L">LIBRE</span><span class="dt">.</span></div>
+        <p>La guía de entretenimiento más completa de Chile y Latinoamérica. TV, radio, documentales y cine. Gratis, sin registro, siempre activo.</p>
       </div>
-      <div class="fcol"><h4>TV Chile</h4><ul>
-        <li><a href="#" onclick="switchPage('tv');filterCountry('Chile');return false;">24 Horas TVN</a></li>
-        <li><a href="#" onclick="switchPage('tv');filterCountry('Chile');return false;">CNN Chile</a></li>
-        <li><a href="#" onclick="switchPage('tv');filterCountry('Chile');return false;">Mega</a></li>
-        <li><a href="#" onclick="switchPage('tv');filterCountry('Chile');return false;">Canal 13</a></li>
+      <div class="fcol"><h4>TV en Vivo</h4><ul>
+        <li><a href="#" onclick="sp('tv');filterC('Chile');return false;">🇨🇱 Chile</a></li>
+        <li><a href="#" onclick="sp('tv');filterC('Argentina');return false;">🇦🇷 Argentina</a></li>
+        <li><a href="#" onclick="sp('tv');filterC('México');return false;">🇲🇽 México</a></li>
+        <li><a href="#" onclick="sp('tv');filterC('Korea');return false;">🇰🇷 Korea</a></li>
+        <li><a href="#" onclick="sp('tv');filterC('Japón');return false;">🇯🇵 Japón</a></li>
       </ul></div>
-      <div class="fcol"><h4>TV LATAM</h4><ul>
-        <li><a href="#" onclick="switchPage('tv');filterCountry('Argentina');return false;">Argentina</a></li>
-        <li><a href="#" onclick="switchPage('tv');filterCountry('México');return false;">México</a></li>
-        <li><a href="#" onclick="switchPage('tv');filterCountry('Colombia');return false;">Colombia</a></li>
-        <li><a href="#" onclick="switchPage('tv');filterCountry('Brasil');return false;">Brasil</a></li>
+      <div class="fcol"><h4>Radio Mundial</h4><ul>
+        <li><a href="#" onclick="sp('radio');filterR('kpop');return false;">K-pop Korea</a></li>
+        <li><a href="#" onclick="sp('radio');filterR('latina');return false;">Radio Latina</a></li>
+        <li><a href="#" onclick="sp('radio');filterR('jazz');return false;">Jazz 24/7</a></li>
+        <li><a href="#" onclick="sp('radio');filterR('clasica');return false;">Música Clásica</a></li>
+        <li><a href="#" onclick="sp('radio');filterR('lofi');return false;">Lo-Fi Beats</a></li>
       </ul></div>
-      <div class="fcol"><h4>TV Mundial</h4><ul>
-        <li><a href="#" onclick="switchPage('mundo');return false;">Japón</a></li>
-        <li><a href="#" onclick="switchPage('mundo');return false;">Australia</a></li>
-        <li><a href="#" onclick="switchPage('mundo');return false;">Europa</a></li>
-        <li><a href="#" onclick="switchPage('mundo');return false;">BBC · France 24</a></li>
+      <div class="fcol"><h4>Documentales</h4><ul>
+        <li><a href="#" onclick="sp('docs');filterD('naturaleza');return false;">Naturaleza</a></li>
+        <li><a href="#" onclick="sp('docs');filterD('espacio');return false;">Espacio</a></li>
+        <li><a href="#" onclick="sp('docs');filterD('historia');return false;">Historia</a></li>
+        <li><a href="#" onclick="sp('docs');filterD('ciencia');return false;">Ciencia</a></li>
       </ul></div>
       <div class="fcol"><h4>CineLibre</h4><ul>
         <li><a href="#">Quiénes somos</a></li>
@@ -454,24 +522,21 @@ footer{background:#040409;border-top:1px solid var(--b1);padding:44px 20px 22px;
       </ul></div>
     </div>
     <div class="fbot">
-      <p>© 2025 CineLibre.cl — Televisión y cine gratuito en Chile y Latinoamérica. Los derechos de transmisión pertenecen a sus respectivos canales.</p>
+      <p>© 2025 CineLibre.cl — Entretenimiento gratuito. Los derechos de transmisión pertenecen a sus canales originales.</p>
       <div class="fleg"><a href="#">Privacidad</a><a href="#">Términos</a><a href="#">DMCA</a></div>
     </div>
   </div>
 </footer>
 
-<!-- ══════════════ MODAL ══════════════ -->
-<div class="mbg" id="modalBg" role="dialog" aria-modal="true" aria-label="Reproductor">
+<!-- ════ MODAL ════ -->
+<div class="mbg" id="modalBg" role="dialog" aria-modal="true">
   <div class="mbox">
-    <div class="mh">
-      <div class="mht" id="mTitle">—</div>
-      <button class="mx" id="mClose" aria-label="Cerrar">✕</button>
-    </div>
+    <div class="mh"><div class="mht" id="mTitle">—</div><button class="mx" id="mClose">✕</button></div>
     <div class="mpl">
       <iframe id="mFrame" allowfullscreen allow="autoplay;encrypted-media;picture-in-picture" title="Reproductor CineLibre"></iframe>
-      <div class="mw" id="mWarn">
-        <div class="ico">📡</div>
-        <p>Este canal no permite reproducirse en nuestro sitio. Ábrelo directamente en YouTube para verlo en vivo.</p>
+      <div class="mwarn" id="mWarn">
+        <div class="wico">📡</div>
+        <p>Este canal no permite reproducirse aquí. Ábrelo en YouTube para verlo en vivo.</p>
         <a id="mYtLink" href="#" target="_blank" rel="noopener noreferrer">▶ Abrir en YouTube</a>
       </div>
     </div>
@@ -479,168 +544,236 @@ footer{background:#040409;border-top:1px solid var(--b1);padding:44px 20px 22px;
   </div>
 </div>
 
+<!-- ════ MOBILE NAV ════ -->
+<nav class="mob-nav" aria-label="Navegación móvil">
+  <ul>
+    <li><button class="on" data-pg="home"><span class="mico">🏠</span>Inicio</button></li>
+    <li><button data-pg="tv"><span class="mico">📺</span>TV</button></li>
+    <li><button data-pg="radio"><span class="mico">🎵</span>Radio</button></li>
+    <li><button data-pg="docs"><span class="mico">🎥</span>Docs</button></li>
+    <li><button data-pg="movies"><span class="mico">🎬</span>Pelis</button></li>
+    <li><button data-pg="mundo"><span class="mico">🌍</span>País</button></li>
+  </ul>
+</nav>
+
 <script>
-/* ═══════════════════════════════════════════════════════
-   BASE DE DATOS CANALES — IDs verificados de YouTube
-   Todos son canales oficiales con streams 24/7 activos
-═══════════════════════════════════════════════════════ */
-const CH = [
-  // ── CHILE ──
-  {id:'ch01',name:'24 Horas TVN',country:'Chile',cat:'noticias',flag:'🇨🇱',yt:'mBBFJMsMPkY',img:'https://img.youtube.com/vi/mBBFJMsMPkY/maxresdefault.jpg',badge:'Noticias',bc:'cb-n',desc:'Canal de noticias oficial de TVN Chile, 24 horas al día.',featured:true},
-  {id:'ch02',name:'Mundo CNN Chile',country:'Chile',cat:'noticias',flag:'🇨🇱',yt:'JJqxCqNxSXA',img:'https://img.youtube.com/vi/JJqxCqNxSXA/maxresdefault.jpg',badge:'Noticias',bc:'cb-n',desc:'CNN Chile en vivo, noticias nacionales e internacionales.',featured:true},
-  {id:'ch03',name:'T13 Canal 13',country:'Chile',cat:'entretenimiento',flag:'🇨🇱',yt:'4nkuK7eBpgk',img:'https://img.youtube.com/vi/4nkuK7eBpgk/maxresdefault.jpg',badge:'EntreT',bc:'cb-e',desc:'Canal 13 Chile en vivo, entretenimiento y noticias.'},
-  {id:'ch04',name:'CHV Chilevisión',country:'Chile',cat:'entretenimiento',flag:'🇨🇱',yt:'B51INQJ6Ry4',img:'https://img.youtube.com/vi/B51INQJ6Ry4/maxresdefault.jpg',badge:'EntreT',bc:'cb-e',desc:'Chilevisión en vivo, entretenimiento y actualidad chilena.'},
-
-  // ── ARGENTINA ──
-  {id:'ar01',name:'A24 Argentina',country:'Argentina',cat:'noticias',flag:'🇦🇷',yt:'ArKbAx1K-2U',img:'https://img.youtube.com/vi/ArKbAx1K-2U/maxresdefault.jpg',badge:'Noticias',bc:'cb-n',desc:'Noticias de Argentina y el mundo, 24 horas del día.',featured:true},
-  {id:'ar02',name:'TN Todo Noticias',country:'Argentina',cat:'noticias',flag:'🇦🇷',yt:'cb12KmMMDJA',img:'https://img.youtube.com/vi/cb12KmMMDJA/maxresdefault.jpg',badge:'Noticias',bc:'cb-n',desc:'TN, el canal de noticias más visto de Argentina.',featured:true},
-  {id:'ar03',name:'América TV',country:'Argentina',cat:'entretenimiento',flag:'🇦🇷',yt:'zcWXboTnous',img:'https://img.youtube.com/vi/zcWXboTnous/maxresdefault.jpg',badge:'EntreT',bc:'cb-e',desc:'Entretenimiento, actualidad y espectáculos argentinos.'},
-  {id:'ar04',name:'Infobae TV',country:'Argentina',cat:'noticias',flag:'🇦🇷',yt:'3FPqblJqlKs',img:'https://img.youtube.com/vi/3FPqblJqlKs/maxresdefault.jpg',badge:'Noticias',bc:'cb-n',desc:'Infobae TV noticias en vivo de Argentina y Latinoamérica.'},
-  {id:'ar05',name:'Canal 26',country:'Argentina',cat:'noticias',flag:'🇦🇷',yt:'crFXL1OEWYI',img:'https://img.youtube.com/vi/crFXL1OEWYI/maxresdefault.jpg',badge:'Noticias',bc:'cb-n',desc:'Canal 26 noticias, disponible en toda Latinoamérica.'},
-
-  // ── MÉXICO ──
-  {id:'mx01',name:'Milenio TV',country:'México',cat:'noticias',flag:'🇲🇽',yt:'tQ941SU5UR0',img:'https://img.youtube.com/vi/tQ941SU5UR0/maxresdefault.jpg',badge:'Noticias',bc:'cb-n',desc:'Milenio TV noticias 24h, breaking news de México y el mundo.',featured:true},
-  {id:'mx02',name:'Foro TV México',country:'México',cat:'noticias',flag:'🇲🇽',yt:'VeaBLCh8MZU',img:'https://img.youtube.com/vi/VeaBLCh8MZU/maxresdefault.jpg',badge:'Noticias',bc:'cb-n',desc:'Foro TV de Televisa, noticias y análisis político de México.'},
-  {id:'mx03',name:'ADN40',country:'México',cat:'noticias',flag:'🇲🇽',yt:'WdAVKLakGtY',img:'https://img.youtube.com/vi/WdAVKLakGtY/maxresdefault.jpg',badge:'Noticias',bc:'cb-n',desc:'ADN40 noticias y contenido informativo mexicano 24 horas.'},
-  {id:'mx04',name:'Canal Once IPN',country:'México',cat:'cultura',flag:'🇲🇽',yt:'FMtL0LvAmtQ',img:'https://img.youtube.com/vi/FMtL0LvAmtQ/maxresdefault.jpg',badge:'Cultura',bc:'cb-c',desc:'Canal Once del IPN, cultura, documentales y educación.'},
-  {id:'mx05',name:'Imagen TV',country:'México',cat:'entretenimiento',flag:'🇲🇽',yt:'OFGBnbhKJEA',img:'https://img.youtube.com/vi/OFGBnbhKJEA/maxresdefault.jpg',badge:'EntreT',bc:'cb-e',desc:'Imagen Televisión, entretenimiento y noticias de México.'},
-
-  // ── COLOMBIA ──
-  {id:'co01',name:'NTN24 Colombia',country:'Colombia',cat:'noticias',flag:'🇨🇴',yt:'Y4APeL1WNSM',img:'https://img.youtube.com/vi/Y4APeL1WNSM/maxresdefault.jpg',badge:'Noticias',bc:'cb-n',desc:'NTN24 noticias de Colombia y Latinoamérica en vivo.',featured:true},
-  {id:'co02',name:'Cablenoticias',country:'Colombia',cat:'noticias',flag:'🇨🇴',yt:'ppCQTMKS_8g',img:'https://img.youtube.com/vi/ppCQTMKS_8g/maxresdefault.jpg',badge:'Noticias',bc:'cb-n',desc:'Cablenoticias Colombia, noticias 24 horas.'},
-  {id:'co03',name:'Canal Capital',country:'Colombia',cat:'cultura',flag:'🇨🇴',yt:'WbTuNGGI2wY',img:'https://img.youtube.com/vi/WbTuNGGI2wY/maxresdefault.jpg',badge:'Cultura',bc:'cb-c',desc:'Canal Capital Bogotá, cultura y entretenimiento colombiano.'},
-
-  // ── BRASIL ──
-  {id:'br01',name:'Globonews',country:'Brasil',cat:'noticias',flag:'🇧🇷',yt:'GLTs8SKJ7mw',img:'https://img.youtube.com/vi/GLTs8SKJ7mw/maxresdefault.jpg',badge:'Noticias',bc:'cb-n',desc:'Globonews, el canal de noticias más importante de Brasil.',featured:true},
-  {id:'br02',name:'CNN Brasil',country:'Brasil',cat:'noticias',flag:'🇧🇷',yt:'mFTZ0WMBj3A',img:'https://img.youtube.com/vi/mFTZ0WMBj3A/maxresdefault.jpg',badge:'Noticias',bc:'cb-n',desc:'CNN Brasil, noticias brasileñas e internacionales 24/7.'},
-  {id:'br03',name:'TV Brasil Cultura',country:'Brasil',cat:'cultura',flag:'🇧🇷',yt:'fTGaKF3YUKI',img:'https://img.youtube.com/vi/fTGaKF3YUKI/maxresdefault.jpg',badge:'Cultura',bc:'cb-c',desc:'TV Cultura Brasil, programación cultural y educativa.'},
-
-  // ── USA ESPAÑOL ──
-  {id:'us01',name:'CNN en Español',country:'USA',cat:'noticias',flag:'🇺🇸',yt:'Y-IlMeCCtIg',img:'https://img.youtube.com/vi/Y-IlMeCCtIg/maxresdefault.jpg',badge:'Noticias',bc:'cb-n',desc:'CNN en Español, noticias internacionales en español 24/7.',featured:true},
-  {id:'us02',name:'France 24 Español',country:'USA',cat:'noticias',flag:'🌐',yt:'Y-IlMeCCtIg',img:'https://img.youtube.com/vi/Y-IlMeCCtIg/maxresdefault.jpg',badge:'Noticias',bc:'cb-n',desc:'France 24 en español, información internacional 24h.'},
-  {id:'us03',name:'DW Español',country:'USA',cat:'noticias',flag:'🌐',yt:'NG5jLBDrm8Y',img:'https://img.youtube.com/vi/NG5jLBDrm8Y/maxresdefault.jpg',badge:'Noticias',bc:'cb-n',desc:'Deutsche Welle en español, noticias de Europa y el mundo.'},
-  {id:'us04',name:'RT en Español',country:'USA',cat:'noticias',flag:'🌐',yt:'IFP9hIVJNBM',img:'https://img.youtube.com/vi/IFP9hIVJNBM/maxresdefault.jpg',badge:'Noticias',bc:'cb-n',desc:'RT en español, noticias internacionales con otra perspectiva.'},
-
-  // ── ESPAÑA ──
-  {id:'es01',name:'24h RTVE España',country:'España',cat:'noticias',flag:'🇪🇸',yt:'H5_NKEWB8WA',img:'https://img.youtube.com/vi/H5_NKEWB8WA/maxresdefault.jpg',badge:'Noticias',bc:'cb-n',desc:'RTVE canal 24 horas, televisión pública española en vivo.',featured:true},
-  {id:'es02',name:'euronews Español',country:'España',cat:'noticias',flag:'🇪🇸',yt:'0CaVQ1GtYNE',img:'https://img.youtube.com/vi/0CaVQ1GtYNE/maxresdefault.jpg',badge:'Noticias',bc:'cb-n',desc:'Euronews en español, noticias de Europa y el mundo.'},
-
-  // ── JAPÓN ──
-  {id:'jp01',name:'NHK World Japan',country:'Japón',cat:'noticias',flag:'🇯🇵',yt:'f0lYkdA-Gtw',img:'https://img.youtube.com/vi/f0lYkdA-Gtw/maxresdefault.jpg',badge:'Noticias',bc:'cb-n',desc:'NHK World, el canal internacional de Japón. Noticias y cultura 24/7.',featured:true},
-  {id:'jp02',name:'NipponTV News 24',country:'Japón',cat:'noticias',flag:'🇯🇵',yt:'N0YxpYcVt5E',img:'https://img.youtube.com/vi/N0YxpYcVt5E/maxresdefault.jpg',badge:'Noticias',bc:'cb-n',desc:'Nippon Television noticias de Japón en inglés y español.'},
-  {id:'jp03',name:'Japan Nature Live',country:'Japón',cat:'naturaleza',flag:'🇯🇵',yt:'sREmCAJhFik',img:'https://img.youtube.com/vi/sREmCAJhFik/maxresdefault.jpg',badge:'Naturaleza',bc:'cb-np',desc:'Cámaras en vivo de la naturaleza japonesa. Ríos, bosques y estaciones.'},
-
-  // ── AUSTRALIA ──
-  {id:'au01',name:'ABC News Australia',country:'Australia',cat:'noticias',flag:'🇦🇺',yt:'Plgu2HMTh0w',img:'https://img.youtube.com/vi/Plgu2HMTh0w/maxresdefault.jpg',badge:'Noticias',bc:'cb-n',desc:'ABC News Australia, el canal público de noticias de Oceanía.',featured:true},
-  {id:'au02',name:'Sky News Australia',country:'Australia',cat:'noticias',flag:'🇦🇺',yt:'FPEnBRBHZWo',img:'https://img.youtube.com/vi/FPEnBRBHZWo/maxresdefault.jpg',badge:'Noticias',bc:'cb-n',desc:'Sky News Australia, noticias y análisis político australiano.'},
-
-  // ── EUROPA ──
-  {id:'eu01',name:'BBC News',country:'Europa',cat:'noticias',flag:'🇬🇧',yt:'w_Ma8oQLmSM',img:'https://img.youtube.com/vi/w_Ma8oQLmSM/maxresdefault.jpg',badge:'Noticias',bc:'cb-n',desc:'BBC News, el canal de noticias más reconocido del mundo.',featured:true},
-  {id:'eu02',name:'Al Jazeera English',country:'Europa',cat:'noticias',flag:'🌐',yt:'F9TUekTuAC4',img:'https://img.youtube.com/vi/F9TUekTuAC4/maxresdefault.jpg',badge:'Noticias',bc:'cb-n',desc:'Al Jazeera English, noticias del mundo desde perspectiva del sur.'},
-  {id:'eu03',name:'CNA 24/7 Singapore',country:'Mundo',cat:'noticias',flag:'🇸🇬',yt:'XWq5kBlakcQ',img:'https://img.youtube.com/vi/XWq5kBlakcQ/maxresdefault.jpg',badge:'Noticias',bc:'cb-n',desc:'CNA Channel News Asia, noticias de Asia y el mundo.'},
-
-  // ── MUNDO ──
-  {id:'wd01',name:'NASA TV Live',country:'Mundo',cat:'cultura',flag:'🌌',yt:'21X5lGlDOfg',img:'https://img.youtube.com/vi/21X5lGlDOfg/maxresdefault.jpg',badge:'Ciencia',bc:'cb-d',desc:'NASA TV en vivo, transmisiones del espacio 24/7 oficial.'},
-  {id:'wd02',name:'Earth Live Cams',country:'Mundo',cat:'naturaleza',flag:'🌍',yt:'DDM95xFHIfg',img:'https://img.youtube.com/vi/DDM95xFHIfg/maxresdefault.jpg',badge:'Naturaleza',bc:'cb-np',desc:'Cámaras en vivo de la Tierra desde la Estación Espacial.'},
-  {id:'wd03',name:'Explore Nature Live',country:'Mundo',cat:'naturaleza',flag:'🌿',yt:'yXE2LiWbBEo',img:'https://img.youtube.com/vi/yXE2LiWbBEo/maxresdefault.jpg',badge:'Naturaleza',bc:'cb-np',desc:'Cámaras en vivo de fauna salvaje africana 24 horas.'},
-  {id:'wd04',name:'Lofi Jazz Café 24/7',country:'Mundo',cat:'musica',flag:'🎵',yt:'kgx4WGK0oNU',img:'https://img.youtube.com/vi/kgx4WGK0oNU/maxresdefault.jpg',badge:'Música',bc:'cb-m',desc:'Jazz lofi en vivo 24/7, música de fondo para trabajar y relajarse.'},
-  {id:'wd05',name:'Classical Music 24h',country:'Mundo',cat:'musica',flag:'🎻',yt:'_pKFWWz2JCw',img:'https://img.youtube.com/vi/_pKFWWz2JCw/maxresdefault.jpg',badge:'Música',bc:'cb-m',desc:'Música clásica las 24 horas, transmisión continua oficial.'},
+/* ════════════════════════════════════════════════
+   BASE DE DATOS — CANALES TV
+════════════════════════════════════════════════ */
+const TV=[
+  // CHILE
+  {id:'c01',name:'24 Horas TVN',country:'Chile',cat:'noticias',f:'🇨🇱',yt:'mBBFJMsMPkY',img:'https://img.youtube.com/vi/mBBFJMsMPkY/maxresdefault.jpg',badge:'Noticias',bc:'bn',feat:true},
+  {id:'c02',name:'CNN Chile',country:'Chile',cat:'noticias',f:'🇨🇱',yt:'JJqxCqNxSXA',img:'https://img.youtube.com/vi/JJqxCqNxSXA/maxresdefault.jpg',badge:'Noticias',bc:'bn',feat:true},
+  {id:'c03',name:'Canal 13 Chile',country:'Chile',cat:'entretenimiento',f:'🇨🇱',yt:'4nkuK7eBpgk',img:'https://img.youtube.com/vi/4nkuK7eBpgk/maxresdefault.jpg',badge:'EntreT',bc:'be'},
+  {id:'c04',name:'CHV Chilevisión',country:'Chile',cat:'entretenimiento',f:'🇨🇱',yt:'B51INQJ6Ry4',img:'https://img.youtube.com/vi/B51INQJ6Ry4/maxresdefault.jpg',badge:'EntreT',bc:'be'},
+  // ARGENTINA
+  {id:'a01',name:'A24 Argentina',country:'Argentina',cat:'noticias',f:'🇦🇷',yt:'ArKbAx1K-2U',img:'https://img.youtube.com/vi/ArKbAx1K-2U/maxresdefault.jpg',badge:'Noticias',bc:'bn',feat:true},
+  {id:'a02',name:'TN Todo Noticias',country:'Argentina',cat:'noticias',f:'🇦🇷',yt:'cb12KmMMDJA',img:'https://img.youtube.com/vi/cb12KmMMDJA/maxresdefault.jpg',badge:'Noticias',bc:'bn',feat:true},
+  {id:'a03',name:'América TV',country:'Argentina',cat:'entretenimiento',f:'🇦🇷',yt:'zcWXboTnous',img:'https://img.youtube.com/vi/zcWXboTnous/maxresdefault.jpg',badge:'EntreT',bc:'be'},
+  {id:'a04',name:'Infobae TV',country:'Argentina',cat:'noticias',f:'🇦🇷',yt:'3FPqblJqlKs',img:'https://img.youtube.com/vi/3FPqblJqlKs/maxresdefault.jpg',badge:'Noticias',bc:'bn'},
+  // MÉXICO
+  {id:'m01',name:'Milenio TV',country:'México',cat:'noticias',f:'🇲🇽',yt:'tQ941SU5UR0',img:'https://img.youtube.com/vi/tQ941SU5UR0/maxresdefault.jpg',badge:'Noticias',bc:'bn',feat:true},
+  {id:'m02',name:'Foro TV',country:'México',cat:'noticias',f:'🇲🇽',yt:'VeaBLCh8MZU',img:'https://img.youtube.com/vi/VeaBLCh8MZU/maxresdefault.jpg',badge:'Noticias',bc:'bn'},
+  {id:'m03',name:'Canal Once IPN',country:'México',cat:'cultura',f:'🇲🇽',yt:'FMtL0LvAmtQ',img:'https://img.youtube.com/vi/FMtL0LvAmtQ/maxresdefault.jpg',badge:'Cultura',bc:'bc'},
+  // COLOMBIA
+  {id:'co1',name:'NTN24',country:'Colombia',cat:'noticias',f:'🇨🇴',yt:'Y4APeL1WNSM',img:'https://img.youtube.com/vi/Y4APeL1WNSM/maxresdefault.jpg',badge:'Noticias',bc:'bn',feat:true},
+  // BRASIL
+  {id:'b01',name:'Globonews',country:'Brasil',cat:'noticias',f:'🇧🇷',yt:'GLTs8SKJ7mw',img:'https://img.youtube.com/vi/GLTs8SKJ7mw/maxresdefault.jpg',badge:'Noticias',bc:'bn',feat:true},
+  {id:'b02',name:'CNN Brasil',country:'Brasil',cat:'noticias',f:'🇧🇷',yt:'mFTZ0WMBj3A',img:'https://img.youtube.com/vi/mFTZ0WMBj3A/maxresdefault.jpg',badge:'Noticias',bc:'bn'},
+  // USA ESPAÑOL
+  {id:'u01',name:'CNN en Español',country:'USA',cat:'noticias',f:'🇺🇸',yt:'Y-IlMeCCtIg',img:'https://img.youtube.com/vi/Y-IlMeCCtIg/maxresdefault.jpg',badge:'Noticias',bc:'bn',feat:true},
+  {id:'u02',name:'France 24 Español',country:'USA',cat:'noticias',f:'🌐',yt:'Y-IlMeCCtIg',img:'https://img.youtube.com/vi/Y-IlMeCCtIg/maxresdefault.jpg',badge:'Noticias',bc:'bn'},
+  {id:'u03',name:'DW Español',country:'USA',cat:'noticias',f:'🌐',yt:'NG5jLBDrm8Y',img:'https://img.youtube.com/vi/NG5jLBDrm8Y/maxresdefault.jpg',badge:'Noticias',bc:'bn'},
+  // ESPAÑA
+  {id:'e01',name:'RTVE 24h',country:'España',cat:'noticias',f:'🇪🇸',yt:'H5_NKEWB8WA',img:'https://img.youtube.com/vi/H5_NKEWB8WA/maxresdefault.jpg',badge:'Noticias',bc:'bn',feat:true},
+  // KOREA
+  {id:'k01',name:'KBS World TV',country:'Korea',cat:'entretenimiento',f:'🇰🇷',yt:'XGr6ynEZgJk',img:'https://img.youtube.com/vi/XGr6ynEZgJk/maxresdefault.jpg',badge:'K-Drama',bc:'bp',feat:true},
+  {id:'k02',name:'Arirang TV',country:'Korea',cat:'cultura',f:'🇰🇷',yt:'nMEBVADq4tQ',img:'https://img.youtube.com/vi/nMEBVADq4tQ/maxresdefault.jpg',badge:'Cultura',bc:'bc',feat:true},
+  {id:'k03',name:'The K-POP 24/7',country:'Korea',cat:'musica',f:'🇰🇷',yt:'JVocS7Yftw8',img:'https://img.youtube.com/vi/JVocS7Yftw8/maxresdefault.jpg',badge:'K-pop',bc:'bp'},
+  // JAPÓN
+  {id:'j01',name:'NHK World Japan',country:'Japón',cat:'noticias',f:'🇯🇵',yt:'f0lYkdA-Gtw',img:'https://img.youtube.com/vi/f0lYkdA-Gtw/maxresdefault.jpg',badge:'Noticias',bc:'bn',feat:true},
+  {id:'j02',name:'Japan Nature Cam',country:'Japón',cat:'naturaleza',f:'🇯🇵',yt:'sREmCAJhFik',img:'https://img.youtube.com/vi/sREmCAJhFik/maxresdefault.jpg',badge:'Naturaleza',bc:'bnp'},
+  // AUSTRALIA
+  {id:'au1',name:'ABC News Australia',country:'Australia',cat:'noticias',f:'🇦🇺',yt:'Plgu2HMTh0w',img:'https://img.youtube.com/vi/Plgu2HMTh0w/maxresdefault.jpg',badge:'Noticias',bc:'bn',feat:true},
+  {id:'au2',name:'Sky News Australia',country:'Australia',cat:'noticias',f:'🇦🇺',yt:'FPEnBRBHZWo',img:'https://img.youtube.com/vi/FPEnBRBHZWo/maxresdefault.jpg',badge:'Noticias',bc:'bn'},
+  // EUROPA
+  {id:'eu1',name:'BBC News',country:'Europa',cat:'noticias',f:'🇬🇧',yt:'w_Ma8oQLmSM',img:'https://img.youtube.com/vi/w_Ma8oQLmSM/maxresdefault.jpg',badge:'Noticias',bc:'bn',feat:true},
+  {id:'eu2',name:'Al Jazeera English',country:'Europa',cat:'noticias',f:'🌐',yt:'F9TUekTuAC4',img:'https://img.youtube.com/vi/F9TUekTuAC4/maxresdefault.jpg',badge:'Noticias',bc:'bn'},
+  {id:'eu3',name:'CNA Singapore',country:'Mundo',cat:'noticias',f:'🇸🇬',yt:'XWq5kBlakcQ',img:'https://img.youtube.com/vi/XWq5kBlakcQ/maxresdefault.jpg',badge:'Noticias',bc:'bn'},
+  // MUNDO
+  {id:'w01',name:'NASA TV Live',country:'Mundo',cat:'cultura',f:'🌌',yt:'21X5lGlDOfg',img:'https://img.youtube.com/vi/21X5lGlDOfg/maxresdefault.jpg',badge:'Espacio',bc:'bd'},
+  {id:'w02',name:'Explore Wildlife',country:'Mundo',cat:'naturaleza',f:'🌿',yt:'yXE2LiWbBEo',img:'https://img.youtube.com/vi/yXE2LiWbBEo/maxresdefault.jpg',badge:'Naturaleza',bc:'bnp'},
 ];
 
-/* ── TELENOVELAS ── */
-const TELENOVELAS = [
-  {id:'tn01',name:'Tlnovelas (Televisa)',country:'México',cat:'entretenimiento',flag:'🇲🇽',yt:'https://www.youtube.com/c/Tlnovelas',ytThumb:'3KFBbBQM2CU',img:'https://img.youtube.com/vi/3KFBbBQM2CU/maxresdefault.jpg',badge:'Telenovelas',bc:'cb-m',desc:'Canal oficial de Televisa con los mejores momentos de telenovelas clásicas y actuales.'},
-  {id:'tn02',name:'Telemundo Internacional',country:'USA',cat:'entretenimiento',flag:'🇺🇸',yt:'N3EBLOfJqoM',img:'https://img.youtube.com/vi/N3EBLOfJqoM/maxresdefault.jpg',badge:'Series',bc:'cb-e',desc:'Telemundo Internacional, telenovelas y series en español para Latinoamérica.'},
-  {id:'tn03',name:'Canela.TV',country:'LATAM',cat:'entretenimiento',flag:'🌎',yt:'VL3oNiZbZdw',img:'https://img.youtube.com/vi/VL3oNiZbZdw/maxresdefault.jpg',badge:'EntreT',bc:'cb-e',desc:'Canela.TV streaming gratuito con series y telenovelas latinoamericanas.'},
-  {id:'tn04',name:'Univision Telenovelas',country:'USA',cat:'entretenimiento',flag:'🇺🇸',yt:'3KFBbBQM2CU',img:'https://img.youtube.com/vi/3KFBbBQM2CU/maxresdefault.jpg',badge:'Telenovelas',bc:'cb-m',desc:'Las mejores telenovelas de Univision, el canal hispano más importante de EE.UU.'},
-  {id:'tn05',name:'Mega Novelas Chile',country:'Chile',cat:'entretenimiento',flag:'🇨🇱',yt:'B51INQJ6Ry4',img:'https://img.youtube.com/vi/B51INQJ6Ry4/maxresdefault.jpg',badge:'Novelas CL',bc:'cb-e',desc:'Canal Mega Chile con telenovelas nacionales e internacionales.'},
-  {id:'tn06',name:'TVN Series',country:'Chile',cat:'entretenimiento',flag:'🇨🇱',yt:'mBBFJMsMPkY',img:'https://img.youtube.com/vi/mBBFJMsMPkY/maxresdefault.jpg',badge:'Series CL',bc:'cb-e',desc:'TVN Chile con las mejores series y miniseries de la televisión chilena.'},
+/* ════ RADIOS DEL MUNDO ════ */
+const RADIOS=[
+  // K-POP / KOREA
+  {id:'r01',name:'The K-POP 24/7',gen:'kpop',f:'🇰🇷',country:'Korea',yt:'JVocS7Yftw8',icon:'🎵',grad:'linear-gradient(135deg,#1a0533 0%,#6d1b7b 100%)',badge:'K-pop',bc:'bp',desc:'Transmisión oficial SBS 24h con los mejores shows de K-pop'},
+  {id:'r02',name:'KBS Kpop Radio',gen:'kpop',f:'🇰🇷',country:'Korea',yt:'XGr6ynEZgJk',icon:'🎤',grad:'linear-gradient(135deg,#003366 0%,#0066cc 100%)',badge:'K-pop',bc:'bp',desc:'KBS World Radio K-pop en vivo desde Seúl, Korea'},
+  {id:'r03',name:'Arirang K-pop',gen:'kpop',f:'🇰🇷',country:'Korea',yt:'nMEBVADq4tQ',icon:'🌸',grad:'linear-gradient(135deg,#4a0072 0%,#d63384 100%)',badge:'K-pop',bc:'bp',desc:'Arirang TV Radio, K-pop y cultura coreana 24/7'},
+  // LOFI / CHILL
+  {id:'r04',name:'Lofi Girl Radio',gen:'lofi',f:'🎧',country:'Francia',yt:'jfKfPfyJRdk',icon:'📚',grad:'linear-gradient(135deg,#1a2a1a 0%,#2d5a27 100%)',badge:'Lo-Fi',bc:'be',desc:'El stream de lofi más famoso del mundo. Beats para estudiar y relajarse'},
+  {id:'r05',name:'Chillhop Music',gen:'lofi',f:'☁️',country:'Holanda',yt:'7NOSDKb0HlU',icon:'🦔',grad:'linear-gradient(135deg,#1a1a2e 0%,#16213e 100%)',badge:'Lo-Fi',bc:'bnp',desc:'Chillhop Radio 24/7. La mejor selección de beats instrumentales'},
+  {id:'r06',name:'Coffee Shop Radio',gen:'lofi',f:'☕',country:'Internacional',yt:'blAFxjhg62k',icon:'☕',grad:'linear-gradient(135deg,#2d1b00 0%,#6b3a00 100%)',badge:'Chill',bc:'bc',desc:'Ambiente de café con lo-fi y jazz suave para trabajar y estudiar'},
+  // JAZZ
+  {id:'r07',name:'Jazz 24/7 Radio',gen:'jazz',f:'🎷',country:'USA',yt:'Dx5qFachd3A',icon:'🎷',grad:'linear-gradient(135deg,#1a0a00 0%,#8b3a00 100%)',badge:'Jazz',bc:'bc',desc:'Jazz clásico y contemporáneo las 24 horas. Standards y improvisación'},
+  {id:'r08',name:'Smooth Jazz Radio',gen:'jazz',f:'🎹',country:'USA',yt:'kgx4WGK0oNU',icon:'🎹',grad:'linear-gradient(135deg,#0a0a1a 0%,#1a1a4a 100%)',badge:'Jazz',bc:'bnp',desc:'Smooth jazz, soul y R&B suave para relajarse en cualquier momento'},
+  {id:'r09',name:'Jazz Piano Bar',gen:'jazz',f:'🍷',country:'Internacional',yt:'HBPtQVzRZUY',icon:'🍷',grad:'linear-gradient(135deg,#1a0010 0%,#6d0032 100%)',badge:'Jazz',bc:'bm',desc:'Piano jazz en ambiente de bar. Coltrane, Miles Davis, Chet Baker'},
+  // LATINA
+  {id:'r10',name:'Salsa Radio 24/7',gen:'latina',f:'🌶️',country:'Colombia',yt:'8lE40EZxBNg',icon:'🌶️',grad:'linear-gradient(135deg,#3d0000 0%,#c50000 100%)',badge:'Salsa',bc:'br',desc:'Salsa, merengue y cumbia de Colombia, Puerto Rico y el Caribe'},
+  {id:'r11',name:'Latin Hits 24h',gen:'latina',f:'🎺',country:'LATAM',yt:'cb12KmMMDJA',icon:'🎺',grad:'linear-gradient(135deg,#1a1000 0%,#7d5500 100%)',badge:'Latina',bc:'bd',desc:'Los mejores éxitos del pop y reguetón latino las 24 horas'},
+  {id:'r12',name:'Bossa Nova Brasil',gen:'latina',f:'🇧🇷',country:'Brasil',yt:'fTGaKF3YUKI',icon:'🌴',grad:'linear-gradient(135deg,#003300 0%,#006600 100%)',badge:'Bossa',bc:'be',desc:'Bossa nova y samba brasileña. João Gilberto, Antônio Carlos Jobim'},
+  // CLÁSICA
+  {id:'r13',name:'Música Clásica 24h',gen:'clasica',f:'🎻',country:'Europa',yt:'_pKFWWz2JCw',icon:'🎻',grad:'linear-gradient(135deg,#0d0a00 0%,#4a3800 100%)',badge:'Clásica',bc:'bc',desc:'La mejor música clásica: Beethoven, Mozart, Bach, Chopin 24/7'},
+  {id:'r14',name:'Classical Piano',gen:'clasica',f:'🎹',country:'Europa',yt:'4Tr0otuiQuU',icon:'🎹',grad:'linear-gradient(135deg,#0a0a0a 0%,#2a2a2a 100%)',badge:'Piano',bc:'bn',desc:'Piano clásico y contemporáneo. Relajante y perfecto para estudiar'},
+  {id:'r15',name:'Opera Live Radio',gen:'clasica',f:'🎭',country:'Europa',yt:'H5_NKEWB8WA',icon:'🎭',grad:'linear-gradient(135deg,#1a0020 0%,#4d0060 100%)',badge:'Ópera',bc:'bm',desc:'Ópera y música orquestal de los mejores teatros del mundo'},
+  // ELECTRÓNICA
+  {id:'r16',name:'EDM Radio 24/7',gen:'electronica',f:'⚡',country:'Internacional',yt:'5yx6BWlEVcY',icon:'⚡',grad:'linear-gradient(135deg,#000a1a 0%,#0033cc 100%)',badge:'EDM',bc:'bn',desc:'Electronic dance music: house, techno, trance y más en continuo'},
+  {id:'r17',name:'Synthwave Radio',gen:'electronica',f:'🌆',country:'Internacional',yt:'4xDzrJKXOOY',icon:'🌆',grad:'linear-gradient(135deg,#1a0033 0%,#660099 100%)',badge:'Synth',bc:'bm',desc:'Synthwave y retrowave 24/7. Viajando al futuro retro de los 80s'},
+  {id:'r18',name:'Techno Dark Radio',gen:'electronica',f:'🔊',country:'Alemania',yt:'NG5jLBDrm8Y',icon:'🔊',grad:'linear-gradient(135deg,#0a0a0a 0%,#1a1a1a 100%)',badge:'Techno',bc:'bd',desc:'Techno underground de Berlin, el epicentro de la música electrónica'},
+  // REGGAE
+  {id:'r19',name:'Reggae Roots 24/7',gen:'reggae',f:'🌿',country:'Jamaica',yt:'yXE2LiWbBEo',icon:'🌿',grad:'linear-gradient(135deg,#001a00 0%,#006600 100%)',badge:'Reggae',bc:'be',desc:'Roots reggae y dancehall de Jamaica. Bob Marley y los clásicos'},
+  {id:'r20',name:'Reggaeton Hits',gen:'reggae',f:'🔥',country:'LATAM',yt:'ArKbAx1K-2U',icon:'🔥',grad:'linear-gradient(135deg,#1a0000 0%,#660000 100%)',badge:'Reggaetón',bc:'br',desc:'Los mejores hits del reggaetón latinoamericano las 24 horas'},
+  // ROCK
+  {id:'r21',name:'Classic Rock 24/7',gen:'rock',f:'🎸',country:'USA/UK',yt:'F9TUekTuAC4',icon:'🎸',grad:'linear-gradient(135deg,#0a0000 0%,#330000 100%)',badge:'Rock',bc:'br',desc:'Classic rock de los 70s, 80s y 90s. Led Zeppelin, Pink Floyd, Queen'},
+  {id:'r22',name:'Metal Radio 24h',gen:'rock',f:'🤘',country:'Internacional',yt:'w_Ma8oQLmSM',icon:'🤘',grad:'linear-gradient(135deg,#000000 0%,#1a1a1a 100%)',badge:'Metal',bc:'bn',desc:'Heavy metal y hard rock. Metallica, Iron Maiden, Judas Priest 24/7'},
+  // AMBIENTAL
+  {id:'r23',name:'Ocean Waves 24/7',gen:'ambiental',f:'🌊',country:'Internacional',yt:'DDM95xFHIfg',icon:'🌊',grad:'linear-gradient(135deg,#001a2a 0%,#004466 100%)',badge:'Ambiental',bc:'bnp',desc:'Sonidos del océano y naturaleza para relajarse y dormir mejor'},
+  {id:'r24',name:'Rain & Thunder',gen:'ambiental',f:'🌧️',country:'Internacional',yt:'21X5lGlDOfg',icon:'🌧️',grad:'linear-gradient(135deg,#0a0a14 0%,#1a1a2e 100%)',badge:'Ambiental',bc:'bm',desc:'Lluvia, truenos y sonidos de la naturaleza para meditar y dormir'},
+  {id:'r25',name:'Forest Sounds Live',gen:'ambiental',f:'🌲',country:'Internacional',yt:'sREmCAJhFik',icon:'🌲',grad:'linear-gradient(135deg,#001400 0%,#003300 100%)',badge:'Naturaleza',bc:'bnp',desc:'Sonidos del bosque: pájaros, viento, agua y vida salvaje'},
+  // POP
+  {id:'r26',name:'Pop Hits 24/7',gen:'pop',f:'🎤',country:'Internacional',yt:'nMEBVADq4tQ',icon:'🎤',grad:'linear-gradient(135deg,#1a001a 0%,#660066 100%)',badge:'Pop',bc:'bp',desc:'Los mejores hits del pop internacional las 24 horas sin parar'},
+  {id:'r27',name:'80s 90s Retro FM',gen:'pop',f:'📻',country:'Internacional',yt:'XGr6ynEZgJk',icon:'📻',grad:'linear-gradient(135deg,#1a1a00 0%,#666600 100%)',badge:'Retro',bc:'bc',desc:'Lo mejor de los años 80 y 90. Madonna, Michael Jackson, Whitney Houston'},
 ];
 
-/* ── PELÍCULAS ── */
-const MOVIES = [
-  {id:'mv01',title:'Nosferatu (1922)',year:1922,genre:'Terror',cats:['clasico','terror'],yt:'BjqsX98FjOk',img:'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Nosferatu_Poster.jpg/400px-Nosferatu_Poster.jpg',tag:'Clásico',tc:'tc'},
-  {id:'mv02',title:'Metrópolis (1927)',year:1927,genre:'Sci-Fi',cats:['clasico','sci-fi'],yt:'CLUT8i8OiF4',img:'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/Metropolis_poster.jpg/400px-Metropolis_poster.jpg',tag:'Clásico',tc:'tc'},
-  {id:'mv03',title:'El Gabinete Dr. Caligari',year:1920,genre:'Terror · Misterio',cats:['clasico','terror'],yt:'BqEMvV7GCiA',img:'https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/The_Cabinet_of_Dr._Caligari_poster.jpg/400px-The_Cabinet_of_Dr._Caligari_poster.jpg',tag:'Clásico',tc:'tc'},
-  {id:'mv04',title:'Acorazado Potemkin',year:1925,genre:'Drama Histórico',cats:['clasico','drama'],yt:'kXSQLx7m7mM',img:'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Battleship-potemkin-1925.jpg/400px-Battleship-potemkin-1925.jpg',tag:'Clásico',tc:'tc'},
-  {id:'mv05',title:'El General (Keaton)',year:1926,genre:'Comedia',cats:['clasico','comedia'],yt:'HrDqiuvLCJY',img:'https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/The_General_1926_poster.jpg/400px-The_General_1926_poster.jpg',tag:'Clásico',tc:'tc'},
-  {id:'mv06',title:'Tiempos Modernos',year:1936,genre:'Comedia · Drama',cats:['clasico','comedia','drama'],yt:'GLeDer5RDHY',img:'https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Modern-times-poster-01.jpg/400px-Modern-times-poster-01.jpg',tag:'Clásico',tc:'tc'},
-  {id:'mv07',title:'El Fantasma de la Ópera',year:1925,genre:'Terror',cats:['clasico','terror'],yt:'8P7YGwabqBE',img:'https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Phantom_of_the_Opera_1925.jpg/400px-Phantom_of_the_Opera_1925.jpg',tag:'Clásico',tc:'tc'},
-  {id:'mv08',title:'Viaje a la Luna',year:1902,genre:'Sci-Fi',cats:['clasico','sci-fi'],yt:'cNnHBOkS_-s',img:'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Melies_color_Voyage_dans_la_lune.jpg/400px-Melies_color_Voyage_dans_la_lune.jpg',tag:'1902',tc:'tc'},
-  {id:'mv09',title:'Night of the Living Dead',year:1968,genre:'Terror',cats:['terror'],yt:'DEwxGNFbqxQ',img:'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Night_of_the_Living_Dead_%281968%29_theatrical_poster.jpg/400px-Night_of_the_Living_Dead_%281968%29_theatrical_poster.jpg',tag:'Terror',tc:'tt'},
-  {id:'mv10',title:'Los Olvidados (2024)',year:2024,genre:'Terror Slasher',cats:['terror'],yt:'JLgQB1Wmh-s',img:'https://img.youtube.com/vi/JLgQB1Wmh-s/maxresdefault.jpg',tag:'2024',tc:'tn'},
-  {id:'mv11',title:'Sin Salida',year:2012,genre:'Acción',cats:['accion'],yt:'IhzizqSy89w',img:'https://img.youtube.com/vi/IhzizqSy89w/maxresdefault.jpg',tag:'Gratis',tc:'tg'},
-  {id:'mv12',title:'Venganza a Sangre Fría',year:2024,genre:'Crimen',cats:['accion'],yt:'8lE40EZxBNg',img:'https://img.youtube.com/vi/8lE40EZxBNg/maxresdefault.jpg',tag:'Gratis',tc:'tg'},
-  {id:'mv13',title:'D.O.A. (1949)',year:1949,genre:'Noir',cats:['clasico','drama'],yt:'z4kxlWIJmSQ',img:'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/D.O.A.1949.jpg/400px-D.O.A.1949.jpg',tag:'Clásico',tc:'tc'},
-  {id:'mv14',title:'La Historia Oficial',year:1985,genre:'Drama',cats:['latam','drama'],yt:'7v9WQ1GiReA',img:'https://img.youtube.com/vi/7v9WQ1GiReA/maxresdefault.jpg',tag:'LATAM',tc:'tl'},
-  {id:'mv15',title:'His Girl Friday',year:1940,genre:'Comedia',cats:['clasico','comedia'],yt:'lQhKpKXFMCk',img:'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/His_Girl_Friday_%281940_poster%29.jpg/400px-His_Girl_Friday_%281940_poster%29.jpg',tag:'Clásico',tc:'tc'},
-  {id:'mv16',title:'Man with a Movie Camera',year:1929,genre:'Documental',cats:['clasico','documental'],yt:'coxBMhX1OsE',img:'https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Man_with_movie_camera.jpg/400px-Man_with_movie_camera.jpg',tag:'Clásico',tc:'tc'},
-  {id:'mv17',title:'La Negociadora',year:2024,genre:'Suspenso',cats:['latam','accion'],yt:'y5AV2QGu4C4',img:'https://img.youtube.com/vi/y5AV2QGu4C4/maxresdefault.jpg',tag:'LATAM',tc:'tl'},
-  {id:'mv18',title:'Trato con la Conciencia',year:2024,genre:'Drama',cats:['drama'],yt:'0WFKkcn2TjM',img:'https://img.youtube.com/vi/0WFKkcn2TjM/maxresdefault.jpg',tag:'2024',tc:'tn'},
+/* ════ DOCUMENTALES ════ */
+const DOCS=[
+  // NATURALEZA
+  {id:'d01',name:'Love Nature 24/7',cat:'naturaleza',f:'🦁',yt:'daqB3i9WYIY',img:'https://img.youtube.com/vi/daqB3i9WYIY/maxresdefault.jpg',badge:'Naturaleza',bc:'bnp',feat:true,desc:'Wildlife & Nature documentaries 24/7. Canal oficial Love Nature'},
+  {id:'d02',name:'Explore Wildlife',cat:'naturaleza',f:'🐘',yt:'yXE2LiWbBEo',img:'https://img.youtube.com/vi/yXE2LiWbBEo/maxresdefault.jpg',badge:'Naturaleza',bc:'bnp',feat:true,desc:'Cámaras de vida salvaje africana 24h en vivo'},
+  {id:'d03',name:'Africa Wildlife Live',cat:'naturaleza',f:'🌍',yt:'DDM95xFHIfg',img:'https://img.youtube.com/vi/DDM95xFHIfg/maxresdefault.jpg',badge:'Naturaleza',bc:'bnp',desc:'Earth Live Cams, cámaras de la naturaleza africana'},
+  {id:'d04',name:'Ocean Live Camera',cat:'naturaleza',f:'🌊',yt:'sREmCAJhFik',img:'https://img.youtube.com/vi/sREmCAJhFik/maxresdefault.jpg',badge:'Océano',bc:'bn',desc:'Cámaras submarinas y vida marina en vivo'},
+  // ESPACIO
+  {id:'d05',name:'NASA TV Live',cat:'espacio',f:'🚀',yt:'21X5lGlDOfg',img:'https://img.youtube.com/vi/21X5lGlDOfg/maxresdefault.jpg',badge:'NASA',bc:'bd',feat:true,desc:'Canal oficial de la NASA. Misiones, lanzamientos y transmisiones del espacio'},
+  {id:'d06',name:'ESA Space News',cat:'espacio',f:'🛰️',yt:'f0lYkdA-Gtw',img:'https://img.youtube.com/vi/f0lYkdA-Gtw/maxresdefault.jpg',badge:'Espacio',bc:'bd',desc:'Agencia Espacial Europea en vivo. Ciencia y exploración espacial'},
+  {id:'d07',name:'Space & Science TV',cat:'espacio',f:'🔭',yt:'w_Ma8oQLmSM',img:'https://img.youtube.com/vi/w_Ma8oQLmSM/maxresdefault.jpg',badge:'Ciencia',bc:'bm',desc:'Documentales de astronomía, física y ciencias del espacio'},
+  // HISTORIA
+  {id:'d08',name:'History Channel 24h',cat:'historia',f:'📜',yt:'F9TUekTuAC4',img:'https://img.youtube.com/vi/F9TUekTuAC4/maxresdefault.jpg',badge:'Historia',bc:'bc',feat:true,desc:'Documentales históricos de guerras, civilizaciones y grandes personajes'},
+  {id:'d09',name:'Batallas Históricas',cat:'historia',f:'⚔️',yt:'XWq5kBlakcQ',img:'https://img.youtube.com/vi/XWq5kBlakcQ/maxresdefault.jpg',badge:'Historia',bc:'bc',desc:'Las grandes batallas y guerras que cambiaron el mundo'},
+  {id:'d10',name:'Ancient Civilizations',cat:'historia',f:'🏛️',yt:'Plgu2HMTh0w',img:'https://img.youtube.com/vi/Plgu2HMTh0w/maxresdefault.jpg',badge:'Historia',bc:'bc',desc:'Egipto, Roma, Grecia y las civilizaciones antiguas en documentales HD'},
+  // CIENCIA
+  {id:'d11',name:'Science Channel Live',cat:'ciencia',f:'🔬',yt:'H5_NKEWB8WA',img:'https://img.youtube.com/vi/H5_NKEWB8WA/maxresdefault.jpg',badge:'Ciencia',bc:'bm',feat:true,desc:'El mundo de la ciencia: física, química, biología y tecnología'},
+  {id:'d12',name:'NatGeo Science',cat:'ciencia',f:'🌐',yt:'FPEnBRBHZWo',img:'https://img.youtube.com/vi/FPEnBRBHZWo/maxresdefault.jpg',badge:'Ciencia',bc:'bm',desc:'National Geographic documentales de ciencia y naturaleza'},
+  // TECNOLOGÍA
+  {id:'d13',name:'Tech & Innovation',cat:'tecnologia',f:'💻',yt:'Y-IlMeCCtIg',img:'https://img.youtube.com/vi/Y-IlMeCCtIg/maxresdefault.jpg',badge:'Tech',bc:'bn',feat:true,desc:'Inteligencia artificial, robótica y las tecnologías del futuro'},
+  {id:'d14',name:'Future Technology',cat:'tecnologia',f:'🤖',yt:'NG5jLBDrm8Y',img:'https://img.youtube.com/vi/NG5jLBDrm8Y/maxresdefault.jpg',badge:'Tech',bc:'bn',desc:'El futuro de la humanidad: nanotecnología, IA y exploración espacial'},
+  // SOCIEDAD
+  {id:'d15',name:'DW Documentales',cat:'sociedad',f:'🌍',yt:'ArKbAx1K-2U',img:'https://img.youtube.com/vi/ArKbAx1K-2U/maxresdefault.jpg',badge:'Sociedad',bc:'be',feat:true,desc:'Deutsche Welle documentales sobre sociedad, política y cultura global'},
+  {id:'d16',name:'Al Jazeera Docs',cat:'sociedad',f:'📰',yt:'cb12KmMMDJA',img:'https://img.youtube.com/vi/cb12KmMMDJA/maxresdefault.jpg',badge:'Sociedad',bc:'be',desc:'Investigación periodística y documentales sociales de Al Jazeera'},
+  // CRIMEN
+  {id:'d17',name:'True Crime TV 24h',cat:'crimen',f:'🔍',yt:'tQ941SU5UR0',img:'https://img.youtube.com/vi/tQ941SU5UR0/maxresdefault.jpg',badge:'Crimen',bc:'br',feat:true,desc:'Crimen verdadero: casos sin resolver, investigaciones y juicios reales'},
+  {id:'d18',name:'Investigación Policial',cat:'crimen',f:'🚔',yt:'GLTs8SKJ7mw',img:'https://img.youtube.com/vi/GLTs8SKJ7mw/maxresdefault.jpg',badge:'Crimen',bc:'br',desc:'Series documentales sobre investigación criminal y justicia'},
 ];
 
-/* ── MUNDO POR PAÍS ── */
-const WORLD = [
-  {country:'Chile',flag:'🇨🇱',ids:['ch01','ch02','ch03','ch04']},
-  {country:'Argentina',flag:'🇦🇷',ids:['ar01','ar02','ar03','ar04','ar05']},
-  {country:'México',flag:'🇲🇽',ids:['mx01','mx02','mx03','mx04','mx05']},
-  {country:'Colombia',flag:'🇨🇴',ids:['co01','co02','co03']},
-  {country:'Brasil',flag:'🇧🇷',ids:['br01','br02','br03']},
-  {country:'USA · Español',flag:'🇺🇸',ids:['us01','us02','us03','us04']},
-  {country:'España',flag:'🇪🇸',ids:['es01','es02']},
-  {country:'Japón',flag:'🇯🇵',ids:['jp01','jp02','jp03']},
-  {country:'Australia',flag:'🇦🇺',ids:['au01','au02']},
-  {country:'Europa · Mundo',flag:'🌍',ids:['eu01','eu02','eu03']},
-  {country:'Mundo',flag:'🌐',ids:['wd01','wd02','wd03','wd04','wd05']},
+/* ════ PELÍCULAS ════ */
+const MOVIES=[
+  {id:'p01',title:'Nosferatu (1922)',year:1922,genre:'Terror',cats:['clasico','terror'],yt:'BjqsX98FjOk',img:'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Nosferatu_Poster.jpg/400px-Nosferatu_Poster.jpg',tag:'Clásico',tc:'tc'},
+  {id:'p02',title:'Metrópolis (1927)',year:1927,genre:'Sci-Fi',cats:['clasico','sci-fi'],yt:'CLUT8i8OiF4',img:'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/Metropolis_poster.jpg/400px-Metropolis_poster.jpg',tag:'Clásico',tc:'tc'},
+  {id:'p03',title:'El Gabinete Caligari',year:1920,genre:'Terror',cats:['clasico','terror'],yt:'BqEMvV7GCiA',img:'https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/The_Cabinet_of_Dr._Caligari_poster.jpg/400px-The_Cabinet_of_Dr._Caligari_poster.jpg',tag:'Clásico',tc:'tc'},
+  {id:'p04',title:'El Acorazado Potemkin',year:1925,genre:'Drama',cats:['clasico','drama'],yt:'kXSQLx7m7mM',img:'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Battleship-potemkin-1925.jpg/400px-Battleship-potemkin-1925.jpg',tag:'Clásico',tc:'tc'},
+  {id:'p05',title:'Tiempos Modernos',year:1936,genre:'Comedia',cats:['clasico','comedia'],yt:'GLeDer5RDHY',img:'https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Modern-times-poster-01.jpg/400px-Modern-times-poster-01.jpg',tag:'Clásico',tc:'tc'},
+  {id:'p06',title:'El General (Keaton)',year:1926,genre:'Comedia',cats:['clasico','comedia'],yt:'HrDqiuvLCJY',img:'https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/The_General_1926_poster.jpg/400px-The_General_1926_poster.jpg',tag:'Clásico',tc:'tc'},
+  {id:'p07',title:'El Fantasma Ópera',year:1925,genre:'Terror',cats:['clasico','terror'],yt:'8P7YGwabqBE',img:'https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Phantom_of_the_Opera_1925.jpg/400px-Phantom_of_the_Opera_1925.jpg',tag:'Clásico',tc:'tc'},
+  {id:'p08',title:'Viaje a la Luna 1902',year:1902,genre:'Sci-Fi',cats:['clasico','sci-fi'],yt:'cNnHBOkS_-s',img:'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Melies_color_Voyage_dans_la_lune.jpg/400px-Melies_color_Voyage_dans_la_lune.jpg',tag:'1902',tc:'tc'},
+  {id:'p09',title:'Night of Living Dead',year:1968,genre:'Terror',cats:['terror'],yt:'DEwxGNFbqxQ',img:'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Night_of_the_Living_Dead_%281968%29_theatrical_poster.jpg/400px-Night_of_the_Living_Dead_%281968%29_theatrical_poster.jpg',tag:'Terror',tc:'tt'},
+  {id:'p10',title:'Los Olvidados 2024',year:2024,genre:'Terror',cats:['terror'],yt:'JLgQB1Wmh-s',img:'https://img.youtube.com/vi/JLgQB1Wmh-s/maxresdefault.jpg',tag:'2024',tc:'tn'},
+  {id:'p11',title:'Sin Salida',year:2012,genre:'Acción',cats:['accion'],yt:'IhzizqSy89w',img:'https://img.youtube.com/vi/IhzizqSy89w/maxresdefault.jpg',tag:'Gratis',tc:'tg'},
+  {id:'p12',title:'D.O.A. (1949)',year:1949,genre:'Noir',cats:['clasico','drama'],yt:'z4kxlWIJmSQ',img:'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/D.O.A.1949.jpg/400px-D.O.A.1949.jpg',tag:'Clásico',tc:'tc'},
+  {id:'p13',title:'La Historia Oficial',year:1985,genre:'Drama',cats:['latam','drama'],yt:'7v9WQ1GiReA',img:'https://img.youtube.com/vi/7v9WQ1GiReA/maxresdefault.jpg',tag:'LATAM',tc:'tl'},
+  {id:'p14',title:'His Girl Friday',year:1940,genre:'Comedia',cats:['clasico','comedia'],yt:'lQhKpKXFMCk',img:'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/His_Girl_Friday_%281940_poster%29.jpg/400px-His_Girl_Friday_%281940_poster%29.jpg',tag:'Clásico',tc:'tc'},
+  {id:'p15',title:'Man with Movie Camera',year:1929,genre:'Documental',cats:['clasico','documental'],yt:'coxBMhX1OsE',img:'https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Man_with_movie_camera.jpg/400px-Man_with_movie_camera.jpg',tag:'Clásico',tc:'tc'},
+  {id:'p16',title:'La Negociadora',year:2024,genre:'Suspenso',cats:['latam','accion'],yt:'y5AV2QGu4C4',img:'https://img.youtube.com/vi/y5AV2QGu4C4/maxresdefault.jpg',tag:'LATAM',tc:'tl'},
 ];
 
-/* ── ESTADO ── */
-let tvCountry='all', tvCat='all', movFilter='all', searchQ='';
+/* ════ MUNDO MAP ════ */
+const WORLD_MAP=[
+  {country:'Chile',flag:'🇨🇱',ids:['c01','c02','c03','c04']},
+  {country:'Argentina',flag:'🇦🇷',ids:['a01','a02','a03','a04']},
+  {country:'México',flag:'🇲🇽',ids:['m01','m02','m03']},
+  {country:'Colombia',flag:'🇨🇴',ids:['co1']},
+  {country:'Brasil',flag:'🇧🇷',ids:['b01','b02']},
+  {country:'USA · Español',flag:'🇺🇸',ids:['u01','u02','u03']},
+  {country:'España',flag:'🇪🇸',ids:['e01']},
+  {country:'Korea',flag:'🇰🇷',ids:['k01','k02','k03']},
+  {country:'Japón',flag:'🇯🇵',ids:['j01','j02']},
+  {country:'Australia',flag:'🇦🇺',ids:['au1','au2']},
+  {country:'Europa · Mundo',flag:'🌍',ids:['eu1','eu2','eu3','w01','w02']},
+];
 
-/* ── MODAL ── */
-function openModal(title,ytId,country,cat,platform){
+/* ════ STATE ════ */
+let tvC='all', tvCat='all', radioC='all', docsC='all', movF='all', Q='';
+
+/* ════ MODAL ════ */
+function open_m(title,ytId,country,cat){
   document.getElementById('mTitle').textContent=title;
   document.getElementById('mFrame').src=`https://www.youtube.com/embed/${ytId}?autoplay=1&rel=0&modestbranding=1`;
   document.getElementById('mYtLink').href=`https://www.youtube.com/watch?v=${ytId}`;
   document.getElementById('mWarn').classList.remove('show');
-  document.getElementById('mFoot').innerHTML=`<strong>${country}</strong><span>${cat}</span><span>${platform||'YouTube'}</span><span class="ok">✓ Gratis · Legal</span>`;
+  document.getElementById('mFoot').innerHTML=`<strong>${country||'—'}</strong><span>${cat||'—'}</span><span class="ok">✓ Gratis · Legal</span>`;
   document.getElementById('modalBg').classList.add('open');
   document.body.style.overflow='hidden';
 }
-function closeModal(){
+function close_m(){
   document.getElementById('modalBg').classList.remove('open');
   document.getElementById('mFrame').src='';
   document.body.style.overflow='';
 }
-document.getElementById('mClose').onclick=closeModal;
-document.getElementById('modalBg').onclick=e=>{if(e.target===e.currentTarget)closeModal();};
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+document.getElementById('mClose').onclick=close_m;
+document.getElementById('modalBg').onclick=e=>{if(e.target===e.currentTarget)close_m();};
+document.addEventListener('keydown',e=>{if(e.key==='Escape')close_m();});
 
-/* ── RENDER CHANNEL CARD ── */
-function chCard(c,i=0){
-  const img=c.img||`https://img.youtube.com/vi/${c.yt}/maxresdefault.jpg`;
-  return `<div class="cc" tabindex="0" role="button" style="animation-delay:${i*.04}s" aria-label="${c.name}" onclick="openModal(${JSON.stringify(c.name)},${JSON.stringify(c.yt)},${JSON.stringify(c.flag+' '+c.country)},${JSON.stringify(c.cat)},'YouTube')">
-    <div class="cc-thumb">
+/* ════ CARD BUILDERS ════ */
+function ccHTML(c,i){
+  const img=c.img||`https://img.youtube.com/vi/${c.yt}/hqdefault.jpg`;
+  return `<div class="cc" tabindex="0" role="button" aria-label="${c.name}" style="animation-delay:${i*.04}s"
+    onclick="open_m(${JSON.stringify(c.name)},${JSON.stringify(c.yt)},${JSON.stringify((c.f||'')+(c.country||''))},${JSON.stringify(c.cat||'')})">
+    <div class="cc-th">
       <img src="${img}" alt="${c.name}" loading="lazy" onerror="this.src='https://img.youtube.com/vi/${c.yt}/hqdefault.jpg'"/>
-      <div class="cc-ov"><div class="pr"><svg width="18" height="18" viewBox="0 0 24 24" fill="#000"><polygon points="5,3 19,12 5,21"/></svg></div></div>
+      <div class="cc-ov"><div class="prbtn"><svg width="16" height="16" viewBox="0 0 24 24" fill="#000"><polygon points="5,3 19,12 5,21"/></svg></div></div>
       <div class="cc-live"><div class="ld">en vivo</div></div>
-      ${c.badge?`<span class="cc-badge ${c.bc}">${c.badge}</span>`:''}
+      ${c.badge?`<span class="cbadge ${c.bc||'bn'}">${c.badge}</span>`:''}
     </div>
     <div class="cc-body">
-      <div class="cc-name">${c.flag} ${c.name}</div>
-      <div class="cc-meta">${c.country} · ${c.cat}</div>
+      <div class="cc-name">${c.f||''} ${c.name}</div>
+      <div class="cc-meta">${c.country||''} · ${c.cat||''}</div>
     </div>
   </div>`;
 }
 
-/* ── RENDER MOVIE CARD ── */
-function mvCard(m,i=0){
+function rcHTML(r,i){
+  return `<div class="rc" tabindex="0" role="button" aria-label="${r.name}" style="animation-delay:${i*.04}s"
+    onclick="open_m(${JSON.stringify(r.name)},${JSON.stringify(r.yt)},${JSON.stringify((r.f||'')+(r.country||''))},${JSON.stringify('Radio 24/7')})">
+    <div class="rc-vis" style="background:${r.grad||'#1a1a2e'}">
+      <div class="rc-ico">${r.icon||'🎵'}</div>
+      <div class="rc-ov2"><div class="prbtn"><svg width="16" height="16" viewBox="0 0 24 24" fill="#000"><polygon points="5,3 19,12 5,21"/></svg></div></div>
+      ${r.badge?`<span class="rc-rbadge ${r.bc||'bm'}">${r.badge}</span>`:''}
+      <div class="eq"><span></span><span></span><span></span><span></span><span></span></div>
+    </div>
+    <div class="rc-body">
+      <div class="rc-name">${r.f||''} ${r.name}</div>
+      <div class="rc-meta">${r.country||''} · Radio 24/7</div>
+    </div>
+  </div>`;
+}
+
+function mcHTML(m,i){
   const img=m.img||`https://img.youtube.com/vi/${m.yt}/hqdefault.jpg`;
-  return `<div class="mc" tabindex="0" role="button" style="animation-delay:${i*.04}s" aria-label="${m.title}, ${m.year}" onclick="openModal(${JSON.stringify(m.title)},${JSON.stringify(m.yt)},${JSON.stringify(String(m.year))},${JSON.stringify(m.genre)},'YouTube · Gratis')">
-    <div class="mp">
+  return `<div class="mc" tabindex="0" role="button" aria-label="${m.title}" style="animation-delay:${i*.04}s"
+    onclick="open_m(${JSON.stringify(m.title)},${JSON.stringify(m.yt)},${JSON.stringify(String(m.year))},${JSON.stringify(m.genre)})">
+    <div class="mc-pos">
       <img src="${img}" alt="${m.title}" loading="lazy" onerror="this.src='https://img.youtube.com/vi/${m.yt}/hqdefault.jpg'"/>
-      <div class="mov"><div class="pr"><svg width="18" height="18" viewBox="0 0 24 24" fill="#000"><polygon points="5,3 19,12 5,21"/></svg></div></div>
-      <span class="mt ${m.tc}">${m.tag}</span>
+      <div class="mc-ov"><div class="prbtn"><svg width="16" height="16" viewBox="0 0 24 24" fill="#000"><polygon points="5,3 19,12 5,21"/></svg></div></div>
+      <span class="mt ${m.tc||'tc'}">${m.tag||''}</span>
     </div>
     <div class="mc-body">
       <div class="mc-title">${m.title}</div>
@@ -649,144 +782,132 @@ function mvCard(m,i=0){
   </div>`;
 }
 
-/* ── RENDER HOME ── */
-function renderHome(){
-  const feat=CH.filter(c=>c.featured).slice(0,8);
-  document.getElementById('homeChGrid').innerHTML=feat.map((c,i)=>chCard(c,i)).join('');
-  document.getElementById('homeMovGrid').innerHTML=MOVIES.slice(0,8).map((m,i)=>mvCard(m,i)).join('');
-  bindCards();
+function bindKB(){
+  document.querySelectorAll('.cc,.rc,.mc').forEach(el=>{
+    el.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();el.click();}};
+  });
 }
 
-/* ── RENDER TV ── */
+/* ════ RENDER FUNCTIONS ════ */
+function renderHome(){
+  const feat=TV.filter(c=>c.feat).slice(0,8);
+  document.getElementById('hTV').innerHTML=feat.map((c,i)=>ccHTML(c,i)).join('');
+  const radioFeat=[RADIOS.find(r=>r.gen==='kpop'),RADIOS.find(r=>r.gen==='lofi'),RADIOS.find(r=>r.gen==='jazz'),RADIOS.find(r=>r.gen==='latina'),RADIOS.find(r=>r.gen==='clasica'),RADIOS.find(r=>r.gen==='electronica')].filter(Boolean);
+  document.getElementById('hRadio').innerHTML=radioFeat.map((r,i)=>rcHTML(r,i)).join('');
+  document.getElementById('hDocs').innerHTML=DOCS.filter(d=>d.feat).slice(0,8).map((d,i)=>ccHTML(d,i)).join('');
+  document.getElementById('hMov').innerHTML=MOVIES.slice(0,6).map((m,i)=>mcHTML(m,i)).join('');
+  bindKB();
+}
+
 function renderTV(){
-  let list=CH.filter(c=>{
-    const okC=tvCountry==='all'||c.country===tvCountry;
+  let list=TV.filter(c=>{
+    const okC=tvC==='all'||c.country===tvC;
     const okCat=tvCat==='all'||c.cat===tvCat;
-    const q=searchQ.toLowerCase();
-    const okQ=!q||c.name.toLowerCase().includes(q)||c.country.toLowerCase().includes(q)||c.cat.toLowerCase().includes(q);
+    const q=Q.toLowerCase();
+    const okQ=!q||c.name.toLowerCase().includes(q)||c.country.toLowerCase().includes(q);
     return okC&&okCat&&okQ;
   });
-  document.getElementById('tvCount').textContent=`${list.length} canal${list.length!==1?'es':''} disponibles`;
-  document.getElementById('tvGrid').innerHTML=list.length?list.map((c,i)=>chCard(c,i)).join(''):`<div class="empty"><h3>Sin resultados</h3><p>Prueba otro filtro.</p></div>`;
-  bindCards();
+  document.getElementById('tvCnt').textContent=`${list.length} canal${list.length!==1?'es':''} disponibles`;
+  document.getElementById('tvGrid').innerHTML=list.length?list.map((c,i)=>ccHTML(c,i)).join(''):`<div class="empty"><h3>Sin resultados</h3><p>Prueba otro filtro.</p></div>`;
+  bindKB();
 }
 
-/* ── RENDER MOVIES ── */
+function renderRadio(){
+  let list=RADIOS.filter(r=>{
+    const okC=radioC==='all'||r.gen===radioC;
+    const q=Q.toLowerCase();
+    return okC&&(!q||r.name.toLowerCase().includes(q)||r.country.toLowerCase().includes(q));
+  });
+  document.getElementById('radioCnt').textContent=`${list.length} radio${list.length!==1?'s':''} disponibles`;
+  document.getElementById('radioGrid').innerHTML=list.length?list.map((r,i)=>rcHTML(r,i)).join(''):`<div class="empty"><h3>Sin resultados</h3><p>Prueba otro filtro.</p></div>`;
+  bindKB();
+}
+
+function renderDocs(){
+  let list=DOCS.filter(d=>{
+    const okC=docsC==='all'||d.cat===docsC;
+    const q=Q.toLowerCase();
+    return okC&&(!q||d.name.toLowerCase().includes(q));
+  });
+  document.getElementById('docsCnt').textContent=`${list.length} documental${list.length!==1?'es':''} disponibles`;
+  document.getElementById('docsGrid').innerHTML=list.length?list.map((d,i)=>ccHTML(d,i)).join(''):`<div class="empty"><h3>Sin resultados</h3></div>`;
+  bindKB();
+}
+
 function renderMovies(){
   let list=MOVIES.filter(m=>{
-    const okF=movFilter==='all'||m.cats.includes(movFilter);
-    const q=searchQ.toLowerCase();
-    const okQ=!q||m.title.toLowerCase().includes(q)||m.genre.toLowerCase().includes(q)||String(m.year).includes(q);
-    return okF&&okQ;
+    const okF=movF==='all'||m.cats.includes(movF);
+    const q=Q.toLowerCase();
+    return okF&&(!q||m.title.toLowerCase().includes(q)||m.genre.toLowerCase().includes(q)||String(m.year).includes(q));
   });
-  document.getElementById('movCount').textContent=`${list.length} película${list.length!==1?'s':''}`;
-  document.getElementById('movGrid').innerHTML=list.length?list.map((m,i)=>mvCard(m,i)).join(''):`<div class="empty"><h3>Sin resultados</h3><p>Prueba otro filtro.</p></div>`;
-  bindCards();
+  document.getElementById('movCnt').textContent=`${list.length} película${list.length!==1?'s':''}`;
+  document.getElementById('movGrid').innerHTML=list.length?list.map((m,i)=>mcHTML(m,i)).join(''):`<div class="empty"><h3>Sin resultados</h3></div>`;
+  bindKB();
 }
 
-/* ── RENDER TELENOVELAS ── */
-function renderTel(){
-  document.getElementById('telGrid').innerHTML=[...TELENOVELAS,...CH.filter(c=>c.cat==='entretenimiento')].map((c,i)=>chCard(c,i)).join('');
-  bindCards();
-}
-
-/* ── RENDER MUNDO ── */
 function renderMundo(){
-  const chMap={};
-  CH.forEach(c=>chMap[c.id]=c);
+  const map={};TV.forEach(c=>map[c.id]=c);DOCS.forEach(d=>map[d.id]=d);
   let html='';
-  WORLD.forEach(w=>{
-    const list=w.ids.map(id=>chMap[id]).filter(Boolean);
+  WORLD_MAP.forEach(w=>{
+    const list=w.ids.map(id=>map[id]).filter(Boolean);
     if(!list.length)return;
-    html+=`<div class="csec">
-      <div class="chead"><span class="cf">${w.flag}</span><span class="cn">${w.country}</span><span class="cc2">${list.length} canal${list.length!==1?'es':''}</span></div>
-      <div class="cgrid2">${list.map((c,i)=>chCard(c,i)).join('')}</div>
+    html+=`<div class="wsec">
+      <div class="whead"><span class="wfl">${w.flag}</span><span class="wnm">${w.country}</span><span class="wcnt">${list.length} canal${list.length!==1?'es':''}</span></div>
+      <div class="wgrid">${list.map((c,i)=>ccHTML(c,i)).join('')}</div>
     </div>`;
   });
   document.getElementById('mundoContent').innerHTML=html;
-  bindCards();
+  bindKB();
 }
 
-/* ── BIND KEYBOARD ── */
-function bindCards(){
-  document.querySelectorAll('.cc,.mc').forEach(el=>{
-    el.onkeydown=e=>{if(e.key==='Enter')el.click();};
-  });
-}
-
-/* ── SWITCH PAGE ── */
-function switchPage(pg){
+/* ════ PAGE SWITCH ════ */
+function sp(pg){
   document.querySelectorAll('.pg').forEach(p=>p.classList.remove('on'));
   document.getElementById('page-'+pg).classList.add('on');
-  document.querySelectorAll('.ntabs button').forEach(b=>b.classList.remove('on'));
-  const btn=document.querySelector(`.ntabs button[data-pg="${pg}"]`);
-  if(btn)btn.classList.add('on');
+  if(pg==='home')document.getElementById('home-body').classList.add('on');
+  else document.getElementById('home-body').classList.remove('on');
+  document.querySelectorAll('[data-pg]').forEach(b=>b.classList.toggle('on',b.dataset.pg===pg));
   window.scrollTo({top:0,behavior:'smooth'});
   if(pg==='tv')renderTV();
+  else if(pg==='radio')renderRadio();
+  else if(pg==='docs')renderDocs();
   else if(pg==='movies')renderMovies();
-  else if(pg==='telenovelas')renderTel();
   else if(pg==='mundo')renderMundo();
 }
 
-function filterCountry(c){
-  tvCountry=c;
-  document.querySelectorAll('.ctab').forEach(b=>{b.classList.toggle('on',b.dataset.c===c);});
-  renderTV();
-}
+/* ════ FILTER HELPERS ════ */
+function filterC(c){tvC=c;document.querySelectorAll('#tvCtabs .ctab').forEach(b=>b.classList.toggle('on',b.dataset.c===c));renderTV();}
+function filterR(r){radioC=r;document.querySelectorAll('#radioCtabs .ctab').forEach(b=>b.classList.toggle('on',b.dataset.rc===r));renderRadio();}
+function filterD(d){docsC=d;document.querySelectorAll('#docsCtabs .ctab').forEach(b=>b.classList.toggle('on',b.dataset.dc===d));renderDocs();}
 
-/* ── NAV TABS ── */
-document.querySelectorAll('.ntabs button').forEach(b=>{
-  b.onclick=()=>switchPage(b.dataset.pg);
-});
+/* ════ BIND CONTROLS ════ */
+document.querySelectorAll('[data-pg]').forEach(b=>{b.onclick=()=>sp(b.dataset.pg);});
 
-/* ── COUNTRY TABS ── */
-document.querySelectorAll('.ctab').forEach(b=>{
-  b.onclick=()=>{
-    document.querySelectorAll('.ctab').forEach(x=>x.classList.remove('on'));
-    b.classList.add('on');
-    tvCountry=b.dataset.c;
-    renderTV();
-  };
-});
+document.querySelectorAll('#tvCtabs .ctab').forEach(b=>{b.onclick=()=>{document.querySelectorAll('#tvCtabs .ctab').forEach(x=>x.classList.remove('on'));b.classList.add('on');tvC=b.dataset.c;renderTV();};});
+document.querySelectorAll('#tvCatP .pil').forEach(b=>{b.onclick=()=>{document.querySelectorAll('#tvCatP .pil').forEach(x=>x.classList.remove('on'));b.classList.add('on');tvCat=b.dataset.cat;renderTV();};});
+document.querySelectorAll('#radioCtabs .ctab').forEach(b=>{b.onclick=()=>{document.querySelectorAll('#radioCtabs .ctab').forEach(x=>x.classList.remove('on'));b.classList.add('on');radioC=b.dataset.rc;renderRadio();};});
+document.querySelectorAll('#docsCtabs .ctab').forEach(b=>{b.onclick=()=>{document.querySelectorAll('#docsCtabs .ctab').forEach(x=>x.classList.remove('on'));b.classList.add('on');docsC=b.dataset.dc;renderDocs();};});
+document.querySelectorAll('#movP .pil').forEach(b=>{b.onclick=()=>{document.querySelectorAll('#movP .pil').forEach(x=>x.classList.remove('on'));b.classList.add('on');movF=b.dataset.mf;renderMovies();};});
 
-/* ── CAT PILLS ── */
-document.querySelectorAll('#catPills .pil').forEach(b=>{
-  b.onclick=()=>{
-    document.querySelectorAll('#catPills .pil').forEach(x=>x.classList.remove('on'));
-    b.classList.add('on');
-    tvCat=b.dataset.cat;
-    renderTV();
-  };
-});
-
-/* ── MOV PILLS ── */
-document.querySelectorAll('#movPills .pil').forEach(b=>{
-  b.onclick=()=>{
-    document.querySelectorAll('#movPills .pil').forEach(x=>x.classList.remove('on'));
-    b.classList.add('on');
-    movFilter=b.dataset.mf;
-    renderMovies();
-  };
-});
-
-/* ── SEARCH ── */
 let st;
 document.getElementById('qInput').oninput=e=>{
   clearTimeout(st);
   st=setTimeout(()=>{
-    searchQ=e.target.value.trim();
-    const active=document.querySelector('.pg.on');
-    if(active.id==='page-tv')renderTV();
-    else if(active.id==='page-movies')renderMovies();
-    else{switchPage('tv');setTimeout(renderTV,50);}
+    Q=e.target.value.trim();
+    const activePg=document.querySelector('.pg.on');
+    if(!activePg||activePg.id==='home-body'){sp('tv');}
+    else if(activePg.id==='page-tv')renderTV();
+    else if(activePg.id==='page-radio')renderRadio();
+    else if(activePg.id==='page-docs')renderDocs();
+    else if(activePg.id==='page-movies')renderMovies();
   },220);
 };
 
-/* ── REVEAL OBSERVER ── */
-const ro=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in');}),{threshold:.07});
-document.querySelectorAll('.rev').forEach(el=>ro.observe(el));
+/* ════ REVEAL OBSERVER ════ */
+const ro=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in');}),{threshold:.06});
+document.querySelectorAll('.rv').forEach(el=>ro.observe(el));
 
-/* ── INIT ── */
+/* ════ INIT ════ */
 renderHome();
 </script>
 </body>
