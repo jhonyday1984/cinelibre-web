@@ -150,8 +150,11 @@ header{position:sticky;top:0;z-index:500;height:var(--hh);background:rgba(7,7,15
 .rc:hover,.rc:focus-visible{transform:translateY(-4px) scale(1.013);box-shadow:0 12px 28px rgba(0,0,0,.5),0 0 0 1px rgba(212,168,67,.18);border-color:rgba(212,168,67,.18);outline:none;}
 .rc.playing{border-color:var(--gold);box-shadow:0 0 0 2px rgba(212,168,67,.25);}
 .rc-vis{aspect-ratio:16/9;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+.rc-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .5s;filter:brightness(.55) saturate(1.2);}
+.rc:hover .rc-img{transform:scale(1.07);}
+.rc-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.75) 0%,rgba(0,0,0,.25) 60%,rgba(0,0,0,.1) 100%);z-index:1;}
 .rc-ico{font-size:2rem;position:relative;z-index:2;}
-.rc-ov2{position:absolute;inset:0;background:rgba(0,0,0,.4);opacity:0;transition:opacity .18s;display:flex;align-items:center;justify-content:center;z-index:3;}
+.rc-ov2{position:absolute;inset:0;background:rgba(0,0,0,.35);opacity:0;transition:opacity .18s;display:flex;align-items:center;justify-content:center;z-index:3;}
 .rc:hover .rc-ov2{opacity:1;}
 .rc-rbadge{position:absolute;top:6px;right:6px;font-size:.55rem;font-weight:700;letter-spacing:.7px;text-transform:uppercase;padding:3px 7px;border-radius:100px;z-index:4;}
 /* equalizer */
@@ -627,48 +630,48 @@ const TV=[
 ═══════════════════════════════════════════════════ */
 const RADIOS=[
   // K-POP / KOREA
-  {id:'r01',name:'Big B Radio – K-pop',gen:'kpop',f:'🇰🇷',country:'Korea',stream:'https://antennepod-downloads.fra1.digitaloceanspaces.com/kpop',fallback:'https://radio.garden/listen/big-b-radio-kpop/sjd0AW7d',icon:'🎵',grad:'linear-gradient(135deg,#1a0533,#7b1fa2)',badge:'K-pop 24/7',bc:'bp'},
-  {id:'r02',name:'K-Pop Highway Radio',gen:'kpop',f:'🇰🇷',country:'Korea',stream:'https://kpophighwayradio.out.airtime.pro/kpophighwayradio_a',fallback:'https://kpophighwayradio.com/',icon:'🎤',grad:'linear-gradient(135deg,#003366,#1565c0)',badge:'K-pop',bc:'bp'},
-  {id:'r03',name:'K-Pop Love Radio',gen:'kpop',f:'🇰🇷',country:'Korea',stream:'https://cast2.my-control-panel.com/proxy/kpoplov/stream',fallback:'https://radio.garden/listen/k-pop-love/9tGT1iHF',icon:'🌸',grad:'linear-gradient(135deg,#4a0072,#c62828)',badge:'K-pop',bc:'bp'},
-  {id:'r04',name:'KBS World Radio',gen:'kpop',f:'🇰🇷',country:'Korea',stream:'https://worldradio2.kbs.co.kr/world2_128.m3u8',fallback:'https://world.kbs.co.kr',icon:'📻',grad:'linear-gradient(135deg,#1a237e,#0d47a1)',badge:'Korea',bc:'bp'},
+  {id:'r01',yt:'JVocS7Yftw8',name:'Big B Radio – K-pop',gen:'kpop',f:'🇰🇷',country:'Korea',stream:'https://antennepod-downloads.fra1.digitaloceanspaces.com/kpop',fallback:'https://radio.garden/listen/big-b-radio-kpop/sjd0AW7d',icon:'🎵',grad:'linear-gradient(135deg,#1a0533,#7b1fa2)',badge:'K-pop 24/7',bc:'bp'},
+  {id:'r02',yt:'nMEBVADq4tQ',name:'K-Pop Highway Radio',gen:'kpop',f:'🇰🇷',country:'Korea',stream:'https://kpophighwayradio.out.airtime.pro/kpophighwayradio_a',fallback:'https://kpophighwayradio.com/',icon:'🎤',grad:'linear-gradient(135deg,#003366,#1565c0)',badge:'K-pop',bc:'bp'},
+  {id:'r03',yt:'XGr6ynEZgJk',name:'K-Pop Love Radio',gen:'kpop',f:'🇰🇷',country:'Korea',stream:'https://cast2.my-control-panel.com/proxy/kpoplov/stream',fallback:'https://radio.garden/listen/k-pop-love/9tGT1iHF',icon:'🌸',grad:'linear-gradient(135deg,#4a0072,#c62828)',badge:'K-pop',bc:'bp'},
+  {id:'r04',yt:'f0lYkdA-Gtw',name:'KBS World Radio',gen:'kpop',f:'🇰🇷',country:'Korea',stream:'https://worldradio2.kbs.co.kr/world2_128.m3u8',fallback:'https://world.kbs.co.kr',icon:'📻',grad:'linear-gradient(135deg,#1a237e,#0d47a1)',badge:'Korea',bc:'bp'},
   // LOFI
-  {id:'r05',name:'Lofi Girl Radio',gen:'lofi',f:'☁️',country:'Francia',stream:'https://lofigirl.out.airtime.pro/lofigirl_a',fallback:'https://www.youtube.com/watch?v=jfKfPfyJRdk',icon:'📚',grad:'linear-gradient(135deg,#1a2a1a,#2e7d32)',badge:'Lo-Fi 24/7',bc:'be'},
-  {id:'r06',name:'Chillhop Radio',gen:'lofi',f:'🦔',country:'Holanda',stream:'https://stream.chillhop.com/chillhop128',fallback:'https://www.youtube.com/watch?v=7NOSDKb0HlU',icon:'🦔',grad:'linear-gradient(135deg,#1a1a2e,#0d3b6e)',badge:'Chillhop',bc:'bnp'},
-  {id:'r07',name:'SomaFM – Drone Zone',gen:'lofi',f:'🌙',country:'USA',stream:'https://ice1.somafm.com/dronezone-256-mp3',fallback:'https://somafm.com',icon:'🌙',grad:'linear-gradient(135deg,#0a0010,#1a0030)',badge:'Ambient',bc:'bm'},
-  {id:'r08',name:'SomaFM – GrooveSalad',gen:'lofi',f:'🥗',country:'USA',stream:'https://ice1.somafm.com/groovesalad-256-mp3',fallback:'https://somafm.com',icon:'🎧',grad:'linear-gradient(135deg,#1a2810,#2e7d32)',badge:'Chill',bc:'be'},
+  {id:'r05',yt:'jfKfPfyJRdk',name:'Lofi Girl Radio',gen:'lofi',f:'☁️',country:'Francia',stream:'https://lofigirl.out.airtime.pro/lofigirl_a',fallback:'https://www.youtube.com/watch?v=jfKfPfyJRdk',icon:'📚',grad:'linear-gradient(135deg,#1a2a1a,#2e7d32)',badge:'Lo-Fi 24/7',bc:'be'},
+  {id:'r06',yt:'7NOSDKb0HlU',name:'Chillhop Radio',gen:'lofi',f:'🦔',country:'Holanda',stream:'https://stream.chillhop.com/chillhop128',fallback:'https://www.youtube.com/watch?v=7NOSDKb0HlU',icon:'🦔',grad:'linear-gradient(135deg,#1a1a2e,#0d3b6e)',badge:'Chillhop',bc:'bnp'},
+  {id:'r07',yt:'4xDzrJKXOOY',name:'SomaFM – Drone Zone',gen:'lofi',f:'🌙',country:'USA',stream:'https://ice1.somafm.com/dronezone-256-mp3',fallback:'https://somafm.com',icon:'🌙',grad:'linear-gradient(135deg,#0a0010,#1a0030)',badge:'Ambient',bc:'bm'},
+  {id:'r08',yt:'5yx6BWlEVcY',name:'SomaFM – GrooveSalad',gen:'lofi',f:'🥗',country:'USA',stream:'https://ice1.somafm.com/groovesalad-256-mp3',fallback:'https://somafm.com',icon:'🎧',grad:'linear-gradient(135deg,#1a2810,#2e7d32)',badge:'Chill',bc:'be'},
   // JAZZ
-  {id:'r09',name:'Jazz 24 KNKX',gen:'jazz',f:'🎷',country:'USA',stream:'https://live.wostreaming.net/knkx-jazz-aac',fallback:'https://www.jazz24.org',icon:'🎷',grad:'linear-gradient(135deg,#1a0a00,#8b3a00)',badge:'Jazz 24/7',bc:'bc'},
-  {id:'r10',name:'SomaFM – Left Coast 70s',gen:'jazz',f:'🎹',country:'USA',stream:'https://ice1.somafm.com/lush-256-mp3',fallback:'https://somafm.com',icon:'🎹',grad:'linear-gradient(135deg,#0a0a1a,#283593)',badge:'Jazz',bc:'bnp'},
-  {id:'r11',name:'Jazz Radio Paris',gen:'jazz',f:'🗼',country:'Francia',stream:'https://jazzradio.ice.infomaniak.ch/jazzradio-high.mp3',fallback:'https://www.jazzradio.fr',icon:'🗼',grad:'linear-gradient(135deg,#1a000a,#880e4f)',badge:'Jazz',bc:'br'},
+  {id:'r09',yt:'Dx5qFachd3A',name:'Jazz 24 KNKX',gen:'jazz',f:'🎷',country:'USA',stream:'https://live.wostreaming.net/knkx-jazz-aac',fallback:'https://www.jazz24.org',icon:'🎷',grad:'linear-gradient(135deg,#1a0a00,#8b3a00)',badge:'Jazz 24/7',bc:'bc'},
+  {id:'r10',yt:'kgx4WGK0oNU',name:'SomaFM – Left Coast 70s',gen:'jazz',f:'🎹',country:'USA',stream:'https://ice1.somafm.com/lush-256-mp3',fallback:'https://somafm.com',icon:'🎹',grad:'linear-gradient(135deg,#0a0a1a,#283593)',badge:'Jazz',bc:'bnp'},
+  {id:'r11',yt:'HBPtQVzRZUY',name:'Jazz Radio Paris',gen:'jazz',f:'🗼',country:'Francia',stream:'https://jazzradio.ice.infomaniak.ch/jazzradio-high.mp3',fallback:'https://www.jazzradio.fr',icon:'🗼',grad:'linear-gradient(135deg,#1a000a,#880e4f)',badge:'Jazz',bc:'br'},
   // LATINA
-  {id:'r12',name:'Cali Estereo Salsa',gen:'latina',f:'🌶️',country:'Colombia',stream:'https://streaming.cali-estereo.com/salsa',fallback:'https://www.cali-estereo.com',icon:'🌶️',grad:'linear-gradient(135deg,#3d0000,#c62828)',badge:'Salsa 24/7',bc:'br'},
-  {id:'r13',name:'Radio Taquilla – Salsa',gen:'latina',f:'🎺',country:'LATAM',stream:'https://stream.radiotaquilla.com:7610/stream',fallback:'https://radiotaquilla.com',icon:'🎺',grad:'linear-gradient(135deg,#1a1000,#e65100)',badge:'Salsa',bc:'bd'},
-  {id:'r14',name:'Rádio Nova Brasil FM',gen:'latina',f:'🇧🇷',country:'Brasil',stream:'https://13093.live.streamtheworld.com/RADINOVABR_SC',fallback:'https://novabrasilfm.com.br',icon:'🌴',grad:'linear-gradient(135deg,#003300,#1b5e20)',badge:'Bossa',bc:'be'},
-  {id:'r15',name:'Los 40 México',gen:'latina',f:'🇲🇽',country:'México',stream:'https://icecast.los40.com.mx/stream',fallback:'https://los40.com.mx',icon:'🎤',grad:'linear-gradient(135deg,#1a0010,#6a1b9a)',badge:'Pop Latino',bc:'bm'},
+  {id:'r12',yt:'cb12KmMMDJA',name:'Cali Estereo Salsa',gen:'latina',f:'🌶️',country:'Colombia',stream:'https://streaming.cali-estereo.com/salsa',fallback:'https://www.cali-estereo.com',icon:'🌶️',grad:'linear-gradient(135deg,#3d0000,#c62828)',badge:'Salsa 24/7',bc:'br'},
+  {id:'r13',yt:'8lE40EZxBNg',name:'Radio Taquilla – Salsa',gen:'latina',f:'🎺',country:'LATAM',stream:'https://stream.radiotaquilla.com:7610/stream',fallback:'https://radiotaquilla.com',icon:'🎺',grad:'linear-gradient(135deg,#1a1000,#e65100)',badge:'Salsa',bc:'bd'},
+  {id:'r14',yt:'fTGaKF3YUKI',name:'Rádio Nova Brasil FM',gen:'latina',f:'🇧🇷',country:'Brasil',stream:'https://13093.live.streamtheworld.com/RADINOVABR_SC',fallback:'https://novabrasilfm.com.br',icon:'🌴',grad:'linear-gradient(135deg,#003300,#1b5e20)',badge:'Bossa',bc:'be'},
+  {id:'r15',yt:'OFGBnbhKJEA',name:'Los 40 México',gen:'latina',f:'🇲🇽',country:'México',stream:'https://icecast.los40.com.mx/stream',fallback:'https://los40.com.mx',icon:'🎤',grad:'linear-gradient(135deg,#1a0010,#6a1b9a)',badge:'Pop Latino',bc:'bm'},
   // CLÁSICA
-  {id:'r16',name:'Radio WQXR Classical',gen:'clasica',f:'🎻',country:'USA',stream:'https://stream.wqxr.org/wqxr',fallback:'https://www.wqxr.org',icon:'🎻',grad:'linear-gradient(135deg,#0d0a00,#4e342e)',badge:'Clásica',bc:'bc'},
-  {id:'r17',name:'SomaFM – Secret Agent',gen:'clasica',f:'🎭',country:'USA',stream:'https://ice1.somafm.com/secretagent-256-mp3',fallback:'https://somafm.com',icon:'🎭',grad:'linear-gradient(135deg,#1a0020,#4a148c)',badge:'Clásica',bc:'bm'},
-  {id:'r18',name:'Radio Clásica RNE',gen:'clasica',f:'🇪🇸',country:'España',stream:'https://rtveliveamd.rtve.es/rtveradio/radio3/live.m3u8',fallback:'https://www.rtve.es/radio/radio-clasica/',icon:'🎹',grad:'linear-gradient(135deg,#0a0a0a,#37474f)',badge:'Ópera',bc:'bn'},
+  {id:'r16',yt:'_pKFWWz2JCw',name:'Radio WQXR Classical',gen:'clasica',f:'🎻',country:'USA',stream:'https://stream.wqxr.org/wqxr',fallback:'https://www.wqxr.org',icon:'🎻',grad:'linear-gradient(135deg,#0d0a00,#4e342e)',badge:'Clásica',bc:'bc'},
+  {id:'r17',yt:'4Tr0otuiQuU',name:'SomaFM – Secret Agent',gen:'clasica',f:'🎭',country:'USA',stream:'https://ice1.somafm.com/secretagent-256-mp3',fallback:'https://somafm.com',icon:'🎭',grad:'linear-gradient(135deg,#1a0020,#4a148c)',badge:'Clásica',bc:'bm'},
+  {id:'r18',yt:'H5_NKEWB8WA',name:'Radio Clásica RNE',gen:'clasica',f:'🇪🇸',country:'España',stream:'https://rtveliveamd.rtve.es/rtveradio/radio3/live.m3u8',fallback:'https://www.rtve.es/radio/radio-clasica/',icon:'🎹',grad:'linear-gradient(135deg,#0a0a0a,#37474f)',badge:'Ópera',bc:'bn'},
   // ELECTRÓNICA
-  {id:'r19',name:'SomaFM – Dubstep',gen:'electronica',f:'⚡',country:'USA',stream:'https://ice1.somafm.com/dubstep-256-mp3',fallback:'https://somafm.com',icon:'⚡',grad:'linear-gradient(135deg,#000a1a,#1565c0)',badge:'Dubstep',bc:'bn'},
-  {id:'r20',name:'SomaFM – Synphaera',gen:'electronica',f:'🌆',country:'USA',stream:'https://ice6.somafm.com/synphaera-256-mp3',fallback:'https://somafm.com',icon:'🌆',grad:'linear-gradient(135deg,#1a0033,#7b1fa2)',badge:'Synth',bc:'bm'},
-  {id:'r21',name:'SomaFM – Underground 80s',gen:'electronica',f:'📼',country:'USA',stream:'https://ice1.somafm.com/u80s-256-mp3',fallback:'https://somafm.com',icon:'📼',grad:'linear-gradient(135deg,#1a1000,#827717)',badge:'Retro',bc:'bc'},
+  {id:'r19',yt:'5yx6BWlEVcY',name:'SomaFM – Dubstep',gen:'electronica',f:'⚡',country:'USA',stream:'https://ice1.somafm.com/dubstep-256-mp3',fallback:'https://somafm.com',icon:'⚡',grad:'linear-gradient(135deg,#000a1a,#1565c0)',badge:'Dubstep',bc:'bn'},
+  {id:'r20',yt:'4xDzrJKXOOY',name:'SomaFM – Synphaera',gen:'electronica',f:'🌆',country:'USA',stream:'https://ice6.somafm.com/synphaera-256-mp3',fallback:'https://somafm.com',icon:'🌆',grad:'linear-gradient(135deg,#1a0033,#7b1fa2)',badge:'Synth',bc:'bm'},
+  {id:'r21',yt:'GLeDer5RDHY',name:'SomaFM – Underground 80s',gen:'electronica',f:'📼',country:'USA',stream:'https://ice1.somafm.com/u80s-256-mp3',fallback:'https://somafm.com',icon:'📼',grad:'linear-gradient(135deg,#1a1000,#827717)',badge:'Retro',bc:'bc'},
   // REGGAE
-  {id:'r22',name:'SomaFM – Reggae Rec',gen:'reggae',f:'🌿',country:'Jamaica',stream:'https://ice6.somafm.com/reggae-256-mp3',fallback:'https://somafm.com',icon:'🌿',grad:'linear-gradient(135deg,#001a00,#1b5e20)',badge:'Reggae',bc:'be'},
-  {id:'r23',name:'Reggaeton Radio CL',gen:'reggae',f:'🔥',country:'Chile',stream:'https://stream.radiosss.com/reggaeton',fallback:'https://radio.garden',icon:'🔥',grad:'linear-gradient(135deg,#1a0000,#b71c1c)',badge:'Reggaetón',bc:'br'},
+  {id:'r22',yt:'yXE2LiWbBEo',name:'SomaFM – Reggae Rec',gen:'reggae',f:'🌿',country:'Jamaica',stream:'https://ice6.somafm.com/reggae-256-mp3',fallback:'https://somafm.com',icon:'🌿',grad:'linear-gradient(135deg,#001a00,#1b5e20)',badge:'Reggae',bc:'be'},
+  {id:'r23',yt:'ArKbAx1K-2U',name:'Reggaeton Radio CL',gen:'reggae',f:'🔥',country:'Chile',stream:'https://stream.radiosss.com/reggaeton',fallback:'https://radio.garden',icon:'🔥',grad:'linear-gradient(135deg,#1a0000,#b71c1c)',badge:'Reggaetón',bc:'br'},
   // ROCK
-  {id:'r24',name:'SomaFM – Rock A Rolla',gen:'rock',f:'🎸',country:'USA',stream:'https://ice6.somafm.com/rockarollor-256-mp3',fallback:'https://somafm.com',icon:'🎸',grad:'linear-gradient(135deg,#0a0000,#4a148c)',badge:'Rock',bc:'bm'},
-  {id:'r25',name:'SomaFM – Metal',gen:'rock',f:'🤘',country:'USA',stream:'https://ice2.somafm.com/metal-256-mp3',fallback:'https://somafm.com',icon:'🤘',grad:'linear-gradient(135deg,#000000,#212121)',badge:'Metal',bc:'bn'},
+  {id:'r24',yt:'F9TUekTuAC4',name:'SomaFM – Rock A Rolla',gen:'rock',f:'🎸',country:'USA',stream:'https://ice6.somafm.com/rockarollor-256-mp3',fallback:'https://somafm.com',icon:'🎸',grad:'linear-gradient(135deg,#0a0000,#4a148c)',badge:'Rock',bc:'bm'},
+  {id:'r25',yt:'w_Ma8oQLmSM',name:'SomaFM – Metal',gen:'rock',f:'🤘',country:'USA',stream:'https://ice2.somafm.com/metal-256-mp3',fallback:'https://somafm.com',icon:'🤘',grad:'linear-gradient(135deg,#000000,#212121)',badge:'Metal',bc:'bn'},
   // AMBIENTAL
-  {id:'r26',name:'SomaFM – Deep Space One',gen:'ambiental',f:'🌊',country:'USA',stream:'https://ice1.somafm.com/deepspaceone-256-mp3',fallback:'https://somafm.com',icon:'🌊',grad:'linear-gradient(135deg,#001a2a,#01579b)',badge:'Ambiental',bc:'bnp'},
-  {id:'r27',name:'SomaFM – Sonic Universe',gen:'ambiental',f:'🌌',country:'USA',stream:'https://ice1.somafm.com/sonicuniverse-256-mp3',fallback:'https://somafm.com',icon:'🌌',grad:'linear-gradient(135deg,#0a0010,#1a237e)',badge:'Cosmos',bc:'bm'},
+  {id:'r26',yt:'DDM95xFHIfg',name:'SomaFM – Deep Space One',gen:'ambiental',f:'🌊',country:'USA',stream:'https://ice1.somafm.com/deepspaceone-256-mp3',fallback:'https://somafm.com',icon:'🌊',grad:'linear-gradient(135deg,#001a2a,#01579b)',badge:'Ambiental',bc:'bnp'},
+  {id:'r27',yt:'21X5lGlDOfg',name:'SomaFM – Sonic Universe',gen:'ambiental',f:'🌌',country:'USA',stream:'https://ice1.somafm.com/sonicuniverse-256-mp3',fallback:'https://somafm.com',icon:'🌌',grad:'linear-gradient(135deg,#0a0010,#1a237e)',badge:'Cosmos',bc:'bm'},
   // POP
-  {id:'r28',name:'SomaFM – PopTron',gen:'pop',f:'🎤',country:'USA',stream:'https://ice1.somafm.com/poptron-256-mp3',fallback:'https://somafm.com',icon:'🎤',grad:'linear-gradient(135deg,#1a001a,#880e4f)',badge:'Indie Pop',bc:'bp'},
-  {id:'r29',name:'Radio Disney Chile',gen:'pop',f:'🇨🇱',country:'Chile',stream:'https://playerservices.streamtheworld.com/api/livestream-redirect/RDISMXAAC.aac',fallback:'https://www.radiodisney.cl',icon:'✨',grad:'linear-gradient(135deg,#1a1a00,#f57f17)',badge:'Pop',bc:'bc'},
+  {id:'r28',yt:'nMEBVADq4tQ',name:'SomaFM – PopTron',gen:'pop',f:'🎤',country:'USA',stream:'https://ice1.somafm.com/poptron-256-mp3',fallback:'https://somafm.com',icon:'🎤',grad:'linear-gradient(135deg,#1a001a,#880e4f)',badge:'Indie Pop',bc:'bp'},
+  {id:'r29',yt:'XGr6ynEZgJk',name:'Radio Disney Chile',gen:'pop',f:'🇨🇱',country:'Chile',stream:'https://playerservices.streamtheworld.com/api/livestream-redirect/RDISMXAAC.aac',fallback:'https://www.radiodisney.cl',icon:'✨',grad:'linear-gradient(135deg,#1a1a00,#f57f17)',badge:'Pop',bc:'bc'},
   // MUNDIAL
-  {id:'r30',name:'BBC World Service',gen:'mundial',f:'🇬🇧',country:'UK',stream:'https://stream.live.vc.bbcmedia.co.uk/bbc_world_service',fallback:'https://www.bbc.co.uk/worldservice',icon:'📡',grad:'linear-gradient(135deg,#0a0014,#1a237e)',badge:'Global',bc:'bn'},
-  {id:'r31',name:'RFI Español',gen:'mundial',f:'🇫🇷',country:'Francia',stream:'https://live02.rfi.fr/rfi-esp-32k',fallback:'https://www.rfi.fr/es/',icon:'🌍',grad:'linear-gradient(135deg,#1a0020,#880e4f)',badge:'Noticias',bc:'br'},
-  {id:'r32',name:'Deutsche Welle Radio',gen:'mundial',f:'🇩🇪',country:'Alemania',stream:'https://rafa-icecast.dw.com/dw/spanish-32k.mp3',fallback:'https://www.dw.com/es/',icon:'📻',grad:'linear-gradient(135deg,#001000,#1b5e20)',badge:'Noticias',bc:'be'},
+  {id:'r30',yt:'w_Ma8oQLmSM',name:'BBC World Service',gen:'mundial',f:'🇬🇧',country:'UK',stream:'https://stream.live.vc.bbcmedia.co.uk/bbc_world_service',fallback:'https://www.bbc.co.uk/worldservice',icon:'📡',grad:'linear-gradient(135deg,#0a0014,#1a237e)',badge:'Global',bc:'bn'},
+  {id:'r31',yt:'Y4APeL1WNSM',name:'RFI Español',gen:'mundial',f:'🇫🇷',country:'Francia',stream:'https://live02.rfi.fr/rfi-esp-32k',fallback:'https://www.rfi.fr/es/',icon:'🌍',grad:'linear-gradient(135deg,#1a0020,#880e4f)',badge:'Noticias',bc:'br'},
+  {id:'r32',yt:'NG5jLBDrm8Y',name:'Deutsche Welle Radio',gen:'mundial',f:'🇩🇪',country:'Alemania',stream:'https://rafa-icecast.dw.com/dw/spanish-32k.mp3',fallback:'https://www.dw.com/es/',icon:'📻',grad:'linear-gradient(135deg,#001000,#1b5e20)',badge:'Noticias',bc:'be'},
 ];
 
 /* ═══════════════════════════════════════════════════
@@ -818,10 +821,13 @@ function ccHTML(c,i){
 }
 
 function rcHTML(r,i){
+  const thumb=r.yt?`https://img.youtube.com/vi/${r.yt}/maxresdefault.jpg`:'';
   return `<div class="rc" tabindex="0" role="button" data-rid="${r.id}" style="animation-delay:${i*.03}s" aria-label="Escuchar ${r.name}"
     onclick="playRadio(RADIOS.find(x=>x.id==='${r.id}'))"
     onkeydown="if(event.key==='Enter')this.click()">
     <div class="rc-vis" style="background:${r.grad||'#1a1a2e'}">
+      ${thumb?`<img class="rc-img" src="${thumb}" alt="${r.name}" loading="lazy" onerror="this.style.display='none'"/>`:''}
+      <div class="rc-overlay"></div>
       <div class="rc-ico">${r.icon||'🎵'}</div>
       <div class="rc-ov2"><div class="prbtn"><svg width="15" height="15" viewBox="0 0 24 24" fill="#000"><polygon points="5,3 19,12 5,21"/></svg></div></div>
       ${r.badge?`<span class="rc-rbadge ${r.bc||'bm'}">${r.badge}</span>`:''}
