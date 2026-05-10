@@ -1,20 +1,18 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-
-<!-- ADS -->
-<script>(function(s){s.dataset.zone='10990355',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
-<script>(function(s){s.dataset.zone='10990338',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
-<script>(function(s){s.dataset.zone='10990320',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 
 <title>CineLibre 3D</title>
 
+<!-- THREE -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+
+<!-- HLS -->
 <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 
+<!-- FONTS -->
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
@@ -40,19 +38,29 @@ color:white;
 position:fixed;
 inset:0;
 background:#000;
-z-index:999999;
+z-index:99999;
 display:flex;
 flex-direction:column;
 align-items:center;
 justify-content:center;
 }
 
+.logo{
+font-family:'Bebas Neue',sans-serif;
+font-size:2rem;
+letter-spacing:2px;
+}
+
+.logo span{
+color:var(--gold);
+}
+
 .bar{
 width:220px;
 height:4px;
 background:#222;
-overflow:hidden;
 margin-top:20px;
+overflow:hidden;
 }
 
 #fill{
@@ -78,16 +86,6 @@ padding:0 20px;
 z-index:1000;
 }
 
-.logo{
-font-family:'Bebas Neue',sans-serif;
-font-size:2rem;
-letter-spacing:2px;
-}
-
-.logo span{
-color:var(--gold);
-}
-
 /* GLOBE */
 
 #globe-container{
@@ -104,7 +102,7 @@ right:0;
 top:0;
 width:360px;
 height:100%;
-background:rgba(10,10,20,0.98);
+background:rgba(10,10,20,0.97);
 transform:translateX(100%);
 transition:0.4s;
 z-index:99999;
@@ -118,23 +116,22 @@ border-left:1px solid var(--gold);
 transform:translateX(0);
 }
 
-.channel-item{
+.channel{
 display:flex;
 align-items:center;
-gap:15px;
-padding:12px;
+gap:12px;
+padding:10px;
 margin-bottom:10px;
 background:rgba(255,255,255,0.05);
 border-radius:10px;
 cursor:pointer;
-transition:0.3s;
 }
 
-.channel-item:hover{
+.channel:hover{
 background:rgba(212,168,67,0.2);
 }
 
-.channel-item img{
+.channel img{
 width:45px;
 height:45px;
 object-fit:contain;
@@ -151,8 +148,8 @@ background:#000;
 display:none;
 align-items:center;
 justify-content:center;
+z-index:999999;
 flex-direction:column;
-z-index:9999999;
 }
 
 video{
@@ -170,6 +167,8 @@ right:20px;
 font-size:30px;
 cursor:pointer;
 }
+
+/* BUTTON */
 
 button{
 width:100%;
@@ -197,7 +196,9 @@ CINE<span>LIBRE</span> 3D
 <div id="fill"></div>
 </div>
 
-<p id="msg">CONECTANDO IPTV...</p>
+<p id="msg">
+CONECTANDO...
+</p>
 
 </div>
 
@@ -224,7 +225,7 @@ color:#d4a843;
 PAÍS
 </h2>
 
-<div id="channel-list"></div>
+<div id="channels"></div>
 
 <button onclick="
 document
@@ -261,13 +262,13 @@ BASE
 
 const DB = {};
 
-let hls = null;
+let hls;
 
 const video =
 document.getElementById('video');
 
 /* =========================
-PAÍSES
+COUNTRIES
 ========================= */
 
 const countries = {
@@ -284,14 +285,12 @@ fr:{n:'Francia',lat:48,lng:2},
 de:{n:'Alemania',lat:52,lng:13},
 it:{n:'Italia',lat:41,lng:12},
 jp:{n:'Japón',lat:35,lng:139},
-kr:{n:'Corea',lat:37,lng:126},
-uk:{n:'Reino Unido',lat:51,lng:0},
-ca:{n:'Canadá',lat:45,lng:-75}
+kr:{n:'Corea',lat:37,lng:126}
 
 };
 
 /* =========================
-CARGAR M3U
+LOAD API
 ========================= */
 
 async function loadIPTV(){
@@ -301,78 +300,56 @@ try{
 const fill =
 document.getElementById('fill');
 
-const response =
+const channels =
 await fetch(
-'https://raw.githubusercontent.com/iptv-org/iptv/master/index.m3u'
-);
+'https://iptv-org.github.io/api/channels.json'
+)
+.then(r=>r.json());
 
-const text =
-await response.text();
+fill.style.width='50%';
+
+const streams =
+await fetch(
+'https://iptv-org.github.io/api/streams.json'
+)
+.then(r=>r.json());
 
 fill.style.width='100%';
 
-const lines =
-text.split('\n');
+const map = {};
 
-let current = {};
+/* STREAMS */
 
-lines.forEach(line=>{
-
-/* INFO */
+streams.forEach(s=>{
 
 if(
-line.startsWith('#EXTINF')
+s.channel &&
+s.url &&
+!map[s.channel]
 ){
 
-const name =
-line.split(',').pop()?.trim();
-
-const logo =
-line.match(
-/tvg-logo="(.*?)"/
-);
-
-const country =
-line.match(
-/tvg-country="(.*?)"/
-);
-
-current = {
-
-name:name || 'Canal',
-
-logo:logo
-? logo[1]
-: '',
-
-country:country
-? country[1].toLowerCase()
-: ''
-
-};
+map[s.channel]=s.url;
 
 }
 
-/* URL */
+});
 
-else if(
-line.startsWith('http')
-){
+/* CREATE DB */
 
-current.url =
-line.trim();
+channels.forEach(c=>{
 
 if(
-countries[current.country]
+countries[c.country] &&
+map[c.id]
 ){
 
 if(
-!DB[current.country]
+!DB[c.country]
 ){
 
-DB[current.country]={
+DB[c.country]={
 
-...countries[current.country],
+...countries[c.country],
 
 list:[]
 
@@ -380,19 +357,19 @@ list:[]
 
 }
 
-DB[current.country]
+DB[c.country]
 .list
 .push({
 
-name:current.name,
+name:c.name,
 
-logo:current.logo,
+logo:c.logo ||
 
-url:current.url
+'https://via.placeholder.com/45',
+
+url:map[c.id]
 
 });
-
-}
 
 }
 
@@ -416,7 +393,7 @@ console.error(e);
 
 document
 .getElementById('msg')
-.innerText='ERROR IPTV';
+.innerText='ERROR IPTV API';
 
 }
 
@@ -459,8 +436,7 @@ window.innerHeight
 );
 
 container.appendChild(
-renderer.domElement
-);
+renderer.domElement);
 
 /* EARTH */
 
@@ -502,7 +478,7 @@ light.position.set(5,3,5);
 
 scene.add(light);
 
-/* POINTS */
+/* DOTS */
 
 const points =
 new THREE.Group();
@@ -558,8 +534,8 @@ scene.add(points);
 /* MOVE */
 
 let dragging=false;
-let prevX=0;
-let prevY=0;
+let px=0;
+let py=0;
 
 container.addEventListener(
 'mousedown',
@@ -567,8 +543,8 @@ e=>{
 
 dragging=true;
 
-prevX=e.clientX;
-prevY=e.clientY;
+px=e.clientX;
+py=e.clientY;
 
 }
 );
@@ -584,26 +560,17 @@ e=>{
 
 if(!dragging)return;
 
-const dx=
-e.clientX-prevX;
+const dx=e.clientX-px;
+const dy=e.clientY-py;
 
-const dy=
-e.clientY-prevY;
+earth.rotation.y+=dx*0.005;
+points.rotation.y+=dx*0.005;
 
-earth.rotation.y+=
-dx*0.005;
+earth.rotation.x+=dy*0.003;
+points.rotation.x+=dy*0.003;
 
-points.rotation.y+=
-dx*0.005;
-
-earth.rotation.x+=
-dy*0.003;
-
-points.rotation.x+=
-dy*0.003;
-
-prevX=e.clientX;
-prevY=e.clientY;
+px=e.clientX;
+py=e.clientY;
 
 }
 );
@@ -616,11 +583,8 @@ e=>{
 
 dragging=true;
 
-prevX=
-e.touches[0].clientX;
-
-prevY=
-e.touches[0].clientY;
+px=e.touches[0].clientX;
+py=e.touches[0].clientY;
 
 }
 );
@@ -632,30 +596,19 @@ e=>{
 if(!dragging)return;
 
 const dx=
-e.touches[0].clientX
--prevX;
+e.touches[0].clientX-px;
 
 const dy=
-e.touches[0].clientY
--prevY;
+e.touches[0].clientY-py;
 
-earth.rotation.y+=
-dx*0.005;
+earth.rotation.y+=dx*0.005;
+points.rotation.y+=dx*0.005;
 
-points.rotation.y+=
-dx*0.005;
+earth.rotation.x+=dy*0.003;
+points.rotation.x+=dy*0.003;
 
-earth.rotation.x+=
-dy*0.003;
-
-points.rotation.x+=
-dy*0.003;
-
-prevX=
-e.touches[0].clientX;
-
-prevY=
-e.touches[0].clientY;
+px=e.touches[0].clientX;
+py=e.touches[0].clientY;
 
 }
 );
@@ -731,7 +684,7 @@ animate();
 }
 
 /* =========================
-PANEL
+OPEN PANEL
 ========================= */
 
 function openPanel(data){
@@ -742,37 +695,34 @@ document
 )
 .innerText=data.n;
 
-const list =
+const box =
 document.getElementById(
-'channel-list'
+'channels'
 );
 
-list.innerHTML='';
+box.innerHTML='';
 
 data.list
 .slice(0,50)
 .forEach(ch=>{
 
-const item =
+const div =
 document.createElement('div');
 
-item.className='channel-item';
+div.className='channel';
 
-item.innerHTML=`
+div.innerHTML=`
 
-<img src="
-${ch.logo ||
-'https://via.placeholder.com/45'}
-">
+<img src="${ch.logo}">
 
 <span>${ch.name}</span>
 
 `;
 
-item.onclick=
+div.onclick=
 ()=>play(ch.url);
 
-list.appendChild(item);
+box.appendChild(div);
 
 });
 
@@ -783,7 +733,7 @@ document
 }
 
 /* =========================
-PLAYER
+PLAY
 ========================= */
 
 function play(url){
@@ -814,7 +764,6 @@ Hls.Events.MANIFEST_PARSED,
 }else{
 
 video.src=url;
-
 video.play();
 
 }
@@ -850,11 +799,6 @@ START
 loadIPTV();
 
 </script>
-
-<!-- ADS -->
-<script>(function(s){s.dataset.zone='10989923',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
-
-<script>(function(s){s.dataset.zone='10989927',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
 
 </body>
 </html>
