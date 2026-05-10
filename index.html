@@ -1,573 +1,317 @@
 <script>(function(s){s.dataset.zone='10990355',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
 <script>(function(s){s.dataset.zone='10990338',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
 <script>(function(s){s.dataset.zone='10990320',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>CineLibre 3D - TV Mundial</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>CineLibre 3D - IPTV Global</title>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;700&display=swap" rel="stylesheet">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #d4a843;
+            --bg: #050508;
+            --red: #ff3d57;
+            --fh: 'Bebas Neue', sans-serif;
+            --fb: 'DM Sans', sans-serif;
+        }
 
-<style>
-:root{
---gold:#d4a843;
---gold2:#f0c96a;
---bg:#050510;
---bg2:#0d1020;
---txt:#ffffff;
---mut:#8a8a95;
---red:#ff3d57;
---fh:'Bebas Neue',sans-serif;
---fb:'DM Sans',sans-serif;
-}
+        body, html { 
+            margin: 0; padding: 0; width: 100%; height: 100%; 
+            background: var(--bg); color: white; font-family: var(--fb); 
+            overflow: hidden; touch-action: none;
+        }
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
--webkit-tap-highlight-color: transparent;
-}
+        /* Pantalla de Carga */
+        #loader {
+            position: fixed; inset: 0; background: #000; z-index: 9999;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            transition: 0.8s;
+        }
+        .loader-bar { width: 200px; height: 3px; background: rgba(255,255,255,0.1); margin-top: 20px; border-radius: 5px; overflow: hidden; }
+        .loader-fill { height: 100%; width: 0%; background: var(--gold); transition: 0.3s; }
 
-html,body{
-width:100%;
-height:100%;
-overflow:hidden;
-background:#000;
-font-family:var(--fb);
-color:white;
-touch-action:none;
-}
+        /* Interfaz de Usuario */
+        header {
+            position: fixed; top: 0; width: 100%; height: 70px;
+            background: rgba(0,0,0,0.7); backdrop-filter: blur(15px);
+            display: flex; align-items: center; padding: 0 20px; z-index: 100;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .logo { font-family: var(--fh); font-size: 1.8rem; letter-spacing: 2px; }
+        .logo span { color: var(--gold); }
 
-/* LOADER */
-#loader{
-position:fixed;
-inset:0;
-z-index:99999;
-background:#000;
-display:flex;
-flex-direction:column;
-align-items:center;
-justify-content:center;
-transition:1s;
-}
+        #canvas-container { position: fixed; inset: 0; cursor: grab; }
 
-.loading-logo{
-font-family:var(--fh);
-font-size:4rem;
-letter-spacing:4px;
-text-shadow: 0 0 20px rgba(212,168,67,0.5);
-}
+        /* Panel Lateral de Canales */
+        #panel {
+            position: fixed; right: 0; top: 0; width: 360px; height: 100%;
+            background: rgba(10,10,18,0.98); backdrop-filter: blur(25px);
+            transform: translateX(100%); transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 200; overflow-y: auto; border-left: 1px solid rgba(212,168,67,0.3);
+            box-shadow: -10px 0 30px rgba(0,0,0,0.8);
+        }
+        #panel.active { transform: translateX(0); }
+        .panel-header { padding: 30px 20px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .panel-title { font-family: var(--fh); font-size: 2.2rem; color: var(--gold); }
 
-.loading-logo span{
-color:var(--gold);
-}
+        .channel-card {
+            display: flex; align-items: center; gap: 15px; padding: 12px;
+            margin: 10px 15px; background: rgba(255,255,255,0.03);
+            border-radius: 12px; cursor: pointer; transition: 0.3s;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        .channel-card:hover { background: rgba(212,168,67,0.1); border-color: var(--gold); transform: scale(1.02); }
+        .channel-card img { width: 50px; height: 50px; object-fit: contain; border-radius: 8px; background: #000; }
+        .channel-name { font-weight: bold; font-size: 0.95rem; }
 
-.bar{
-width:240px;
-height:4px;
-background:rgba(255,255,255,.1);
-margin-top:20px;
-border-radius:30px;
-overflow:hidden;
-}
+        /* Reproductor */
+        #player-overlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.95);
+            display: none; z-index: 1000; flex-direction: column; align-items: center; justify-content: center;
+        }
+        .video-box { width: 95%; max-width: 1000px; aspect-ratio: 16/9; background: #000; border: 1px solid var(--gold); position: relative; }
+        video { width: 100%; height: 100%; }
+        .close-player { position: absolute; top: -50px; right: 0; color: white; font-size: 30px; cursor: pointer; font-family: sans-serif; }
 
-.fill{
-height:100%;
-width:0%;
-background:linear-gradient(90deg,var(--gold),var(--gold2));
-transition:1s;
-}
-
-/* CANVAS */
-#globe-container{
-position:fixed;
-inset:0;
-cursor:grab;
-background: radial-gradient(circle at center,#141430 0%,#000000 80%);
-}
-
-/* HEADER */
-header{
-position:fixed;
-top:0;
-left:0;
-right:0;
-height:70px;
-z-index:1000;
-display:flex;
-align-items:center;
-gap:20px;
-padding:0 20px;
-background:rgba(0,0,0,.7);
-backdrop-filter:blur(15px);
-border-bottom:1px solid rgba(255,255,255,.1);
-}
-
-.logo{
-font-family:var(--fh);
-font-size:1.8rem;
-letter-spacing:2px;
-white-space: nowrap;
-}
-
-.logo span{
-color:var(--gold);
-}
-
-.search{
-flex:1;
-position:relative;
-max-width:450px;
-}
-
-.search input{
-width:100%;
-padding:10px 15px 10px 40px;
-border-radius:12px;
-border:1px solid rgba(255,255,255,0.1);
-outline:none;
-background:rgba(255,255,255,.05);
-color:white;
-font-size:0.9rem;
-transition: 0.3s;
-}
-
-.search input:focus{
-border-color: var(--gold);
-background:rgba(255,255,255,.1);
-}
-
-.search-icon{
-position:absolute;
-left:14px;
-top:50%;
-transform:translateY(-50%);
-opacity: 0.6;
-}
-
-/* PANEL */
-#panel{
-position:fixed;
-top:70px;
-right:0;
-bottom:0;
-width:380px;
-background:rgba(5,5,15,0.95);
-backdrop-filter:blur(20px);
-border-left:1px solid rgba(255,255,255,.1);
-transform:translateX(100%);
-transition: cubic-bezier(0.4, 0, 0.2, 1) 0.5s;
-overflow-y:auto;
-z-index:999;
-box-shadow: -10px 0 30px rgba(0,0,0,0.5);
-}
-
-#panel.open{
-transform:translateX(0);
-}
-
-.panel-head{
-padding:25px;
-border-bottom:1px solid rgba(255,255,255,.08);
-background: linear-gradient(to bottom, rgba(212,168,67,0.05), transparent);
-}
-
-.panel-title{
-font-family:var(--fh);
-font-size:2.5rem;
-color:var(--gold);
-line-height: 1;
-}
-
-.panel-sub{
-color:var(--mut);
-margin-top:8px;
-font-size: 0.9rem;
-text-transform: uppercase;
-letter-spacing: 1px;
-}
-
-/* CARDS */
-.channels{
-padding:15px;
-}
-
-.card{
-background:rgba(255,255,255,.03);
-border:1px solid rgba(255,255,255,.08);
-border-radius:15px;
-overflow:hidden;
-margin-bottom:18px;
-cursor:pointer;
-transition:.3s ease;
-animation:fadeUp .4s ease backwards;
-}
-
-.card:hover{
-transform:scale(1.02);
-border-color:var(--gold);
-background:rgba(255,255,255,.06);
-}
-
-@keyframes fadeUp{
-from{ opacity:0; transform:translateY(20px); }
-to{ opacity:1; transform:translateY(0); }
-}
-
-.card img{
-width:100%;
-height:180px;
-object-fit:cover;
-display:block;
-border-bottom: 1px solid rgba(255,255,255,0.05);
-}
-
-.card-body{
-padding:15px;
-}
-
-.card-title{
-font-weight:600;
-font-size:1.1rem;
-margin-bottom:4px;
-color: #fff;
-}
-
-.card-cat{
-font-size:.8rem;
-color:var(--gold);
-font-weight: 500;
-}
-
-/* LIVE TAG */
-.live{
-position:absolute;
-top:12px;
-left:12px;
-background:var(--red);
-padding:4px 10px;
-border-radius:6px;
-font-size:.65rem;
-font-weight:bold;
-z-index: 2;
-box-shadow: 0 4px 10px rgba(255,61,87,0.3);
-animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-0% { opacity: 1; }
-50% { opacity: 0.7; }
-100% { opacity: 1; }
-}
-
-/* PLAYER */
-#player{
-position:fixed;
-inset:0;
-background:rgba(0,0,0,0.98);
-display:none;
-align-items:center;
-justify-content:center;
-z-index:99999;
-}
-
-#player.active{
-display:flex;
-}
-
-.player-box{
-width:95%;
-max-width:1000px;
-background:#000;
-border-radius:15px;
-overflow:hidden;
-border:1px solid rgba(255,255,255,.1);
-box-shadow: 0 20px 50px rgba(0,0,0,1);
-}
-
-.player-top{
-height:60px;
-display:flex;
-align-items:center;
-justify-content:space-between;
-padding:0 20px;
-background:#0a0a0a;
-}
-
-.player-top h2{
-font-family:var(--fh);
-font-size:1.8rem;
-color:var(--gold);
-}
-
-.close{
-background:rgba(255,255,255,0.1);
-border:none;
-color:white;
-width: 35px;
-height: 35px;
-border-radius: 50%;
-display: flex;
-align-items: center;
-justify-content: center;
-cursor:pointer;
-transition: 0.3s;
-}
-
-.close:hover{
-background: var(--red);
-}
-
-.video{
-position:relative;
-width:100%;
-aspect-ratio:16/9;
-background:#000;
-}
-
-@media(max-width:800px){
-#panel{
-width:100%;
-top:auto;
-height:65%;
-bottom:0;
-border-radius:30px 30px 0 0;
-border-top: 1px solid rgba(212,168,67,0.3);
-transform:translateY(100%);
-}
-#panel.open{ transform:translateY(0); }
-header{ height: 60px; padding: 0 15px; }
-.logo{ font-size: 1.4rem; }
-}
-</style>
+        @media (max-width: 800px) {
+            #panel { width: 100%; top: auto; height: 70%; bottom: 0; border-radius: 25px 25px 0 0; transform: translateY(100%); }
+            #panel.active { transform: translateY(0); }
+        }
+    </style>
 </head>
 <body>
 
 <div id="loader">
-<div class="loading-logo">CINE<span>LIBRE</span></div>
-<div class="bar"><div class="fill" id="fill"></div></div>
-<p id="loaderStatus" style="margin-top:15px; font-size:0.7rem; letter-spacing:2px; color:var(--mut)">SINCRONIZANDO CON IPTV-ORG...</p>
+    <div class="logo">CINE<span>LIBRE</span> 3D</div>
+    <div class="loader-bar"><div id="fill" class="loader-fill"></div></div>
+    <p id="load-status" style="font-size: 0.7rem; margin-top: 10px; opacity: 0.5; letter-spacing: 1px;">CONECTANDO CON SATÉLITES IPTV...</p>
 </div>
-
-<div id="globe-container"></div>
 
 <header>
-<div class="logo">CINE<span>LIBRE</span> 3D</div>
-<div class="search">
-<div class="search-icon">🔎</div>
-<input type="text" id="searchInput" placeholder="Buscar en base de datos global...">
-</div>
+    <div class="logo">CINE<span>LIBRE</span> 3D</div>
 </header>
 
+<div id="canvas-container"></div>
+
 <div id="panel">
-<div class="panel-head">
-<div class="panel-title" id="countryTitle">MUNDO</div>
-<div class="panel-sub" id="countryInfo">Base de datos satelital</div>
-</div>
-<div class="channels" id="channels"></div>
-</div>
-
-<div id="player">
-<div class="player-box">
-<div class="player-top">
-<h2 id="playerTitle">Canal</h2>
-<button class="close" onclick="closePlayer()">✕</button>
-</div>
-<div class="video">
-<iframe id="iframe" allowfullscreen allow="autoplay; encrypted-media" style="width:100%; height:100%; border:none;"></iframe>
-</div>
-</div>
+    <div class="panel-header">
+        <div id="country-name" class="panel-title">MUNDO</div>
+        <p style="font-size: 0.8rem; opacity: 0.6;">CANALES IPTV EN VIVO</p>
+    </div>
+    <div id="channel-list"></div>
+    <button onclick="document.getElementById('panel').classList.remove('active')" style="width: 80%; margin: 20px 10%; padding: 12px; background: transparent; border: 1px solid var(--gold); color: var(--gold); border-radius: 8px; cursor: pointer;">VOLVER AL GLOBO</button>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+<div id="player-overlay">
+    <div class="video-box">
+        <div class="close-player" onclick="stopVideo()">✕ CERRAR</div>
+        <video id="mainVideo" controls autoplay></video>
+    </div>
+</div>
 
 <script>
-/* DATA & IPTV INTEGRATION */
-let MASTER_DB = []; // Se llenará con iptv-org
+let IPTV_DATABASE = {};
+const video = document.getElementById('mainVideo');
+const hls = new Hls();
 
-async function loadIPTVData() {
+// COORDENADAS MUNDIALES (Añade más países siguiendo este formato)
+const COUNTRIES = {
+    'cl': { n: 'Chile', lat: -33.45, lng: -70.67 },
+    'ar': { n: 'Argentina', lat: -34.60, lng: -58.38 },
+    'mx': { n: 'México', lat: 19.43, lng: -99.13 },
+    'es': { n: 'España', lat: 40.41, lng: -3.70 },
+    'us': { n: 'Estados Unidos', lat: 38.89, lng: -77.03 },
+    'br': { n: 'Brasil', lat: -15.78, lng: -47.93 },
+    'co': { n: 'Colombia', lat: 4.71, lng: -74.07 },
+    'pe': { n: 'Perú', lat: -12.04, lng: -77.04 },
+    'fr': { n: 'Francia', lat: 48.85, lng: 2.35 },
+    'it': { n: 'Italia', lat: 41.90, lng: 12.49 }
+};
+
+// 1. CARGAR DATOS DE IPTV-ORG (API DE GITHUB)
+async function fetchIPTV() {
     try {
-        // Conexión a la API de IPTV-ORG (Filtramos por canales con logos y streams de YT)
-        const response = await fetch('https://iptv-org.github.io/api/channels.json');
-        const data = await response.json();
-        
-        // Mapeo básico para tu globo (puedes añadir más coordenadas)
-        const coords = {
-            "CL": {lat:-33.45, lng:-70.67, name:"Chile"},
-            "AR": {lat:-34.60, lng:-58.38, name:"Argentina"},
-            "MX": {lat:19.43, lng:-99.13, name:"México"},
-            "ES": {lat:40.41, lng:-3.70, name:"España"},
-            "US": {lat:38.89, lng:-77.03, name:"Estados Unidos"},
-            "BR": {lat:-15.78, lng:-47.93, name:"Brasil"},
-            "CO": {lat:4.71, lng:-74.07, name:"Colombia"}
-        };
+        const fill = document.getElementById('fill');
+        fill.style.width = '30%';
 
-        // Procesamos los canales para que encajen en tu sistema
-        const processed = {};
-        
-        data.slice(0, 5000).forEach(chan => {
-            if(coords[chan.country] && chan.logo) {
-                if(!processed[chan.country]) {
-                    processed[chan.country] = {
-                        country: coords[chan.country].name,
-                        lat: coords[chan.country].lat,
-                        lng: coords[chan.country].lng,
-                        channels: []
-                    };
+        // Cargamos canales (nombres y logos)
+        const resChan = await fetch('https://iptv-org.github.io/api/channels.json');
+        const channels = await resChan.json();
+        fill.style.width = '60%';
+
+        // Cargamos streams (enlaces de video)
+        const resStream = await fetch('https://iptv-org.github.io/api/streams.json');
+        const streams = await resStream.json();
+        fill.style.width = '90%';
+
+        // Mapeamos los streams por ID para acceso rápido
+        const streamMap = {};
+        streams.forEach(s => { if(!streamMap[s.channel]) streamMap[s.channel] = s.url; });
+
+        // Unimos todo en nuestra base de datos local
+        channels.forEach(ch => {
+            if(COUNTRIES[ch.country] && streamMap[ch.id]) {
+                const code = ch.country;
+                if(!IPTV_DATABASE[code]) {
+                    IPTV_DATABASE[code] = { ...COUNTRIES[code], list: [] };
                 }
-                // Añadimos canales (Solo los que tengan links que detectemos como compatibles)
-                processed[chan.country].channels.push({
-                    name: chan.name,
-                    yt: chan.id, // Usamos su ID para buscar luego o si ya tienes links
-                    logo: chan.logo,
-                    cat: chan.categories[0] || "General"
+                IPTV_DATABASE[code].list.push({
+                    name: ch.name,
+                    logo: ch.logo,
+                    url: streamMap[ch.id]
                 });
             }
         });
 
-        MASTER_DB = Object.values(processed);
-        createDots(MASTER_DB);
-        document.getElementById('loaderStatus').textContent = "CONEXIÓN EXITOSA";
-    } catch (e) {
-        console.error("Error cargando IPTV-ORG", e);
+        initScene();
+        fill.style.width = '100%';
+        setTimeout(() => document.getElementById('loader').style.opacity = '0', 500);
+        setTimeout(() => document.getElementById('loader').style.display = 'none', 1300);
+
+    } catch (error) {
+        document.getElementById('load-status').textContent = "ERROR: RECARGA LA PÁGINA";
+        console.error(error);
     }
 }
 
-/* THREE JS ENGINE */
-const container = document.getElementById('globe-container');
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(45, window.innerWidth/window.innerHeight, 0.1, 1000);
-const renderer = new THREE.WebGLRenderer({ antialias:true, alpha:true });
-renderer.setSize(window.innerWidth, window.innerHeight);
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-container.appendChild(renderer.domElement);
-camera.position.z = window.innerWidth < 800 ? 4 : 3;
+// 2. MOTOR 3D (THREE.JS)
+function initScene() {
+    const container = document.getElementById('canvas-container');
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(window.devicePixelRatio);
+    container.appendChild(renderer.domElement);
 
-// ESTRELLAS
-const starGeometry = new THREE.BufferGeometry();
-const starMaterial = new THREE.PointsMaterial({color: 0xffffff, size: 0.015});
-const starVertices = [];
-for(let i=0; i<5000; i++){ starVertices.push((Math.random()-0.5)*10, (Math.random()-0.5)*10, (Math.random()-0.5)*10); }
-starGeometry.setAttribute('position', new THREE.Float32BufferAttribute(starVertices, 3));
-scene.add(new THREE.Points(starGeometry, starMaterial));
+    camera.position.z = window.innerWidth < 800 ? 4 : 3;
 
-const globe = new THREE.Mesh(
-    new THREE.SphereGeometry(1, 64, 64),
-    new THREE.MeshPhongMaterial({
-        map: new THREE.TextureLoader().load('https://unpkg.com/three-globe/example/img/earth-night.jpg'),
-        shininess: 15
-    })
-);
-scene.add(globe);
+    // Globo
+    const earth = new THREE.Mesh(
+        new THREE.SphereGeometry(1, 64, 64),
+        new THREE.MeshPhongMaterial({
+            map: new THREE.TextureLoader().load('https://unpkg.com/three-globe/example/img/earth-night.jpg'),
+            shininess: 5
+        })
+    );
+    scene.add(earth);
 
-const atmosphere = new THREE.Mesh(
-    new THREE.SphereGeometry(1.05, 64, 64),
-    new THREE.MeshBasicMaterial({ color: 0x4da6ff, transparent: true, opacity: 0.1, side: THREE.BackSide })
-);
-scene.add(atmosphere);
-scene.add(new THREE.AmbientLight(0xffffff, 0.8));
-const light = new THREE.PointLight(0xffffff, 1.5);
-light.position.set(5, 3, 5);
-scene.add(light);
+    // Iluminación
+    const light = new THREE.PointLight(0xffffff, 1.5);
+    light.position.set(5, 3, 5);
+    scene.add(light);
+    scene.add(new THREE.AmbientLight(0xffffff, 0.5));
 
-const dotsGroup = new THREE.Group();
-scene.add(dotsGroup);
-
-function createDots(data){
-    dotsGroup.clear();
-    data.forEach(country => {
-        const phi = (90 - country.lat) * (Math.PI / 180);
-        const theta = (country.lng + 180) * (Math.PI / 180);
+    // Puntos Dorados (Países)
+    const pointsGroup = new THREE.Group();
+    Object.values(IPTV_DATABASE).forEach(data => {
+        const phi = (90 - data.lat) * (Math.PI / 180);
+        const theta = (data.lng + 180) * (Math.PI / 180);
+        
         const dot = new THREE.Mesh(
-            new THREE.SphereGeometry(0.025, 12, 12),
+            new THREE.SphereGeometry(0.03, 16, 16),
             new THREE.MeshBasicMaterial({ color: 0xd4a843 })
         );
-        dot.position.set(-1.02 * Math.sin(phi) * Math.cos(theta), 1.02 * Math.cos(phi), 1.02 * Math.sin(phi) * Math.sin(theta));
-        dot.userData = country;
-        dotsGroup.add(dot);
+        
+        dot.position.set(
+            -1.02 * Math.sin(phi) * Math.cos(theta),
+            1.02 * Math.cos(phi),
+            1.02 * Math.sin(phi) * Math.sin(theta)
+        );
+        
+        dot.userData = data;
+        pointsGroup.add(dot);
+    });
+    scene.add(pointsGroup);
+
+    // Estrellas
+    const starsGeom = new THREE.BufferGeometry();
+    const starsMat = new THREE.PointsMaterial({ color: 0xffffff, size: 0.01 });
+    const starsPos = [];
+    for(let i=0; i<3000; i++) { starsPos.push((Math.random()-0.5)*10, (Math.random()-0.5)*10, (Math.random()-0.5)*10); }
+    starsGeom.setAttribute('position', new THREE.Float32BufferAttribute(starsPos, 3));
+    scene.add(new THREE.Points(starsGeom, starsMat));
+
+    // Animación
+    let rotY = Math.PI;
+    function animate() {
+        requestAnimationFrame(animate);
+        rotY += 0.0015;
+        earth.rotation.y = rotY;
+        pointsGroup.rotation.y = rotY;
+        renderer.render(scene, camera);
+    }
+    animate();
+
+    // Evento Click
+    window.addEventListener('mousedown', (e) => {
+        const mouse = new THREE.Vector2((e.clientX/window.innerWidth)*2-1, -(e.clientY/window.innerHeight)*2+1);
+        const raycaster = new THREE.Raycaster();
+        raycaster.setFromCamera(mouse, camera);
+        const intersects = raycaster.intersectObjects(pointsGroup.children);
+        if(intersects.length > 0) openPanel(intersects[0].object.userData);
+    });
+
+    window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
     });
 }
 
-/* CONTROLES */
-let dragging = false, targetRotationX = 0, targetRotationY = Math.PI, autoRotate = true;
-const startAction = () => { dragging = true; autoRotate = false; };
-const endAction = () => dragging = false;
-const moveAction = (deltaX, deltaY) => { if(dragging){ targetRotationY += deltaX * 0.005; targetRotationX += deltaY * 0.005; } };
-
-container.addEventListener('mousedown', startAction);
-window.addEventListener('mouseup', endAction);
-window.addEventListener('mousemove', e => moveAction(e.movementX, e.movementY));
-
-container.addEventListener('click', e => {
-    const rect = renderer.domElement.getBoundingClientRect();
-    const mouse = new THREE.Vector2(((e.clientX - rect.left) / rect.width) * 2 - 1, -((e.clientY - rect.top) / rect.height) * 2 + 1);
-    const raycaster = new THREE.Raycaster();
-    raycaster.setFromCamera(mouse, camera);
-    const intersects = raycaster.intersectObjects(dotsGroup.children);
-    if(intersects.length > 0) openPanel(intersects[0].object.userData);
-});
-
-function openPanel(data){
-    document.getElementById('panel').classList.add('open');
-    document.getElementById('countryTitle').textContent = data.country.toUpperCase();
-    document.getElementById('countryInfo').textContent = data.channels.length + ' CANALES IPTV DISPONIBLES';
+// 3. LOGICA DE INTERFAZ
+function openPanel(data) {
+    const panel = document.getElementById('panel');
+    const list = document.getElementById('channel-list');
+    document.getElementById('country-name').textContent = data.n.toUpperCase();
     
-    const channels = document.getElementById('channels');
-    channels.innerHTML = '';
-    data.channels.slice(0, 50).forEach((ch, i) => { // Limitamos a 50 por país por rendimiento
-        channels.innerHTML += `
-            <div class="card" style="animation-delay: ${i*0.05}s" onclick="play('${ch.name}','${ch.yt}')">
-                <div style="position:relative">
-                    <div class="live">IPTV</div>
-                    <img src="${ch.logo}" onerror="this.src='https://via.placeholder.com/180x100?text=TV'">
-                </div>
-                <div class="card-body">
-                    <div class="card-title">${ch.name}</div>
-                    <div class="card-cat">${ch.cat}</div>
-                </div>
-            </div>`;
+    list.innerHTML = '';
+    panel.classList.add('active');
+
+    data.list.slice(0, 40).forEach(ch => {
+        const card = document.createElement('div');
+        card.className = 'channel-card';
+        card.innerHTML = `
+            <img src="${ch.logo}" onerror="this.src='https://via.placeholder.com/50?text=TV'">
+            <div class="channel-name">${ch.name}</div>
+        `;
+        card.onclick = () => playVideo(ch.url);
+        list.appendChild(card);
     });
 }
 
-function play(name, id){
-    document.getElementById('player').classList.add('active');
-    document.getElementById('playerTitle').textContent = name;
-    // Intentamos cargar el stream (Nota: Aquí podrías integrar hls.js para streams .m3u8)
-    document.getElementById('iframe').src = `https://www.youtube.com/embed/live_stream?channel=${id}&autoplay=1`;
+function playVideo(url) {
+    const overlay = document.getElementById('player-overlay');
+    overlay.style.display = 'flex';
+
+    if (Hls.isSupported()) {
+        hls.loadSource(url);
+        hls.attachMedia(video);
+        hls.on(Hls.Events.MANIFEST_PARSED, () => video.play());
+    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+        video.src = url;
+        video.play();
+    }
 }
 
-function closePlayer(){
-    document.getElementById('player').classList.remove('active');
-    setTimeout(()=> document.getElementById('iframe').src = '', 400);
+function stopVideo() {
+    document.getElementById('player-overlay').style.display = 'none';
+    video.pause();
+    hls.detachMedia();
 }
 
-/* ANIMATION & LOADER EXIT */
-loadIPTVData();
-setTimeout(()=> document.getElementById('fill').style.width='100%', 100);
-setTimeout(()=> {
-    document.getElementById('loader').style.opacity='0';
-    setTimeout(()=> document.getElementById('loader').style.display='none', 1000);
-}, 3000);
-
-function animate(){
-    requestAnimationFrame(animate);
-    if(autoRotate) targetRotationY += 0.0015;
-    globe.rotation.x = THREE.MathUtils.lerp(globe.rotation.x, targetRotationX, 0.08);
-    globe.rotation.y = THREE.MathUtils.lerp(globe.rotation.y, targetRotationY, 0.08);
-    atmosphere.rotation.copy(globe.rotation);
-    dotsGroup.rotation.copy(globe.rotation);
-    renderer.render(scene, camera);
-}
-animate();
-
-window.addEventListener('resize', () => {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-});
+// Iniciar proceso
+fetchIPTV();
 </script>
 
 <script> (function(s){ s.dataset.zone='10989923', s.src='https://n6wxm.com/vignette.min.js' })([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script'))) </script>
