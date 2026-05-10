@@ -1,60 +1,74 @@
 <script>
+
 let DB = {};
-let hls;
+let hls = null;
 const video = document.getElementById('video');
 
 // ==========================
-// PARSER M3U DIRECTO
+// API IPTV-ORG REAL
 // ==========================
-async function loadM3U() {
+async function startAPI() {
+
     try {
+
         const fill = document.getElementById('fill');
 
-        const res = await fetch('https://iptv-org.github.io/iptv/index.m3u');
-        const text = await res.text();
+        // CHANNELS
+        const chRes = await fetch(
+            'https://iptv-org.github.io/api/channels.json'
+        );
+
+        const channels = await chRes.json();
 
         fill.style.width = '40%';
 
-        const lines = text.split('\n');
+        // STREAMS
+        const stRes = await fetch(
+            'https://iptv-org.github.io/api/streams.json'
+        );
 
-        let current = {};
+        const streams = await stRes.json();
 
-        lines.forEach(line => {
+        fill.style.width = '80%';
 
-            if (line.startsWith('#EXTINF')) {
+        // MAPA STREAMS
+        const streamMap = {};
 
-                const countryMatch = line.match(/tvg-country="(.*?)"/);
-                const logoMatch = line.match(/tvg-logo="(.*?)"/);
-                const nameMatch = line.split(',').pop();
+        streams.forEach(s => {
 
-                current = {
-                    country: countryMatch ? countryMatch[1].toLowerCase() : '',
-                    logo: logoMatch ? logoMatch[1] : '',
-                    name: nameMatch || 'Canal'
-                };
+            if (
+                s.channel &&
+                s.url &&
+                !streamMap[s.channel]
+            ) {
+                streamMap[s.channel] = s.url;
+            }
 
-            } else if (
-                line.startsWith('http')
+        });
+
+        // CREAR BASE
+        channels.forEach(c => {
+
+            if (
+                COORDS[c.country] &&
+                streamMap[c.id]
             ) {
 
-                current.url = line.trim();
+                if (!DB[c.country]) {
 
-                if (COORDS[current.country]) {
-
-                    if (!DB[current.country]) {
-                        DB[current.country] = {
-                            ...COORDS[current.country],
-                            list: []
-                        };
-                    }
-
-                    DB[current.country].list.push({
-                        name: current.name,
-                        logo: current.logo,
-                        url: current.url
-                    });
+                    DB[c.country] = {
+                        ...COORDS[c.country],
+                        list: []
+                    };
                 }
+
+                DB[c.country].list.push({
+                    name: c.name,
+                    logo: c.logo,
+                    url: streamMap[c.id]
+                });
             }
+
         });
 
         fill.style.width = '100%';
@@ -63,12 +77,15 @@ async function loadM3U() {
 
         setTimeout(() => {
             document.getElementById('loader').style.display = 'none';
-        }, 700);
+        }, 500);
 
-    } catch(e) {
-        console.error(e);
+    } catch(err) {
+
+        console.error(err);
+
         document.getElementById('load-msg').innerText =
-            "ERROR CARGANDO IPTV";
+            'ERROR API IPTV';
+
     }
 }
 
@@ -76,18 +93,25 @@ async function loadM3U() {
 // PAÍSES
 // ==========================
 const COORDS = {
-    'cl': { n: 'Chile', lat: -33.45, lng: -70.67 },
-    'ar': { n: 'Argentina', lat: -34.60, lng: -58.38 },
-    'mx': { n: 'México', lat: 19.43, lng: -99.13 },
-    'es': { n: 'España', lat: 40.41, lng: -3.70 },
-    'co': { n: 'Colombia', lat: 4.71, lng: -74.07 },
-    'us': { n: 'EE.UU', lat: 38.89, lng: -77.03 }
+
+    'cl': { n:'Chile', lat:-33.45, lng:-70.67 },
+    'ar': { n:'Argentina', lat:-34.60, lng:-58.38 },
+    'mx': { n:'México', lat:19.43, lng:-99.13 },
+    'es': { n:'España', lat:40.41, lng:-3.70 },
+    'co': { n:'Colombia', lat:4.71, lng:-74.07 },
+    'us': { n:'EE.UU', lat:38.89, lng:-77.03 },
+    'br': { n:'Brasil', lat:-15.79, lng:-47.88 },
+    'pe': { n:'Perú', lat:-12.04, lng:-77.03 }
+
 };
 
 // ==========================
-// GLOBO 3D MOVIBLE
+// MUNDO 3D
 // ==========================
 function init3D() {
+
+    const container =
+        document.getElementById('globe-container');
 
     const scene = new THREE.Scene();
 
@@ -98,28 +122,37 @@ function init3D() {
         1000
     );
 
+    camera.position.z = 3;
+
     const renderer = new THREE.WebGLRenderer({
         antialias: true,
         alpha: true
     });
 
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setSize(
+        window.innerWidth,
+        window.innerHeight
+    );
 
-    document
-        .getElementById('globe-container')
-        .appendChild(renderer.domElement);
+    container.appendChild(renderer.domElement);
 
     // ======================
     // TIERRA
     // ======================
 
+    const texture =
+        new THREE.TextureLoader().load(
+            'https://unpkg.com/three-globe/example/img/earth-night.jpg'
+        );
+
     const earth = new THREE.Mesh(
-        new THREE.SphereGeometry(1, 64, 64),
+
+        new THREE.SphereGeometry(1,64,64),
+
         new THREE.MeshPhongMaterial({
-            map: new THREE.TextureLoader().load(
-                'https://unpkg.com/three-globe/example/img/earth-night.jpg'
-            )
+            map: texture
         })
+
     );
 
     scene.add(earth);
@@ -128,15 +161,16 @@ function init3D() {
     // LUCES
     // ======================
 
-    scene.add(new THREE.AmbientLight(0xffffff, 1.3));
+    scene.add(
+        new THREE.AmbientLight(0xffffff,1.2)
+    );
 
-    const light = new THREE.DirectionalLight(0xffffff, 1);
+    const dirLight =
+        new THREE.DirectionalLight(0xffffff,1);
 
-    light.position.set(5, 3, 5);
+    dirLight.position.set(5,3,5);
 
-    scene.add(light);
-
-    camera.position.z = 3;
+    scene.add(dirLight);
 
     // ======================
     // PUNTOS
@@ -146,115 +180,153 @@ function init3D() {
 
     Object.values(DB).forEach(p => {
 
-        const phi = (90 - p.lat) * (Math.PI / 180);
-        const theta = (p.lng + 180) * (Math.PI / 180);
+        const phi =
+            (90 - p.lat) * (Math.PI / 180);
+
+        const theta =
+            (p.lng + 180) * (Math.PI / 180);
 
         const dot = new THREE.Mesh(
-            new THREE.SphereGeometry(0.03, 12, 12),
+
+            new THREE.SphereGeometry(0.03,12,12),
+
             new THREE.MeshBasicMaterial({
-                color: 0xd4a843
+                color:0xd4a843
             })
+
         );
 
         dot.position.set(
+
             -1.02 * Math.sin(phi) * Math.cos(theta),
+
             1.02 * Math.cos(phi),
+
             1.02 * Math.sin(phi) * Math.sin(theta)
+
         );
 
         dot.userData = p;
 
         points.add(dot);
+
     });
 
     scene.add(points);
 
     // ======================
-    // DRAG MUNDO
+    // CONTROL DRAG
     // ======================
 
-    let isDragging = false;
+    let dragging = false;
     let prevX = 0;
     let prevY = 0;
 
-    renderer.domElement.addEventListener('mousedown', e => {
-        isDragging = true;
+    container.addEventListener('mousedown', e => {
+
+        dragging = true;
+
         prevX = e.clientX;
         prevY = e.clientY;
+
     });
 
     window.addEventListener('mouseup', () => {
-        isDragging = false;
+
+        dragging = false;
+
     });
 
     window.addEventListener('mousemove', e => {
 
-        if (!isDragging) return;
+        if (!dragging) return;
 
-        const deltaX = e.clientX - prevX;
-        const deltaY = e.clientY - prevY;
+        const dx = e.clientX - prevX;
+        const dy = e.clientY - prevY;
 
-        earth.rotation.y += deltaX * 0.005;
-        points.rotation.y += deltaX * 0.005;
+        earth.rotation.y += dx * 0.005;
+        points.rotation.y += dx * 0.005;
 
-        earth.rotation.x += deltaY * 0.002;
-        points.rotation.x += deltaY * 0.002;
+        earth.rotation.x += dy * 0.003;
+        points.rotation.x += dy * 0.003;
 
         prevX = e.clientX;
         prevY = e.clientY;
+
     });
 
     // ======================
     // TOUCH MOBILE
     // ======================
 
-    renderer.domElement.addEventListener('touchstart', e => {
-        isDragging = true;
+    container.addEventListener('touchstart', e => {
+
+        dragging = true;
+
         prevX = e.touches[0].clientX;
         prevY = e.touches[0].clientY;
+
     });
 
-    renderer.domElement.addEventListener('touchmove', e => {
+    container.addEventListener('touchmove', e => {
 
-        if (!isDragging) return;
+        if (!dragging) return;
 
-        const deltaX = e.touches[0].clientX - prevX;
-        const deltaY = e.touches[0].clientY - prevY;
+        const dx =
+            e.touches[0].clientX - prevX;
 
-        earth.rotation.y += deltaX * 0.005;
-        points.rotation.y += deltaX * 0.005;
+        const dy =
+            e.touches[0].clientY - prevY;
 
-        earth.rotation.x += deltaY * 0.002;
-        points.rotation.x += deltaY * 0.002;
+        earth.rotation.y += dx * 0.005;
+        points.rotation.y += dx * 0.005;
+
+        earth.rotation.x += dy * 0.003;
+        points.rotation.x += dy * 0.003;
 
         prevX = e.touches[0].clientX;
         prevY = e.touches[0].clientY;
+
     });
 
     window.addEventListener('touchend', () => {
-        isDragging = false;
+
+        dragging = false;
+
     });
 
     // ======================
-    // CLICK CANALES
+    // CLICK PUNTOS
     // ======================
 
     window.addEventListener('click', e => {
 
-        const m = new THREE.Vector2(
+        const mouse = new THREE.Vector2(
+
             (e.clientX / window.innerWidth) * 2 - 1,
+
             -(e.clientY / window.innerHeight) * 2 + 1
+
         );
 
-        const ray = new THREE.Raycaster();
+        const raycaster =
+            new THREE.Raycaster();
 
-        ray.setFromCamera(m, camera);
+        raycaster.setFromCamera(mouse,camera);
 
-        const hit = ray.intersectObjects(points.children);
+        const intersects =
+            raycaster.intersectObjects(
+                points.children
+            );
 
-        if (hit.length > 0) {
-            openPanel(hit[0].object.userData);
+        if (intersects.length > 0) {
+
+            openPanel(
+                intersects[0].object.userData
+            );
+
         }
+
     });
 
     // ======================
@@ -264,7 +336,8 @@ function init3D() {
     window.addEventListener('resize', () => {
 
         camera.aspect =
-            window.innerWidth / window.innerHeight;
+            window.innerWidth /
+            window.innerHeight;
 
         camera.updateProjectionMatrix();
 
@@ -272,23 +345,26 @@ function init3D() {
             window.innerWidth,
             window.innerHeight
         );
+
     });
 
     // ======================
-    // ANIMACIÓN
+    // LOOP
     // ======================
 
-    function anim() {
+    function animate() {
 
-        requestAnimationFrame(anim);
+        requestAnimationFrame(animate);
 
         earth.rotation.y += 0.0008;
         points.rotation.y += 0.0008;
 
-        renderer.render(scene, camera);
+        renderer.render(scene,camera);
+
     }
 
-    anim();
+    animate();
+
 }
 
 // ==========================
@@ -296,32 +372,43 @@ function init3D() {
 // ==========================
 function openPanel(data) {
 
-    document.getElementById('country-name').innerText = data.n;
+    document.getElementById(
+        'country-name'
+    ).innerText = data.n;
 
-    const list = document.getElementById('channel-list');
+    const list =
+        document.getElementById(
+            'channel-list'
+        );
 
     list.innerHTML = '';
 
-    data.list.slice(0, 40).forEach(ch => {
+    data.list.slice(0,40).forEach(ch => {
 
-        const item = document.createElement('div');
+        const item =
+            document.createElement('div');
 
         item.className = 'channel-item';
 
         item.innerHTML = `
+
             <img src="${ch.logo}"
             onerror="this.src='https://via.placeholder.com/45'">
+
             <span>${ch.name}</span>
+
         `;
 
         item.onclick = () => play(ch.url);
 
         list.appendChild(item);
+
     });
 
     document
         .getElementById('panel')
         .classList.add('active');
+
 }
 
 // ==========================
@@ -329,7 +416,9 @@ function openPanel(data) {
 // ==========================
 function play(url) {
 
-    document.getElementById('player').style.display = 'flex';
+    document.getElementById(
+        'player'
+    ).style.display = 'flex';
 
     if (hls) {
         hls.destroy();
@@ -337,33 +426,35 @@ function play(url) {
 
     if (Hls.isSupported()) {
 
-        hls = new Hls({
-            enableWorker: true,
-            lowLatencyMode: true
-        });
+        hls = new Hls();
 
         hls.loadSource(url);
 
         hls.attachMedia(video);
 
-        hls.on(Hls.Events.MANIFEST_PARSED, () => {
-            video.play();
-        });
+        hls.on(
+            Hls.Events.MANIFEST_PARSED,
+            () => video.play()
+        );
 
     } else {
 
         video.src = url;
 
         video.play();
+
     }
+
 }
 
 // ==========================
-// CERRAR PLAYER
+// CLOSE
 // ==========================
 function closePlayer() {
 
-    document.getElementById('player').style.display = 'none';
+    document.getElementById(
+        'player'
+    ).style.display = 'none';
 
     video.pause();
 
@@ -372,11 +463,12 @@ function closePlayer() {
     if (hls) {
         hls.destroy();
     }
+
 }
 
 // ==========================
 // START
 // ==========================
-loadM3U();
+startAPI();
 
 </script>
