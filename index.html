@@ -7,311 +7,182 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>CineLibre 3D - IPTV Global</title>
+    <title>CineLibre 3D - Conexión Satelital</title>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;700&display=swap" rel="stylesheet">
 
     <style>
-        :root {
-            --gold: #d4a843;
-            --bg: #050508;
-            --red: #ff3d57;
-            --fh: 'Bebas Neue', sans-serif;
-            --fb: 'DM Sans', sans-serif;
-        }
+        :root { --gold: #d4a843; --bg: #050508; --fh: 'Bebas Neue', sans-serif; --fb: 'DM Sans', sans-serif; }
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; background: var(--bg); color: white; font-family: var(--fb); overflow: hidden; }
+        
+        #loader { position: fixed; inset: 0; background: #000; z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .bar { width: 200px; height: 3px; background: rgba(255,255,255,0.1); margin-top: 20px; }
+        #fill { height: 100%; width: 0%; background: var(--gold); transition: 0.5s; }
 
-        body, html { 
-            margin: 0; padding: 0; width: 100%; height: 100%; 
-            background: var(--bg); color: white; font-family: var(--fb); 
-            overflow: hidden; touch-action: none;
-        }
-
-        /* Pantalla de Carga */
-        #loader {
-            position: fixed; inset: 0; background: #000; z-index: 9999;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            transition: 0.8s;
-        }
-        .loader-bar { width: 200px; height: 3px; background: rgba(255,255,255,0.1); margin-top: 20px; border-radius: 5px; overflow: hidden; }
-        .loader-fill { height: 100%; width: 0%; background: var(--gold); transition: 0.3s; }
-
-        /* Interfaz de Usuario */
-        header {
-            position: fixed; top: 0; width: 100%; height: 70px;
-            background: rgba(0,0,0,0.7); backdrop-filter: blur(15px);
-            display: flex; align-items: center; padding: 0 20px; z-index: 100;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
+        header { position: fixed; top: 0; width: 100%; height: 70px; background: rgba(0,0,0,0.7); backdrop-filter: blur(15px); display: flex; align-items: center; padding: 0 20px; z-index: 100; border-bottom: 1px solid rgba(255,255,255,0.1); }
         .logo { font-family: var(--fh); font-size: 1.8rem; letter-spacing: 2px; }
         .logo span { color: var(--gold); }
 
-        #canvas-container { position: fixed; inset: 0; cursor: grab; }
+        #globe-container { position: fixed; inset: 0; cursor: grab; }
 
-        /* Panel Lateral de Canales */
-        #panel {
-            position: fixed; right: 0; top: 0; width: 360px; height: 100%;
-            background: rgba(10,10,18,0.98); backdrop-filter: blur(25px);
-            transform: translateX(100%); transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: 200; overflow-y: auto; border-left: 1px solid rgba(212,168,67,0.3);
-            box-shadow: -10px 0 30px rgba(0,0,0,0.8);
-        }
+        #panel { position: fixed; right: 0; top: 0; width: 350px; height: 100%; background: rgba(10,10,18,0.98); transform: translateX(100%); transition: 0.5s; z-index: 200; overflow-y: auto; padding: 20px; border-left: 1px solid var(--gold); }
         #panel.active { transform: translateX(0); }
-        .panel-header { padding: 30px 20px; border-bottom: 1px solid rgba(255,255,255,0.1); }
-        .panel-title { font-family: var(--fh); font-size: 2.2rem; color: var(--gold); }
+        
+        .channel-item { display: flex; align-items: center; gap: 15px; padding: 12px; margin-bottom: 10px; background: rgba(255,255,255,0.05); border-radius: 10px; cursor: pointer; }
+        .channel-item:hover { background: rgba(212,168,67,0.2); }
+        .channel-item img { width: 45px; height: 45px; object-fit: contain; }
 
-        .channel-card {
-            display: flex; align-items: center; gap: 15px; padding: 12px;
-            margin: 10px 15px; background: rgba(255,255,255,0.03);
-            border-radius: 12px; cursor: pointer; transition: 0.3s;
-            border: 1px solid rgba(255,255,255,0.05);
-        }
-        .channel-card:hover { background: rgba(212,168,67,0.1); border-color: var(--gold); transform: scale(1.02); }
-        .channel-card img { width: 50px; height: 50px; object-fit: contain; border-radius: 8px; background: #000; }
-        .channel-name { font-weight: bold; font-size: 0.95rem; }
-
-        /* Reproductor */
-        #player-overlay {
-            position: fixed; inset: 0; background: rgba(0,0,0,0.95);
-            display: none; z-index: 1000; flex-direction: column; align-items: center; justify-content: center;
-        }
-        .video-box { width: 95%; max-width: 1000px; aspect-ratio: 16/9; background: #000; border: 1px solid var(--gold); position: relative; }
-        video { width: 100%; height: 100%; }
-        .close-player { position: absolute; top: -50px; right: 0; color: white; font-size: 30px; cursor: pointer; font-family: sans-serif; }
-
-        @media (max-width: 800px) {
-            #panel { width: 100%; top: auto; height: 70%; bottom: 0; border-radius: 25px 25px 0 0; transform: translateY(100%); }
-            #panel.active { transform: translateY(0); }
-        }
+        #player { position: fixed; inset: 0; background: #000; display: none; z-index: 2000; flex-direction: column; align-items: center; justify-content: center; }
+        video { width: 100%; max-width: 900px; aspect-ratio: 16/9; border: 1px solid var(--gold); }
     </style>
 </head>
 <body>
 
 <div id="loader">
     <div class="logo">CINE<span>LIBRE</span> 3D</div>
-    <div class="loader-bar"><div id="fill" class="loader-fill"></div></div>
-    <p id="load-status" style="font-size: 0.7rem; margin-top: 10px; opacity: 0.5; letter-spacing: 1px;">CONECTANDO CON SATÉLITES IPTV...</p>
+    <div class="bar"><div id="fill"></div></div>
+    <p id="load-msg">CONECTANDO A IPTV-ORG...</p>
 </div>
 
-<header>
-    <div class="logo">CINE<span>LIBRE</span> 3D</div>
-</header>
-
-<div id="canvas-container"></div>
+<header><div class="logo">CINE<span>LIBRE</span> 3D</div></header>
+<div id="globe-container"></div>
 
 <div id="panel">
-    <div class="panel-header">
-        <div id="country-name" class="panel-title">MUNDO</div>
-        <p style="font-size: 0.8rem; opacity: 0.6;">CANALES IPTV EN VIVO</p>
-    </div>
+    <h2 id="country-name" style="font-family: var(--fh); color: var(--gold);">PAÍS</h2>
     <div id="channel-list"></div>
-    <button onclick="document.getElementById('panel').classList.remove('active')" style="width: 80%; margin: 20px 10%; padding: 12px; background: transparent; border: 1px solid var(--gold); color: var(--gold); border-radius: 8px; cursor: pointer;">VOLVER AL GLOBO</button>
+    <button onclick="document.getElementById('panel').classList.remove('active')" style="width:100%; margin-top:20px; padding:10px; background:none; border:1px solid #fff; color:#fff; cursor:pointer;">CERRAR</button>
 </div>
 
-<div id="player-overlay">
-    <div class="video-box">
-        <div class="close-player" onclick="stopVideo()">✕ CERRAR</div>
-        <video id="mainVideo" controls autoplay></video>
-    </div>
+<div id="player">
+    <div onclick="closePlayer()" style="position:absolute; top:20px; right:20px; cursor:pointer; font-size:24px;">✕</div>
+    <video id="video" controls autoplay></video>
 </div>
 
 <script>
-let IPTV_DATABASE = {};
-const video = document.getElementById('mainVideo');
+let DB = {};
 const hls = new Hls();
+const video = document.getElementById('video');
 
-// COORDENADAS MUNDIALES (Añade más países siguiendo este formato)
-const COUNTRIES = {
+// LISTA DE PAÍSES PARA EL GLOBO
+const COORDS = {
     'cl': { n: 'Chile', lat: -33.45, lng: -70.67 },
     'ar': { n: 'Argentina', lat: -34.60, lng: -58.38 },
     'mx': { n: 'México', lat: 19.43, lng: -99.13 },
     'es': { n: 'España', lat: 40.41, lng: -3.70 },
-    'us': { n: 'Estados Unidos', lat: 38.89, lng: -77.03 },
-    'br': { n: 'Brasil', lat: -15.78, lng: -47.93 },
     'co': { n: 'Colombia', lat: 4.71, lng: -74.07 },
-    'pe': { n: 'Perú', lat: -12.04, lng: -77.04 },
-    'fr': { n: 'Francia', lat: 48.85, lng: 2.35 },
-    'it': { n: 'Italia', lat: 41.90, lng: 12.49 }
+    'us': { n: 'EE.UU', lat: 38.89, lng: -77.03 }
 };
 
-// 1. CARGAR DATOS DE IPTV-ORG (API DE GITHUB)
-async function fetchIPTV() {
+async function startAPI() {
     try {
         const fill = document.getElementById('fill');
-        fill.style.width = '30%';
+        
+        // PETICIÓN 1: CANALES (Tu imagen de GitHub)
+        const res1 = await fetch('https://iptv-org.github.io/api/channels.json');
+        const channels = await res1.json();
+        fill.style.width = '50%';
 
-        // Cargamos canales (nombres y logos)
-        const resChan = await fetch('https://iptv-org.github.io/api/channels.json');
-        const channels = await resChan.json();
-        fill.style.width = '60%';
+        // PETICIÓN 2: STREAMS (Los links reales)
+        const res2 = await fetch('https://iptv-org.github.io/api/streams.json');
+        const streams = await res2.json();
+        fill.style.width = '100%';
 
-        // Cargamos streams (enlaces de video)
-        const resStream = await fetch('https://iptv-org.github.io/api/streams.json');
-        const streams = await resStream.json();
-        fill.style.width = '90%';
-
-        // Mapeamos los streams por ID para acceso rápido
+        // UNIR DATOS
         const streamMap = {};
         streams.forEach(s => { if(!streamMap[s.channel]) streamMap[s.channel] = s.url; });
 
-        // Unimos todo en nuestra base de datos local
-        channels.forEach(ch => {
-            if(COUNTRIES[ch.country] && streamMap[ch.id]) {
-                const code = ch.country;
-                if(!IPTV_DATABASE[code]) {
-                    IPTV_DATABASE[code] = { ...COUNTRIES[code], list: [] };
-                }
-                IPTV_DATABASE[code].list.push({
-                    name: ch.name,
-                    logo: ch.logo,
-                    url: streamMap[ch.id]
-                });
+        channels.forEach(c => {
+            if(COORDS[c.country] && streamMap[c.id]) {
+                if(!DB[c.country]) DB[c.country] = { ...COORDS[c.country], list: [] };
+                DB[c.country].list.push({ name: c.name, logo: c.logo, url: streamMap[c.id] });
             }
         });
 
-        initScene();
-        fill.style.width = '100%';
-        setTimeout(() => document.getElementById('loader').style.opacity = '0', 500);
-        setTimeout(() => document.getElementById('loader').style.display = 'none', 1300);
-
-    } catch (error) {
-        document.getElementById('load-status').textContent = "ERROR: RECARGA LA PÁGINA";
-        console.error(error);
+        init3D();
+        document.getElementById('loader').style.display = 'none';
+    } catch(e) {
+        document.getElementById('load-msg').innerText = "ERROR DE API: RECARGA";
     }
 }
 
-// 2. MOTOR 3D (THREE.JS)
-function initScene() {
-    const container = document.getElementById('canvas-container');
+function init3D() {
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const camera = new THREE.PerspectiveCamera(45, window.innerWidth/window.innerHeight, 0.1, 1000);
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-    
     renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(window.devicePixelRatio);
-    container.appendChild(renderer.domElement);
+    document.getElementById('globe-container').appendChild(renderer.domElement);
 
-    camera.position.z = window.innerWidth < 800 ? 4 : 3;
-
-    // Globo
     const earth = new THREE.Mesh(
         new THREE.SphereGeometry(1, 64, 64),
-        new THREE.MeshPhongMaterial({
-            map: new THREE.TextureLoader().load('https://unpkg.com/three-globe/example/img/earth-night.jpg'),
-            shininess: 5
-        })
+        new THREE.MeshPhongMaterial({ map: new THREE.TextureLoader().load('https://unpkg.com/three-globe/example/img/earth-night.jpg') })
     );
     scene.add(earth);
+    scene.add(new THREE.AmbientLight(0xffffff, 1.2));
+    camera.position.z = 3;
 
-    // Iluminación
-    const light = new THREE.PointLight(0xffffff, 1.5);
-    light.position.set(5, 3, 5);
-    scene.add(light);
-    scene.add(new THREE.AmbientLight(0xffffff, 0.5));
-
-    // Puntos Dorados (Países)
-    const pointsGroup = new THREE.Group();
-    Object.values(IPTV_DATABASE).forEach(data => {
-        const phi = (90 - data.lat) * (Math.PI / 180);
-        const theta = (data.lng + 180) * (Math.PI / 180);
-        
-        const dot = new THREE.Mesh(
-            new THREE.SphereGeometry(0.03, 16, 16),
-            new THREE.MeshBasicMaterial({ color: 0xd4a843 })
-        );
-        
-        dot.position.set(
-            -1.02 * Math.sin(phi) * Math.cos(theta),
-            1.02 * Math.cos(phi),
-            1.02 * Math.sin(phi) * Math.sin(theta)
-        );
-        
-        dot.userData = data;
-        pointsGroup.add(dot);
+    const points = new THREE.Group();
+    Object.values(DB).forEach(p => {
+        const phi = (90 - p.lat) * (Math.PI / 180);
+        const theta = (p.lng + 180) * (Math.PI / 180);
+        const dot = new THREE.Mesh(new THREE.SphereGeometry(0.03, 12, 12), new THREE.MeshBasicMaterial({color: 0xd4a843}));
+        dot.position.set(-1.02 * Math.sin(phi) * Math.cos(theta), 1.02 * Math.cos(phi), 1.02 * Math.sin(phi) * Math.sin(theta));
+        dot.userData = p;
+        points.add(dot);
     });
-    scene.add(pointsGroup);
+    scene.add(points);
 
-    // Estrellas
-    const starsGeom = new THREE.BufferGeometry();
-    const starsMat = new THREE.PointsMaterial({ color: 0xffffff, size: 0.01 });
-    const starsPos = [];
-    for(let i=0; i<3000; i++) { starsPos.push((Math.random()-0.5)*10, (Math.random()-0.5)*10, (Math.random()-0.5)*10); }
-    starsGeom.setAttribute('position', new THREE.Float32BufferAttribute(starsPos, 3));
-    scene.add(new THREE.Points(starsGeom, starsMat));
-
-    // Animación
-    let rotY = Math.PI;
-    function animate() {
-        requestAnimationFrame(animate);
-        rotY += 0.0015;
-        earth.rotation.y = rotY;
-        pointsGroup.rotation.y = rotY;
+    function anim() {
+        requestAnimationFrame(anim);
+        earth.rotation.y += 0.001;
+        points.rotation.y += 0.001;
         renderer.render(scene, camera);
     }
-    animate();
+    anim();
 
-    // Evento Click
-    window.addEventListener('mousedown', (e) => {
-        const mouse = new THREE.Vector2((e.clientX/window.innerWidth)*2-1, -(e.clientY/window.innerHeight)*2+1);
-        const raycaster = new THREE.Raycaster();
-        raycaster.setFromCamera(mouse, camera);
-        const intersects = raycaster.intersectObjects(pointsGroup.children);
-        if(intersects.length > 0) openPanel(intersects[0].object.userData);
-    });
-
-    window.addEventListener('resize', () => {
-        camera.aspect = window.innerWidth / window.innerHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize(window.innerWidth, window.innerHeight);
+    window.addEventListener('click', e => {
+        const m = new THREE.Vector2((e.clientX/window.innerWidth)*2-1, -(e.clientY/window.innerHeight)*2+1);
+        const ray = new THREE.Raycaster();
+        ray.setFromCamera(m, camera);
+        const hit = ray.intersectObjects(points.children);
+        if(hit.length > 0) openPanel(hit[0].object.userData);
     });
 }
 
-// 3. LOGICA DE INTERFAZ
 function openPanel(data) {
-    const panel = document.getElementById('panel');
+    document.getElementById('country-name').innerText = data.n;
     const list = document.getElementById('channel-list');
-    document.getElementById('country-name').textContent = data.n.toUpperCase();
-    
     list.innerHTML = '';
-    panel.classList.add('active');
-
-    data.list.slice(0, 40).forEach(ch => {
-        const card = document.createElement('div');
-        card.className = 'channel-card';
-        card.innerHTML = `
-            <img src="${ch.logo}" onerror="this.src='https://via.placeholder.com/50?text=TV'">
-            <div class="channel-name">${ch.name}</div>
-        `;
-        card.onclick = () => playVideo(ch.url);
-        list.appendChild(card);
+    data.list.slice(0, 30).forEach(ch => {
+        const item = document.createElement('div');
+        item.className = 'channel-item';
+        item.innerHTML = `<img src="${ch.logo}" onerror="this.src='https://via.placeholder.com/45'"> <span>${ch.name}</span>`;
+        item.onclick = () => play(ch.url);
+        list.appendChild(item);
     });
+    document.getElementById('panel').classList.add('active');
 }
 
-function playVideo(url) {
-    const overlay = document.getElementById('player-overlay');
-    overlay.style.display = 'flex';
-
-    if (Hls.isSupported()) {
+function play(url) {
+    document.getElementById('player').style.display = 'flex';
+    if(Hls.isSupported()) {
         hls.loadSource(url);
         hls.attachMedia(video);
         hls.on(Hls.Events.MANIFEST_PARSED, () => video.play());
-    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+    } else {
         video.src = url;
         video.play();
     }
 }
 
-function stopVideo() {
-    document.getElementById('player-overlay').style.display = 'none';
+function closePlayer() {
+    document.getElementById('player').style.display = 'none';
     video.pause();
     hls.detachMedia();
 }
 
-// Iniciar proceso
-fetchIPTV();
+startAPI();
 </script>
 
 <script> (function(s){ s.dataset.zone='10989923', s.src='https://n6wxm.com/vignette.min.js' })([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script'))) </script>
