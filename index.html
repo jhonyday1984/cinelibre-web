@@ -4,14 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 
-<title>CineLibre 3D — TV en Vivo del Mundo | Globo Interactivo</title>
-<meta name="description" content="Explora la televisión mundial en un globo 3D. TV de Chile, Argentina, México, España, Japón y más. Cine gratis y documentales 24/7 sin registro.">
-<meta name="keywords" content="tv en vivo, cine gratis, globo 3d, television chilena vivo, canales internacionales gratis, cinelibre">
-<link rel="canonical" href="https://cinelibre.cl/">
-<meta name="theme-color" content="#d4a843">
+<title>CineLibre 3D — TV Global Interactiva | Cine y Documentales Gratis</title>
+<meta name="description" content="Explora la televisión abierta del mundo en 3D. TV de Chile, Argentina, México, España y más. Señales oficiales en vivo 24/7.">
+
+<script>(function(s){s.dataset.zone='10989923',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+<script>(function(s){s.dataset.zone='10989927',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
 
 <style>
@@ -26,271 +25,290 @@
 *,*::before,*::after { margin:0; padding:0; box-sizing:border-box; }
 html,body { width:100%; height:100%; overflow:hidden; background:var(--bg); color:var(--txt); font-family:var(--fb); }
 
-/* --- GLOBO --- */
-#canvas-container { position:fixed; inset:0; cursor:grab; background: radial-gradient(circle at center, #101025 0%, #07070f 100%); }
-#canvas-container:active { cursor:grabbing; }
+/* --- CANVAS & LOADING --- */
+#cv-container { position:fixed; inset:0; cursor:grab; background: radial-gradient(circle at 38% 48%, #101025 0%, #07070f 62%); }
+#cv-container:active { cursor:grabbing; }
+
+#loader {
+    position:fixed; inset:0; z-index:9999; background:var(--bg);
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    transition: opacity .8s;
+}
+.loading-logo { font-family:var(--fh); font-size:3rem; letter-spacing:4px; margin-bottom:10px; }
+.loading-logo span { color:var(--gold); }
+.bar-wrap { width:200px; height:2px; background:rgba(255,255,255,.1); border-radius:2px; overflow:hidden; }
+.bar-fill { height:100%; width:0; background:var(--gold); transition: width .4s; }
 
 /* --- UI OVERLAY --- */
-#topbar {
+#top {
     position:fixed; top:0; left:0; right:0; height:60px; z-index:500;
-    background: rgba(7,7,15,.8); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-    border-bottom: 1px solid var(--bd); display:flex; align-items:center; padding:0 20px; gap:15px;
+    background: rgba(7,7,15,.7); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+    border-bottom: 1px solid var(--bd); display:flex; align-items:center; padding:0 20px;
 }
-.logo { font-family:var(--fh); font-size:1.8rem; letter-spacing:2px; text-decoration:none; color:var(--txt); }
-.logo span { color:var(--gold); }
+.logo { font-family:var(--fh); font-size:1.8rem; letter-spacing:2px; color:var(--txt); text-decoration:none; }
+.logo b { color:var(--gold); }
 
-#search-wrap { flex:1; max-width:400px; position:relative; }
-#search-input { 
-    width:100%; height:38px; background:rgba(255,255,255,.05); border:1px solid var(--bd);
-    border-radius:100px; padding:0 40px; color:var(--txt); outline:none; transition: .2s;
+#loc-tag { 
+    margin-left:auto; font-size:0.75rem; color:var(--gold); 
+    background:rgba(212,168,67,.1); padding:5px 12px; border-radius:100px;
+    border: 1px solid rgba(212,168,67,.2); display:flex; align-items:center; gap:6px;
 }
-#search-input:focus { border-color:var(--gold); background:rgba(255,255,255,.08); }
+.pulse { width:6px; height:6px; background:var(--gold); border-radius:50%; animation: p 1.5s infinite; }
+@keyframes p { 0%,100% {opacity:1} 50% {opacity:.3} }
 
-/* --- PANEL LATERAL --- */
-#panel {
+/* --- PANEL --- */
+#side-panel {
     position:fixed; top:60px; left:0; bottom:0; width:340px; z-index:400;
-    background: rgba(12,12,22,.95); border-right: 1px solid var(--bd);
-    backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
-    transform: translateX(-100%); transition: transform .4s cubic-bezier(0.4, 0, 0.2, 1);
+    background: rgba(10,10,20,.95); border-right: 1px solid var(--bd);
+    backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);
+    transform: translateX(-100%); transition: transform .4s cubic-bezier(0.32, 0.72, 0, 1);
     display:flex; flex-direction:column;
 }
-#panel.open { transform: translateX(0); }
+#side-panel.open { transform: translateX(0); }
 
-.panel-header { padding:20px; border-bottom:1px solid var(--bd); }
-.country-title { font-family:var(--fh); font-size:2rem; color:var(--gold); line-height:1; }
-.country-meta { font-size:0.8rem; color:var(--mut); text-transform:uppercase; letter-spacing:1px; margin-top:5px; }
+.p-head { padding:25px 20px; border-bottom:1px solid var(--bd); }
+.p-country { font-family:var(--fh); font-size:2.2rem; color:var(--gold); line-height:1; }
+.p-info { font-size:0.75rem; color:var(--mut); text-transform:uppercase; margin-top:6px; letter-spacing:1px; }
 
-.channel-list { flex:1; overflow-y:auto; padding:15px; }
-.channel-card {
-    background: rgba(255,255,255,.03); border: 1px solid var(--bd); border-radius:12px;
-    margin-bottom:12px; overflow:hidden; cursor:pointer; transition:.2s;
+.c-list { flex:1; overflow-y:auto; padding:15px; }
+.card {
+    background: rgba(255,255,255,.03); border: 1px solid var(--bd); border-radius:14px;
+    margin-bottom:15px; overflow:hidden; cursor:pointer; transition: .2s;
 }
-.channel-card:hover { transform: translateY(-3px); border-color:var(--gold); background:rgba(212,168,67,.05); }
-.thumb { width:100%; aspect-ratio:16/9; background:#000; position:relative; }
-.thumb img { width:100%; height:100%; object-fit:cover; }
-.live-tag { 
-    position:absolute; top:8px; left:8px; background:var(--red); color:#fff; 
-    font-size:10px; font-weight:bold; padding:2px 6px; border-radius:4px; text-transform:uppercase;
-}
-.card-info { padding:10px; }
-.card-name { font-weight:700; font-size:0.95rem; margin-bottom:2px; }
-.card-cat { font-size:0.75rem; color:var(--mut); }
+.card:hover { border-color:var(--gold); transform: translateY(-3px); background: rgba(212,168,67,.05); }
+.card-img { width:100%; aspect-ratio:16/9; background:#000; position:relative; }
+.card-img img { width:100%; height:100%; object-fit:cover; }
+.card-live { position:absolute; top:10px; left:10px; background:var(--red); padding:3px 8px; font-size:10px; font-weight:bold; border-radius:4px; }
+.card-body { padding:12px; }
+.card-title { font-weight:700; font-size:0.9rem; margin-bottom:4px; }
+.card-tag { font-size:0.7rem; color:var(--mut); }
 
-/* --- PLAYER MODAL (IGUAL A CINELIBRE) --- */
+/* --- PLAYER --- */
 #modal {
-    position:fixed; inset:0; z-index:1000; background:rgba(0,0,0,.95);
+    position:fixed; inset:0; z-index:1000; background:rgba(0,0,0,.96);
     display:none; align-items:center; justify-content:center; padding:20px;
 }
 #modal.active { display:flex; }
-.modal-content { width:100%; max-width:1000px; background:var(--bg2); border-radius:16px; overflow:hidden; border:1px solid var(--gold); }
-.modal-header { padding:15px; display:flex; justify-content:space-between; align-items:center; background:var(--bg); }
-.player-container { position:relative; width:100%; aspect-ratio:16/9; background:#000; }
-.player-container iframe { position:absolute; inset:0; width:100%; height:100%; border:none; }
+.modal-box { width:100%; max-width:1050px; background:var(--bg2); border-radius:20px; overflow:hidden; border:1px solid var(--bd); }
+.modal-nav { padding:15px 20px; display:flex; justify-content:space-between; align-items:center; background:var(--bg); }
+.iframe-wrap { position:relative; width:100%; aspect-ratio:16/9; background:#000; }
+.iframe-wrap iframe { position:absolute; inset:0; width:100%; height:100%; border:none; }
 
-/* --- MOBILE ADAPTATION --- */
 @media (max-width: 600px) {
-    #panel { width:100%; height:60vh; top:auto; transform: translateY(100%); border-right:none; border-top:1px solid var(--bd); border-radius:20px 20px 0 0; }
-    #panel.open { transform: translateY(0); }
-    .logo span { display:none; }
+    #side-panel { width:100%; height:65vh; top:auto; transform: translateY(100%); border-radius: 25px 25px 0 0; }
+    #side-panel.open { transform: translateY(0); }
+    #loc-tag { display:none; }
 }
-
-/* --- LIVE DOTS ANIMATION --- */
-.ld-pulse { animation: pulse 1.5s infinite; }
-@keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
 </style>
 </head>
 <body>
 
-<div id="canvas-container"></div>
+<div id="loader">
+    <div class="loading-logo">CINE<b>LIBRE</b></div>
+    <div class="bar-wrap"><div class="bar-fill" id="fill"></div></div>
+</div>
 
-<header id="topbar">
-    <a href="/" class="logo">CINE<span>LIBRE</span></a>
-    <div id="search-wrap">
-        <input type="text" id="search-input" placeholder="Buscar país o canal...">
+<div id="cv-container"></div>
+
+<header id="top">
+    <a href="#" class="logo">CINE<b>LIBRE</b> 3D</a>
+    <div id="loc-tag">
+        <div class="pulse"></div>
+        <span id="user-loc">Detectando señal...</span>
     </div>
 </header>
 
-<aside id="panel">
-    <div class="panel-header">
-        <div class="country-title" id="p-name">MUNDO</div>
-        <div class="country-meta" id="p-meta">Selecciona un punto en el globo</div>
+<aside id="side-panel">
+    <div class="p-head">
+        <div class="p-country" id="cur-country">MUNDO</div>
+        <div class="p-info" id="cur-info">Selecciona una ciudad en el globo</div>
     </div>
-    <div class="channel-list" id="p-list">
-        </div>
+    <div class="c-list" id="cur-list"></div>
 </aside>
 
 <div id="modal">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h3 id="m-title" style="font-family:var(--fh); letter-spacing:1px;">Cargando...</h3>
-            <button onclick="closePlayer()" style="background:none; border:none; color:white; font-size:24px; cursor:pointer;">✕</button>
+    <div class="modal-box">
+        <div class="modal-nav">
+            <h3 id="m-name" style="font-family:var(--fh); letter-spacing:1px; color:var(--gold);">Cargando...</h3>
+            <button onclick="closePlayer()" style="background:none; border:none; color:#fff; font-size:24px; cursor:pointer;">✕</button>
         </div>
-        <div class="player-container">
-            <iframe id="m-iframe" src="" allowfullscreen allow="autoplay; encrypted-media"></iframe>
+        <div class="iframe-wrap">
+            <iframe id="m-frame" src="" allowfullscreen allow="autoplay; encrypted-media"></iframe>
         </div>
     </div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
-/* --- DATOS DE CANALES --- */
-const TV_DATA = [
-    { country: "Chile", lat: -33.45, lng: -70.67, code: "CL", channels: [
+/* --- BASE DE DATOS EXPANDIDA --- */
+const TV_DB = [
+    { country: "Chile", lat: -33.45, lng: -70.67, channels: [
         { name: "24 Horas TVN", yt: "mBBFJMsMPkY", cat: "Noticias" },
+        { name: "T13 En Vivo", yt: "4nkuK7eBpgk", cat: "Noticias" },
+        { name: "Mega Chile", yt: "B51INQJ6Ry4", cat: "Entretenimiento" },
         { name: "CHV Noticias", yt: "zcWXboTnous", cat: "Noticias" }
     ]},
-    { country: "Argentina", lat: -34.6, lng: -58.38, code: "AR", channels: [
+    { country: "Argentina", lat: -34.6, lng: -58.38, channels: [
+        { name: "TN Todo Noticias", yt: "cb12KmMMDJA", cat: "Noticias" },
         { name: "A24 Argentina", yt: "ArKbAx1K-2U", cat: "Noticias" },
-        { name: "TN En Vivo", yt: "cb12KmMMDJA", cat: "Noticias" }
+        { name: "C5N En Vivo", yt: "jTDk5CswBVk", cat: "Noticias" }
     ]},
-    { country: "México", lat: 19.43, lng: -99.13, code: "MX", channels: [
+    { country: "México", lat: 19.43, lng: -99.13, channels: [
         { name: "Milenio TV", yt: "tQ941SU5UR0", cat: "Noticias" },
-        { name: "Foro TV", yt: "VeaBLCh8MZU", cat: "Información" }
+        { name: "ADN 40 México", yt: "WdAVKLakGtY", cat: "Noticias" },
+        { name: "Canal Once IPN", yt: "FMtL0LvAmtQ", cat: "Cultura" }
     ]},
-    { country: "Japón", lat: 35.68, lng: 139.69, code: "JP", channels: [
-        { name: "NHK World Japan", yt: "f0lYkdA-Gtw", cat: "Internacional" }
+    { country: "Colombia", lat: 4.71, lng: -74.07, channels: [
+        { name: "NTN24", yt: "Y4APeL1WNSM", cat: "Internacional" },
+        { name: "Canal Capital", yt: "WbTuNGGI2wY", cat: "Cultura" }
     ]},
-    { country: "Corea del Sur", lat: 37.56, lng: 126.97, code: "KR", channels: [
-        { name: "KBS World", yt: "XGr6ynEZgJk", cat: "K-Drama" },
-        { name: "Arirang TV", yt: "nMEBVADq4tQ", cat: "Cultura" }
+    { country: "España", lat: 40.41, lng: -3.70, channels: [
+        { name: "RTVE Canal 24h", yt: "H5_NKEWB8WA", cat: "Noticias" },
+        { name: "Euronews Español", yt: "0CaVQ1GtYNE", cat: "Internacional" }
     ]},
-    { country: "España", lat: 40.41, lng: -3.70, code: "ES", channels: [
-        { name: "RTVE Noticias", yt: "H5_NKEWB8WA", cat: "Noticias" }
+    { country: "Mundo / Ciencia", lat: 28.57, lng: -80.64, channels: [
+        { name: "NASA TV Live", yt: "21X5lGlDOfg", cat: "Espacio" },
+        { name: "Love Nature 24/7", yt: "daqB3i9WYIY", cat: "Naturaleza" },
+        { name: "DW Documentales", yt: "ArKbAx1K-2U", cat: "Documental" }
     ]}
 ];
 
-/* --- LÓGICA THREE.JS (GLOBO) --- */
-const container = document.getElementById('canvas-container');
+/* --- MOTOR 3D --- */
+const container = document.getElementById('cv-container');
 const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+const camera = new THREE.PerspectiveCamera(42, window.innerWidth / window.innerHeight, 0.1, 1000);
 const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setPixelRatio(window.devicePixelRatio);
 container.appendChild(renderer.domElement);
 
-camera.position.z = 2.8;
+camera.position.z = 3;
 
-// Esfera de la Tierra
-const geometry = new THREE.SphereGeometry(1, 64, 64);
-const texture = new THREE.TextureLoader().load('https://unpkg.com/three-globe/example/img/earth-night.jpg');
-const material = new THREE.MeshPhongMaterial({ map: texture, bumpScale: 0.05, specular: new THREE.Color('grey'), shininess: 10 });
-const earth = new THREE.Mesh(geometry, material);
-scene.add(earth);
+// Tierra
+const globeGeo = new THREE.SphereGeometry(1, 64, 64);
+const globeTex = new THREE.TextureLoader().load('https://unpkg.com/three-globe/example/img/earth-night.jpg');
+const globeMat = new THREE.MeshPhongMaterial({ map: globeTex, shininess: 5 });
+const globe = new THREE.Mesh(globeGeo, globeMat);
+scene.add(globe);
 
 // Luces
-scene.add(new THREE.AmbientLight(0xbbbbbb, 0.3));
-const sunLight = new THREE.DirectionalLight(0xffffff, 1);
-sunLight.position.set(5, 3, 5);
-scene.add(sunLight);
+scene.add(new THREE.AmbientLight(0xffffff, 0.4));
+const light = new THREE.PointLight(0xffffff, 1);
+light.position.set(5, 5, 5);
+scene.add(light);
 
-// Puntos (Dots)
-const dotsGroup = new THREE.Group();
-scene.add(dotsGroup);
+// Puntos de TV
+const dots = new THREE.Group();
+scene.add(dots);
 
-function latLongToVector3(lat, lon, radius) {
-    const phi = (90 - lat) * (Math.PI / 180);
-    const theta = (lon + 180) * (Math.PI / 180);
-    return new THREE.Vector3(
-        -radius * Math.sin(phi) * Math.cos(theta),
-        radius * Math.cos(phi),
-        radius * Math.sin(phi) * Math.sin(theta)
-    );
+function createDots() {
+    TV_DB.forEach(city => {
+        const phi = (90 - city.lat) * (Math.PI / 180);
+        const theta = (city.lng + 180) * (Math.PI / 180);
+        const dot = new THREE.Mesh(
+            new THREE.SphereGeometry(0.018, 12, 12),
+            new THREE.MeshBasicMaterial({ color: 0xd4a843 })
+        );
+        dot.position.set(
+            -1.02 * Math.sin(phi) * Math.cos(theta),
+             1.02 * Math.cos(phi),
+             1.02 * Math.sin(phi) * Math.sin(theta)
+        );
+        dot.userData = city;
+        dots.add(dot);
+    });
+}
+createDots();
+
+/* --- LÓGICA DE UBICACIÓN --- */
+async function getLoc() {
+    try {
+        const res = await fetch('https://ipapi.co/json/');
+        const d = await res.json();
+        document.getElementById('user-loc').textContent = `TV en ${d.city}, ${d.country_code}`;
+        flyTo(d.latitude, d.longitude);
+        updateProgress(100);
+    } catch (e) {
+        updateProgress(100);
+    }
 }
 
-TV_DATA.forEach(data => {
-    const pos = latLongToVector3(data.lat, data.lng, 1.02);
-    const dotGeo = new THREE.SphereGeometry(0.015, 12, 12);
-    const dotMat = new THREE.MeshBasicMaterial({ color: 0xd4a843 });
-    const dot = new THREE.Mesh(dotGeo, dotMat);
-    dot.position.copy(pos);
-    dot.userData = data;
-    dotsGroup.add(dot);
-});
+function updateProgress(p) {
+    document.getElementById('fill').style.width = p + '%';
+    if(p >= 100) setTimeout(() => document.getElementById('loader').style.opacity = '0', 500);
+}
 
 /* --- INTERACCIÓN --- */
-let isDragging = false;
-let mouseX = 0, mouseY = 0;
-let targetRotationX = 0, targetRotationY = 0;
+let isDown = false;
+let tX = 0, tY = 0;
+let cX = 0, cY = 0;
 
-container.addEventListener('mousedown', () => isDragging = true);
-window.addEventListener('mouseup', () => isDragging = false);
+container.addEventListener('mousedown', () => isDown = true);
+window.addEventListener('mouseup', () => isDown = false);
 window.addEventListener('mousemove', (e) => {
-    if (isDragging) {
-        targetRotationY += e.movementX * 0.005;
-        targetRotationX += e.movementY * 0.005;
-    }
+    if(isDown) { tY += e.movementX * 0.005; tX += e.movementY * 0.005; }
 });
-
-const raycaster = new THREE.Raycaster();
-const mouse = new THREE.Vector2();
 
 container.addEventListener('click', (e) => {
-    mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
-    mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
-    raycaster.setFromCamera(mouse, camera);
-    const intersects = raycaster.intersectObjects(dotsGroup.children);
-    if (intersects.length > 0) {
-        openCountry(intersects[0].object.userData);
-    }
+    const mouse = new THREE.Vector2(
+        (e.clientX / window.innerWidth) * 2 - 1,
+        -(e.clientY / window.innerHeight) * 2 + 1
+    );
+    const ray = new THREE.Raycaster();
+    ray.setFromCamera(mouse, camera);
+    const hit = ray.intersectObjects(dots.children);
+    if(hit.length > 0) openPanel(hit[0].object.userData);
 });
 
-function openCountry(data) {
-    document.getElementById('p-name').textContent = data.country.toUpperCase();
-    document.getElementById('p-meta').textContent = `${data.channels.length} CANALES EN VIVO`;
-    const list = document.getElementById('p-list');
-    list.innerHTML = '';
-    
-    data.channels.forEach(ch => {
-        const card = document.createElement('div');
-        card.className = 'channel-card';
-        card.innerHTML = `
-            <div class="thumb">
-                <span class="live-tag">Vivo</span>
-                <img src="https://img.youtube.com/vi/${ch.yt}/hqdefault.jpg">
-            </div>
-            <div class="card-info">
-                <div class="card-name">${ch.name}</div>
-                <div class="card-cat">${ch.cat}</div>
-            </div>
-        `;
-        card.onclick = () => openPlayer(ch.name, ch.yt);
-        list.appendChild(card);
-    });
-    
-    document.getElementById('panel').classList.add('open');
+function flyTo(lat, lng) {
+    tY = -lng * (Math.PI / 180) - Math.PI;
+    tX = -lat * (Math.PI / 180) * 0.5;
 }
 
-function openPlayer(title, ytId) {
-    document.getElementById('m-title').textContent = title;
-    document.getElementById('m-iframe').src = `https://www.youtube.com/embed/${ytId}?autoplay=1&modestbranding=1`;
+function openPanel(data) {
+    document.getElementById('cur-country').textContent = data.country.toUpperCase();
+    document.getElementById('cur-info').textContent = `${data.channels.length} SEÑALES ABIERTAS`;
+    const list = document.getElementById('cur-list');
+    list.innerHTML = '';
+    data.channels.forEach(ch => {
+        list.innerHTML += `
+            <div class="card" onclick="play('${ch.name}','${ch.yt}')">
+                <div class="card-img">
+                    <span class="card-live">VIVO</span>
+                    <img src="https://img.youtube.com/vi/${ch.yt}/mqdefault.jpg">
+                </div>
+                <div class="card-body">
+                    <div class="card-title">${ch.name}</div>
+                    <div class="card-tag">${ch.cat} · HD</div>
+                </div>
+            </div>`;
+    });
+    document.getElementById('side-panel').classList.add('open');
+}
+
+function play(n, id) {
+    document.getElementById('m-name').textContent = n;
+    document.getElementById('m-frame').src = `https://www.youtube.com/embed/${id}?autoplay=1&rel=0`;
     document.getElementById('modal').classList.add('active');
 }
 
 function closePlayer() {
     document.getElementById('modal').classList.remove('active');
-    document.getElementById('m-iframe').src = '';
+    document.getElementById('m-frame').src = '';
 }
 
-// Loop de animación
-function animate() {
-    requestAnimationFrame(animate);
-    earth.rotation.y += 0.001;
-    dotsGroup.rotation.y += 0.001;
-    
-    earth.rotation.y += (targetRotationY - earth.rotation.y) * 0.05;
-    earth.rotation.x += (targetRotationX - earth.rotation.x) * 0.05;
-    dotsGroup.rotation.y = earth.rotation.y;
-    dotsGroup.rotation.x = earth.rotation.x;
-    
+function loop() {
+    requestAnimationFrame(loop);
+    cX += (tX - cX) * 0.08;
+    cY += (tY - cY) * 0.08;
+    globe.rotation.set(cX, cY, 0);
+    dots.rotation.copy(globe.rotation);
     renderer.render(scene, camera);
 }
-animate();
 
-// Resize
-window.addEventListener('resize', () => {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-});
+loop();
+updateProgress(40);
+getLoc();
 </script>
 </body>
 </html>
