@@ -1,384 +1,944 @@
 <!DOCTYPE html>
-<html lang="es" prefix="og: https://ogp.me/ns#">
+<html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<title>CineLibre 3D — TV Global Interactiva</title>
-<meta name="description" content="Explora la televisión abierta del mundo en 3D. TV de Chile, Argentina, México, España y más.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CineLibre 3D - TV Mundial</title>
 
-<!-- PUBLICIDADES (NO BORRAR) -->
-<script>(function(s){s.dataset.zone='10989923',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
-<script>(function(s){s.dataset.zone='10989927',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+<meta name="description" content="Explora canales de televisión abierta del mundo en un globo 3D interactivo.">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
 
 <style>
-:root {
-    --gold: #d4a843; --gold2: #f0c96a;
-    --red: #e03545; --bg: #07070f;
-    --bg2: #0d0d1a; --bd: rgba(255,255,255,.08);
-    --txt: #ede9e2; --mut: #6b6575;
-    --fh: 'Bebas Neue', sans-serif; --fb: 'DM Sans', sans-serif;
-}
-*,*::before,*::after { margin:0; padding:0; box-sizing:border-box; }
-html,body { width:100%; height:100%; overflow:hidden; background:var(--bg); color:var(--txt); font-family:var(--fb); }
 
-#cv-container { 
-    position:fixed; inset:0; cursor:grab; 
-    background: radial-gradient(circle at 38% 48%, #101025 0%, #07070f 62%); 
-}
-#cv-container:active { cursor:grabbing; }
-
-/* Loader */
-#loader {
-    position:fixed; inset:0; z-index:9999; background:var(--bg);
-    display:flex; flex-direction:column; align-items:center; justify-content:center;
-    transition: opacity .8s ease;
-}
-.loading-logo { font-family:var(--fh); font-size:3rem; letter-spacing:4px; margin-bottom:12px; }
-.loading-logo span { color:var(--gold); }
-.bar-wrap { width:220px; height:3px; background:rgba(255,255,255,.1); border-radius:3px; overflow:hidden; }
-.bar-fill { height:100%; width:0; background:linear-gradient(90deg, var(--gold), var(--gold2)); transition: width .5s ease; }
-
-/* Header */
-#top {
-    position:fixed; top:0; left:0; right:0; height:64px; z-index:500;
-    background: rgba(7,7,15,.85); backdrop-filter: blur(25px);
-    border-bottom: 1px solid var(--bd); 
-    display:flex; align-items:center; padding:0 20px; gap:15px;
-}
-.logo { font-family:var(--fh); font-size:1.85rem; letter-spacing:2px; color:var(--txt); text-decoration:none; }
-.logo b { color:var(--gold); }
-
-#search-container {
-    flex:1; max-width:380px; position:relative;
-}
-#country-search {
-    width:100%; padding:10px 16px 10px 42px;
-    background:rgba(255,255,255,.08); border:1px solid var(--bd);
-    border-radius:50px; color:white; font-size:1rem;
-    outline:none; transition:all .3s;
-}
-#country-search:focus {
-    border-color:var(--gold); background:rgba(255,255,255,.12);
-}
-#search-icon {
-    position:absolute; left:16px; top:50%; transform:translateY(-50%);
-    color:var(--mut); pointer-events:none;
+:root{
+--gold:#d4a843;
+--gold2:#f0c96a;
+--bg:#050510;
+--bg2:#0d1020;
+--txt:#ffffff;
+--mut:#8a8a95;
+--red:#ff3d57;
+--fh:'Bebas Neue',sans-serif;
+--fb:'DM Sans',sans-serif;
 }
 
-/* Panel lateral */
-#side-panel {
-    position:fixed; top:64px; left:0; bottom:0; width:360px; z-index:400;
-    background: rgba(10,10,20,.96); border-right: 1px solid var(--bd);
-    backdrop-filter: blur(30px);
-    transform: translateX(-100%); transition: transform .4s cubic-bezier(0.32, 0.72, 0, 1);
-    display:flex; flex-direction:column;
-}
-#side-panel.open { transform: translateX(0); }
-
-.p-head { padding:25px 20px; border-bottom:1px solid var(--bd); }
-.p-country { font-family:var(--fh); font-size:2.3rem; color:var(--gold); line-height:1; }
-.p-info { font-size:0.8rem; color:var(--mut); margin-top:6px; letter-spacing:1px; }
-
-.c-list { flex:1; overflow-y:auto; padding:15px; scrollbar-width:thin; }
-.card {
-    background: rgba(255,255,255,.03); border: 1px solid var(--bd);
-    border-radius:14px; margin-bottom:15px; overflow:hidden;
-    cursor:pointer; transition: all .25s ease;
-}
-.card:hover { 
-    border-color:var(--gold); 
-    transform: translateY(-4px); 
-    background: rgba(212,168,67,.06); 
-    box-shadow: 0 10px 20px rgba(212,168,67,.1);
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
 }
 
-/* Resto de estilos (mantengo los tuyos) */
-.card-img { width:100%; aspect-ratio:16/9; background:#000; position:relative; }
-.card-img img { width:100%; height:100%; object-fit:cover; }
-.card-live { 
-    position:absolute; top:10px; left:10px; background:var(--red); 
-    padding:3px 9px; font-size:10px; font-weight:bold; border-radius:4px; 
+html,body{
+width:100%;
+height:100%;
+overflow:hidden;
+background:#000;
+font-family:var(--fb);
+color:white;
+touch-action:none;
 }
-.card-body { padding:12px; }
-.card-title { font-weight:700; font-size:0.95rem; margin-bottom:4px; }
-.card-tag { font-size:0.75rem; color:var(--mut); }
 
-/* Modal Player */
-#modal {
-    position:fixed; inset:0; z-index:1000; background:rgba(0,0,0,.97);
-    display:none; align-items:center; justify-content:center; padding:20px;
-}
-#modal.active { display:flex; }
-.modal-box { 
-    width:100%; max-width:1080px; background:var(--bg2); 
-    border-radius:20px; overflow:hidden; border:1px solid var(--bd); 
-}
-.modal-nav { 
-    padding:16px 24px; display:flex; justify-content:space-between; 
-    align-items:center; background:var(--bg); 
-}
-.iframe-wrap { position:relative; width:100%; aspect-ratio:16/9; background:#000; }
-.iframe-wrap iframe { position:absolute; inset:0; width:100%; height:100%; border:none; }
+/* LOADER */
 
-@media (max-width: 700px) {
-    #side-panel { width:100%; height:70vh; top:auto; bottom:0; border-radius:25px 25px 0 0; transform: translateY(100%); }
-    #side-panel.open { transform: translateY(0); }
+#loader{
+position:fixed;
+inset:0;
+z-index:99999;
+background:#000;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+transition:1s;
 }
+
+.loading-logo{
+font-family:var(--fh);
+font-size:4rem;
+letter-spacing:4px;
+}
+
+.loading-logo span{
+color:var(--gold);
+}
+
+.bar{
+width:240px;
+height:4px;
+background:rgba(255,255,255,.1);
+margin-top:20px;
+border-radius:30px;
+overflow:hidden;
+}
+
+.fill{
+height:100%;
+width:0%;
+background:linear-gradient(90deg,var(--gold),var(--gold2));
+transition:1s;
+}
+
+/* CANVAS */
+
+#globe-container{
+position:fixed;
+inset:0;
+cursor:grab;
+background:
+radial-gradient(circle at center,#141430 0%,#020208 70%);
+}
+
+/* HEADER */
+
+header{
+position:fixed;
+top:0;
+left:0;
+right:0;
+height:70px;
+z-index:1000;
+
+display:flex;
+align-items:center;
+gap:20px;
+
+padding:0 20px;
+
+background:rgba(0,0,0,.6);
+backdrop-filter:blur(25px);
+
+border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.logo{
+font-family:var(--fh);
+font-size:2rem;
+letter-spacing:2px;
+}
+
+.logo span{
+color:var(--gold);
+}
+
+.search{
+flex:1;
+position:relative;
+max-width:450px;
+}
+
+.search input{
+width:100%;
+padding:12px 16px 12px 45px;
+border-radius:50px;
+border:none;
+outline:none;
+
+background:rgba(255,255,255,.08);
+color:white;
+font-size:1rem;
+}
+
+.search-icon{
+position:absolute;
+left:16px;
+top:50%;
+transform:translateY(-50%);
+}
+
+/* PANEL */
+
+#panel{
+position:fixed;
+top:70px;
+right:0;
+bottom:0;
+width:380px;
+
+background:rgba(8,8,18,.96);
+backdrop-filter:blur(30px);
+
+border-left:1px solid rgba(255,255,255,.08);
+
+transform:translateX(100%);
+transition:.4s;
+
+overflow-y:auto;
+
+z-index:999;
+}
+
+#panel.open{
+transform:translateX(0);
+}
+
+.panel-head{
+padding:25px;
+border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.panel-title{
+font-family:var(--fh);
+font-size:2.5rem;
+color:var(--gold);
+}
+
+.panel-sub{
+color:var(--mut);
+margin-top:5px;
+}
+
+/* CARDS */
+
+.channels{
+padding:15px;
+}
+
+.card{
+background:rgba(255,255,255,.04);
+border:1px solid rgba(255,255,255,.08);
+
+border-radius:18px;
+overflow:hidden;
+
+margin-bottom:18px;
+
+cursor:pointer;
+
+transition:.3s;
+
+animation:fadeUp .4s ease;
+}
+
+.card:hover{
+transform:translateY(-5px);
+border-color:var(--gold);
+box-shadow:0 15px 30px rgba(212,168,67,.15);
+}
+
+@keyframes fadeUp{
+from{
+opacity:0;
+transform:translateY(20px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+.card img{
+width:100%;
+height:200px;
+object-fit:cover;
+display:block;
+}
+
+.card-body{
+padding:15px;
+}
+
+.card-title{
+font-weight:700;
+font-size:1rem;
+margin-bottom:5px;
+}
+
+.card-cat{
+font-size:.8rem;
+color:var(--mut);
+}
+
+/* LIVE */
+
+.live{
+position:absolute;
+top:12px;
+left:12px;
+background:var(--red);
+padding:5px 10px;
+border-radius:8px;
+font-size:.7rem;
+font-weight:bold;
+}
+
+/* PLAYER */
+
+#player{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.96);
+
+display:none;
+align-items:center;
+justify-content:center;
+
+z-index:99999;
+}
+
+#player.active{
+display:flex;
+}
+
+.player-box{
+width:95%;
+max-width:1200px;
+background:#000;
+border-radius:20px;
+overflow:hidden;
+border:1px solid rgba(255,255,255,.08);
+}
+
+.player-top{
+height:70px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 20px;
+background:#050505;
+}
+
+.player-top h2{
+font-family:var(--fh);
+font-size:2rem;
+color:var(--gold);
+}
+
+.close{
+background:none;
+border:none;
+color:white;
+font-size:2rem;
+cursor:pointer;
+}
+
+.video{
+position:relative;
+width:100%;
+aspect-ratio:16/9;
+background:#000;
+}
+
+.video iframe{
+position:absolute;
+inset:0;
+width:100%;
+height:100%;
+border:none;
+}
+
+/* MOBILE */
+
+@media(max-width:800px){
+
+#panel{
+width:100%;
+top:auto;
+height:70%;
+bottom:0;
+border-radius:25px 25px 0 0;
+transform:translateY(100%);
+}
+
+#panel.open{
+transform:translateY(0);
+}
+
+header{
+gap:10px;
+}
+
+.logo{
+font-size:1.4rem;
+}
+
+}
+
 </style>
 </head>
 <body>
 
+<!-- LOADER -->
+
 <div id="loader">
-    <div class="loading-logo">CINE<b>LIBRE</b></div>
-    <div class="bar-wrap"><div class="bar-fill" id="fill"></div></div>
+<div class="loading-logo">CINE<span>LIBRE</span></div>
+
+<div class="bar">
+<div class="fill" id="fill"></div>
+</div>
 </div>
 
-<div id="cv-container"></div>
+<!-- GLOBO -->
 
-<header id="top">
-    <a href="#" class="logo">CINE<b>LIBRE</b> 3D</a>
-    
-    <div id="search-container">
-        <span id="search-icon">🔎</span>
-        <input type="text" id="country-search" placeholder="Buscar país... (ej: Chile, México)" autocomplete="off">
-    </div>
+<div id="globe-container"></div>
 
-    <div id="loc-tag" style="margin-left:auto; font-size:0.8rem; color:var(--gold); background:rgba(212,168,67,.1); padding:6px 14px; border-radius:50px; border:1px solid rgba(212,168,67,.25);">
-        <div class="pulse" style="width:7px;height:7px;background:var(--gold);border-radius:50%;animation:p 1.5s infinite;"></div>
-        <span id="user-loc">Detectando señal...</span>
-    </div>
+<!-- HEADER -->
+
+<header>
+
+<div class="logo">
+CINE<span>LIBRE</span> 3D
+</div>
+
+<div class="search">
+<div class="search-icon">🔎</div>
+
+<input type="text" id="searchInput" placeholder="Buscar país, canal o categoría...">
+</div>
+
 </header>
 
-<aside id="side-panel">
-    <div class="p-head">
-        <div class="p-country" id="cur-country">MUNDO</div>
-        <div class="p-info" id="cur-info">Selecciona un país en el globo o busca arriba</div>
-    </div>
-    <div class="c-list" id="cur-list"></div>
-</aside>
+<!-- PANEL -->
 
-<!-- Modal Player -->
-<div id="modal">
-    <div class="modal-box">
-        <div class="modal-nav">
-            <h3 id="m-name" style="font-family:var(--fh); color:var(--gold);">Cargando canal...</h3>
-            <button onclick="closePlayer()" style="background:none;border:none;color:#fff;font-size:28px;cursor:pointer;">✕</button>
-        </div>
-        <div class="iframe-wrap">
-            <iframe id="m-frame" src="" allowfullscreen allow="autoplay; encrypted-media"></iframe>
-        </div>
-    </div>
+<div id="panel">
+
+<div class="panel-head">
+<div class="panel-title" id="countryTitle">MUNDO</div>
+<div class="panel-sub" id="countryInfo">
+Selecciona un país del globo
+</div>
+</div>
+
+<div class="channels" id="channels"></div>
+
+</div>
+
+<!-- PLAYER -->
+
+<div id="player">
+
+<div class="player-box">
+
+<div class="player-top">
+
+<h2 id="playerTitle">Canal</h2>
+
+<button class="close" onclick="closePlayer()">
+✕
+</button>
+
+</div>
+
+<div class="video">
+
+<iframe
+id="iframe"
+allowfullscreen
+allow="autoplay; encrypted-media">
+</iframe>
+
+</div>
+
+</div>
+
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+
 <script>
-// ==================== BASE DE DATOS ====================
-const TV_DB = [ /* ... tu base de datos actual (la dejé igual) ... */ 
-    { country: "Chile", lat: -33.45, lng: -70.67, channels: [
-        { name: "24 Horas TVN", yt: "mBBFJMsMPkY", cat: "Noticias" },
-        { name: "T13 En Vivo", yt: "4nkuK7eBpgk", cat: "Noticias" },
-        { name: "Mega Chile", yt: "B51INQJ6Ry4", cat: "Entretenimiento" },
-        { name: "CHV Noticias", yt: "zcWXboTnous", cat: "Noticias" }
-    ]},
-    { country: "Argentina", lat: -34.6, lng: -58.38, channels: [
-        { name: "TN Todo Noticias", yt: "cb12KmMMDJA", cat: "Noticias" },
-        { name: "A24 Argentina", yt: "ArKbAx1K-2U", cat: "Noticias" },
-        { name: "C5N En Vivo", yt: "jTDk5CswBVk", cat: "Noticias" }
-    ]},
-    // ... agrega más países aquí
+
+/* ===========================
+BASE DATOS
+=========================== */
+
+const TV_DB = [
+
+{
+country:"Chile",
+lat:-33.45,
+lng:-70.67,
+
+channels:[
+
+{
+name:"24 Horas TVN",
+yt:"mBBFJMsMPkY",
+cat:"Noticias"
+},
+
+{
+name:"T13",
+yt:"4nkuK7eBpgk",
+cat:"Noticias"
+},
+
+{
+name:"Mega",
+yt:"B51INQJ6Ry4",
+cat:"Entretenimiento"
+}
+
+]
+},
+
+{
+country:"Argentina",
+lat:-34.60,
+lng:-58.38,
+
+channels:[
+
+{
+name:"TN",
+yt:"cb12KmMMDJA",
+cat:"Noticias"
+},
+
+{
+name:"A24",
+yt:"ArKbAx1K-2U",
+cat:"Noticias"
+}
+
+]
+},
+
+{
+country:"México",
+lat:19.43,
+lng:-99.13,
+
+channels:[
+
+{
+name:"Foro TV",
+yt:"kxyA1P3lY7M",
+cat:"Noticias"
+}
+
+]
+},
+
+{
+country:"España",
+lat:40.41,
+lng:-3.70,
+
+channels:[
+
+{
+name:"RTVE",
+yt:"yb5i0kQkR0Y",
+cat:"Noticias"
+}
+
+]
+},
+
+{
+country:"Estados Unidos",
+lat:38.89,
+lng:-77.03,
+
+channels:[
+
+{
+name:"ABC News Live",
+yt:"w_Ma8oQLmSM",
+cat:"Noticias"
+}
+
+]
+}
+
 ];
 
-// ==================== THREE.JS SETUP ====================
-const container = document.getElementById('cv-container');
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(42, window.innerWidth / window.innerHeight, 0.1, 1000);
-const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+/* ===========================
+LOADER
+=========================== */
 
-renderer.setSize(window.innerWidth, window.innerHeight);
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-container.appendChild(renderer.domElement);
-camera.position.z = 3.2;
+setTimeout(()=>{
+document.getElementById('fill').style.width='100%';
+},500);
 
-// Globo
-const globe = new THREE.Mesh(
-    new THREE.SphereGeometry(1, 64, 64),
-    new THREE.MeshPhongMaterial({
-        map: new THREE.TextureLoader().load('https://unpkg.com/three-globe/example/img/earth-night.jpg'),
-        shininess: 8
-    })
+setTimeout(()=>{
+document.getElementById('loader').style.opacity='0';
+
+setTimeout(()=>{
+document.getElementById('loader').style.display='none';
+},1000);
+
+},2000);
+
+/* ===========================
+THREE JS
+=========================== */
+
+const container=document.getElementById('globe-container');
+
+const scene=new THREE.Scene();
+
+const camera=new THREE.PerspectiveCamera(
+45,
+window.innerWidth/window.innerHeight,
+0.1,
+1000
 );
+
+camera.position.z=3;
+
+const renderer=new THREE.WebGLRenderer({
+antialias:true,
+alpha:true
+});
+
+renderer.setSize(window.innerWidth,window.innerHeight);
+
+renderer.setPixelRatio(
+Math.min(window.devicePixelRatio,2)
+);
+
+container.appendChild(renderer.domElement);
+
+/* GLOBO */
+
+const globe=new THREE.Mesh(
+
+new THREE.SphereGeometry(1,64,64),
+
+new THREE.MeshPhongMaterial({
+
+map:new THREE.TextureLoader().load(
+'https://unpkg.com/three-globe/example/img/earth-night.jpg'
+),
+
+shininess:12
+
+})
+
+);
+
 scene.add(globe);
 
-// Luces
-scene.add(new THREE.AmbientLight(0xffffff, 0.5));
-const dirLight = new THREE.PointLight(0xffffff, 1.2);
-dirLight.position.set(5, 3, 5);
-scene.add(dirLight);
+/* ATMOSFERA */
 
-// Puntos
-const dotsGroup = new THREE.Group();
+const atmosphere=new THREE.Mesh(
+
+new THREE.SphereGeometry(1.08,64,64),
+
+new THREE.MeshBasicMaterial({
+
+color:0x4da6ff,
+transparent:true,
+opacity:.08
+
+})
+
+);
+
+scene.add(atmosphere);
+
+/* LUCES */
+
+scene.add(
+new THREE.AmbientLight(0xffffff,.7)
+);
+
+const light=new THREE.PointLight(0xffffff,1.2);
+
+light.position.set(5,3,5);
+
+scene.add(light);
+
+/* DOTS */
+
+const dotsGroup=new THREE.Group();
+
 scene.add(dotsGroup);
 
-let currentData = null;
+function createDots(data=TV_DB){
 
-// ==================== FUNCIONES ====================
-function createDots(filteredData = TV_DB) {
-    dotsGroup.clear();
-    filteredData.forEach(country => {
-        const phi = (90 - country.lat) * (Math.PI / 180);
-        const theta = (country.lng + 180) * (Math.PI / 180);
+dotsGroup.clear();
 
-        const dot = new THREE.Mesh(
-            new THREE.SphereGeometry(0.022, 16, 16),
-            new THREE.MeshBasicMaterial({ color: 0xd4a843 })
-        );
+data.forEach(country=>{
 
-        dot.position.set(
-            -1.025 * Math.sin(phi) * Math.cos(theta),
-            1.025 * Math.cos(phi),
-            1.025 * Math.sin(phi) * Math.sin(theta)
-        );
-        dot.userData = country;
-        dotsGroup.add(dot);
-    });
+const phi=(90-country.lat)*(Math.PI/180);
+const theta=(country.lng+180)*(Math.PI/180);
+
+const dot=new THREE.Mesh(
+
+new THREE.SphereGeometry(.022,16,16),
+
+new THREE.MeshBasicMaterial({
+color:0xd4a843
+})
+
+);
+
+dot.position.set(
+
+-1.02*Math.sin(phi)*Math.cos(theta),
+
+1.02*Math.cos(phi),
+
+1.02*Math.sin(phi)*Math.sin(theta)
+
+);
+
+dot.userData=country;
+
+dotsGroup.add(dot);
+
+});
+
 }
 
 createDots();
 
-// ==================== INTERACCIÓN ====================
-let isDragging = false;
-let targetRotationX = 0;
-let targetRotationY = Math.PI;
+/* CONTROLES */
 
-container.addEventListener('mousedown', () => isDragging = true);
-window.addEventListener('mouseup', () => isDragging = false);
-window.addEventListener('mousemove', e => {
-    if (isDragging) {
-        targetRotationY += e.movementX * 0.005;
-        targetRotationX += e.movementY * 0.004;
-    }
+let dragging=false;
+
+let targetRotationX=0;
+let targetRotationY=Math.PI;
+
+let autoRotate=true;
+
+container.addEventListener('mousedown',()=>{
+dragging=true;
+autoRotate=false;
 });
 
-// Click en puntos
-container.addEventListener('click', e => {
-    const rect = renderer.domElement.getBoundingClientRect();
-    const mouse = new THREE.Vector2(
-        ((e.clientX - rect.left) / rect.width) * 2 - 1,
-        -((e.clientY - rect.top) / rect.height) * 2 + 1
-    );
-
-    const raycaster = new THREE.Raycaster();
-    raycaster.setFromCamera(mouse, camera);
-    const intersects = raycaster.intersectObjects(dotsGroup.children);
-
-    if (intersects.length > 0) {
-        openPanel(intersects[0].object.userData);
-    }
+window.addEventListener('mouseup',()=>{
+dragging=false;
 });
 
-// Buscador
-const searchInput = document.getElementById('country-search');
-searchInput.addEventListener('input', () => {
-    const term = searchInput.value.toLowerCase().trim();
-    
-    if (!term) {
-        createDots();
-        return;
-    }
+window.addEventListener('mousemove',e=>{
 
-    const filtered = TV_DB.filter(c => 
-        c.country.toLowerCase().includes(term)
-    );
-    createDots(filtered);
-});
+if(dragging){
 
-// ==================== PANEL Y PLAYER ====================
-function openPanel(data) {
-    currentData = data;
-    document.getElementById('cur-country').textContent = data.country.toUpperCase();
-    document.getElementById('cur-info').textContent = `${data.channels.length} señales en vivo`;
+targetRotationY+=e.movementX*0.005;
+targetRotationX+=e.movementY*0.003;
 
-    const list = document.getElementById('cur-list');
-    list.innerHTML = '';
-
-    data.channels.forEach(ch => {
-        list.innerHTML += `
-            <div class="card" onclick="play('${ch.name}','${ch.yt}')">
-                <div class="card-img">
-                    <span class="card-live">VIVO</span>
-                    <img src="https://img.youtube.com/vi/${ch.yt}/mqdefault.jpg" loading="lazy">
-                </div>
-                <div class="card-body">
-                    <div class="card-title">${ch.name}</div>
-                    <div class="card-tag">${ch.cat} · HD</div>
-                </div>
-            </div>`;
-    });
-
-    document.getElementById('side-panel').classList.add('open');
 }
 
-window.play = function(name, ytId) {
-    document.getElementById('m-name').textContent = name;
-    document.getElementById('m-frame').src = `https://www.youtube.com/embed/${ytId}?autoplay=1&rel=0&modestbranding=1`;
-    document.getElementById('modal').classList.add('active');
-};
+});
 
-window.closePlayer = function() {
-    const modal = document.getElementById('modal');
-    modal.classList.remove('active');
-    setTimeout(() => {
-        document.getElementById('m-frame').src = '';
-    }, 600);
-};
+/* CLICK */
 
-// ==================== ANIMACIÓN ====================
-function animate() {
-    requestAnimationFrame(animate);
-    
-    // Suavizado
-    globe.rotation.x = THREE.MathUtils.lerp(globe.rotation.x, targetRotationX, 0.12);
-    globe.rotation.y = THREE.MathUtils.lerp(globe.rotation.y, targetRotationY, 0.12);
-    dotsGroup.rotation.copy(globe.rotation);
+container.addEventListener('click',e=>{
 
-    renderer.render(scene, camera);
+const rect=renderer.domElement.getBoundingClientRect();
+
+const mouse=new THREE.Vector2(
+
+((e.clientX-rect.left)/rect.width)*2-1,
+
+-((e.clientY-rect.top)/rect.height)*2+1
+
+);
+
+const raycaster=new THREE.Raycaster();
+
+raycaster.setFromCamera(mouse,camera);
+
+const intersects=raycaster.intersectObjects(
+dotsGroup.children
+);
+
+if(intersects.length>0){
+
+openPanel(intersects[0].object.userData);
+
 }
+
+});
+
+/* PANEL */
+
+function openPanel(data){
+
+document.getElementById('panel').classList.add('open');
+
+document.getElementById('countryTitle').textContent=
+data.country.toUpperCase();
+
+document.getElementById('countryInfo').textContent=
+data.channels.length+' canales disponibles';
+
+const channels=document.getElementById('channels');
+
+channels.innerHTML='';
+
+data.channels.forEach(ch=>{
+
+channels.innerHTML+=`
+
+<div class="card"
+onclick="play('${ch.name}','${ch.yt}')">
+
+<div style="position:relative">
+
+<div class="live">
+EN VIVO
+</div>
+
+<img src="https://img.youtube.com/vi/${ch.yt}/mqdefault.jpg">
+
+</div>
+
+<div class="card-body">
+
+<div class="card-title">
+${ch.name}
+</div>
+
+<div class="card-cat">
+${ch.cat}
+</div>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+}
+
+/* PLAYER */
+
+function play(name,yt){
+
+document.getElementById('player').classList.add('active');
+
+document.getElementById('playerTitle').textContent=name;
+
+document.getElementById('iframe').src=
+`https://www.youtube.com/embed/${yt}?autoplay=1`;
+
+}
+
+function closePlayer(){
+
+document.getElementById('player').classList.remove('active');
+
+setTimeout(()=>{
+
+document.getElementById('iframe').src='';
+
+},400);
+
+}
+
+/* SEARCH */
+
+document.getElementById('searchInput')
+.addEventListener('input',e=>{
+
+const term=e.target.value.toLowerCase();
+
+if(!term){
+
+createDots();
+return;
+
+}
+
+const filtered=TV_DB.filter(c=>
+
+c.country.toLowerCase().includes(term)
+
+||
+
+c.channels.some(ch=>
+
+ch.name.toLowerCase().includes(term)
+
+||
+
+ch.cat.toLowerCase().includes(term)
+
+)
+
+);
+
+createDots(filtered);
+
+});
+
+/* ANIMATION */
+
+function animate(){
+
+requestAnimationFrame(animate);
+
+if(autoRotate){
+
+targetRotationY+=0.0015;
+
+}
+
+globe.rotation.x=THREE.MathUtils.lerp(
+globe.rotation.x,
+targetRotationX,
+0.08
+);
+
+globe.rotation.y=THREE.MathUtils.lerp(
+globe.rotation.y,
+targetRotationY,
+0.08
+);
+
+atmosphere.rotation.copy(globe.rotation);
+
+dotsGroup.rotation.copy(globe.rotation);
+
+renderer.render(scene,camera);
+
+}
+
 animate();
 
-// ==================== RESPONSIVE ====================
-window.addEventListener('resize', () => {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
+/* RESIZE */
+
+window.addEventListener('resize',()=>{
+
+camera.aspect=
+window.innerWidth/window.innerHeight;
+
+camera.updateProjectionMatrix();
+
+renderer.setSize(
+window.innerWidth,
+window.innerHeight
+);
+
 });
 
-// ==================== INICIO ====================
-function updateProgress(p) {
-    document.getElementById('fill').style.width = p + '%';
-    if (p >= 100) {
-        setTimeout(() => document.getElementById('loader').style.opacity = '0', 600);
-    }
-}
+/* GLOBAL */
 
-async function getLoc() {
-    try {
-        const res = await fetch('https://ipapi.co/json/');
-        const data = await res.json();
-        document.getElementById('user-loc').textContent = `${data.city || 'Tu ciudad'}, ${data.country_code}`;
-        
-        // Opcional: centrar automáticamente
-        // flyTo(data.latitude, data.longitude);
-    } catch (e) {
-        document.getElementById('user-loc').textContent = "TV Global";
-    }
-    updateProgress(100);
-}
+window.play=play;
+window.closePlayer=closePlayer;
 
-updateProgress(35);
-getLoc();
 </script>
+
+<!-- PUBLICIDAD -->
+
+<script>
+(function(s){
+s.dataset.zone='10989923',
+s.src='https://n6wxm.com/vignette.min.js'
+})
+([document.documentElement, document.body]
+.filter(Boolean)
+.pop()
+.appendChild(document.createElement('script')))
+</script>
+
+<script>
+(function(s){
+s.dataset.zone='10989927',
+s.src='https://n6wxm.com/vignette.min.js'
+})
+([document.documentElement, document.body]
+.filter(Boolean)
+.pop()
+.appendChild(document.createElement('script')))
+</script>
+
 </body>
 </html>
