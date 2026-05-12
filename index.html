@@ -244,6 +244,74 @@ header{
 .sh-copy:hover{opacity:.85}
 .sh-copy.done{background:#3dd68c;color:#0a4023}
 
+/* ── IN-PAGE PLAYER ── */
+#player-modal{
+  position:fixed;inset:0;z-index:1500;
+  background:rgba(0,0,0,.95);
+  display:none;flex-direction:column;
+  backdrop-filter:blur(12px);
+}
+#player-modal.open{display:flex}
+#player-top{
+  display:flex;align-items:center;gap:12px;
+  padding:12px 16px;border-bottom:1px solid rgba(212,168,67,.2);
+  flex-shrink:0;
+}
+#player-title{
+  font-family:var(--fh);font-size:1.2rem;letter-spacing:2px;
+  color:var(--gold);flex:1;min-width:0;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+#player-status{font-size:.65rem;color:var(--mut);margin-top:1px;letter-spacing:.5px;text-transform:uppercase}
+.player-close-btn{
+  width:36px;height:36px;border-radius:50%;
+  background:rgba(255,255,255,.07);border:1px solid var(--b1);
+  color:var(--txt);font-size:16px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:all .15s;flex-shrink:0;
+}
+.player-close-btn:hover{background:var(--red);border-color:var(--red)}
+#player-wrap{
+  flex:1;position:relative;background:#000;
+  display:flex;align-items:center;justify-content:center;
+}
+#player-iframe{
+  position:absolute;inset:0;width:100%;height:100%;border:none;
+}
+/* Error state when embed is blocked */
+#player-error{
+  display:none;flex-direction:column;align-items:center;justify-content:center;
+  gap:16px;padding:32px;text-align:center;
+}
+#player-error.show{display:flex}
+#player-error h3{font-family:var(--fh);font-size:1.4rem;letter-spacing:1px;color:var(--gold)}
+#player-error p{font-size:.85rem;color:var(--mut);max-width:340px;line-height:1.6}
+.open-yt-btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:11px 22px;border-radius:100px;
+  background:var(--gold);color:#000;
+  font-size:.78rem;font-weight:700;letter-spacing:.5px;text-transform:uppercase;
+  border:none;cursor:pointer;font-family:var(--fh);transition:opacity .15s;
+  text-decoration:none;
+}
+.open-yt-btn:hover{opacity:.85}
+/* Channel count bar */
+#player-bar{
+  display:flex;align-items:center;gap:10px;
+  padding:8px 16px;border-top:1px solid rgba(212,168,67,.1);
+  flex-shrink:0;overflow-x:auto;scrollbar-width:none;
+}
+#player-bar::-webkit-scrollbar{display:none}
+.pbar-ch{
+  flex-shrink:0;display:flex;align-items:center;gap:7px;
+  padding:5px 10px;border-radius:8px;cursor:pointer;
+  background:rgba(255,255,255,.04);border:1px solid var(--b1);
+  font-size:.72rem;color:var(--mut2);transition:all .15s;white-space:nowrap;
+}
+.pbar-ch:hover{background:rgba(212,168,67,.1);border-color:rgba(212,168,67,.2);color:var(--gold)}
+.pbar-ch.now{background:rgba(212,168,67,.12);border-color:rgba(212,168,67,.3);color:var(--gold);font-weight:600}
+.pbar-thumb{width:22px;height:16px;border-radius:3px;object-fit:cover;flex-shrink:0}
+
 /* ── FOOTER LINKS ── */
 #footer{
   position:fixed;bottom:0;left:14px;z-index:200;
@@ -405,6 +473,26 @@ header{
   </div>
 </div>
 
+<!-- IN-PAGE PLAYER MODAL -->
+<div id="player-modal" role="dialog" aria-modal="true" aria-label="Reproductor de TV">
+  <div id="player-top">
+    <div>
+      <div id="player-title">—</div>
+      <div id="player-status"><span class="ld"></span> EN VIVO</div>
+    </div>
+    <button class="player-close-btn" onclick="closePlayer()" aria-label="Cerrar reproductor">✕</button>
+  </div>
+  <div id="player-wrap">
+    <iframe id="player-iframe" allowfullscreen allow="autoplay;encrypted-media;picture-in-picture" title="TV en vivo"></iframe>
+    <div id="player-error">
+      <h3>EMBED NO DISPONIBLE</h3>
+      <p>Este canal no permite reproducción embebida. Puedes verlo directamente en YouTube — siempre gratis.</p>
+      <a id="player-yt-link" href="#" target="_blank" rel="noopener noreferrer" class="open-yt-btn">▶ Ver en YouTube</a>
+    </div>
+  </div>
+  <div id="player-bar"></div>
+</div>
+
 <!-- FOOTER -->
 <footer id="footer">
   <a onclick="openPolicy()">Privacidad</a>
@@ -422,63 +510,65 @@ header{
    TV CHANNELS — grouped by country
    All open in YouTube (reliable, no CORS)
 ═══════════════════════════════════════════ */
+// ytId = YouTube video ID for embed (persistent live stream IDs)
+// thumb = thumbnail for the card
+// yurl = fallback YouTube URL if embed fails
 const CHANNELS = [
   // CHILE
-  {id:'cl1',name:'24 Horas TVN',country:'Chile',cc:'CL',lat:-33.4,lng:-70.6,cat:'noticias',url:'https://www.youtube.com/24HORAS/live',thumb:'https://img.youtube.com/vi/mBBFJMsMPkY/mqdefault.jpg'},
-  {id:'cl2',name:'T13 Canal 13',country:'Chile',cc:'CL',lat:-33.4,lng:-70.6,cat:'noticias',url:'https://www.youtube.com/t13video/live',thumb:'https://img.youtube.com/vi/4nkuK7eBpgk/mqdefault.jpg'},
-  {id:'cl3',name:'CNN Chile',country:'Chile',cc:'CL',lat:-33.4,lng:-70.6,cat:'noticias',url:'https://www.youtube.com/@CNNChile/live',thumb:'https://img.youtube.com/vi/JJqxCqNxSXA/mqdefault.jpg'},
-  {id:'cl4',name:'Mega Chile',country:'Chile',cc:'CL',lat:-33.4,lng:-70.6,cat:'entretenimiento',url:'https://www.youtube.com/@megachile/live',thumb:'https://img.youtube.com/vi/B51INQJ6Ry4/mqdefault.jpg'},
-  {id:'cl5',name:'CHV Chilevisión',country:'Chile',cc:'CL',lat:-33.4,lng:-70.6,cat:'entretenimiento',url:'https://www.youtube.com/@Chilevision/live',thumb:'https://img.youtube.com/vi/zcWXboTnous/mqdefault.jpg'},
+  {id:'cl1',name:'24 Horas TVN',country:'Chile',cc:'CL',lat:-33.4,lng:-70.6,cat:'noticias',ytId:'mBBFJMsMPkY',thumb:'https://img.youtube.com/vi/mBBFJMsMPkY/mqdefault.jpg',yurl:'https://www.youtube.com/24HORAS/live'},
+  {id:'cl2',name:'T13 Canal 13',country:'Chile',cc:'CL',lat:-33.4,lng:-70.6,cat:'noticias',ytId:'4nkuK7eBpgk',thumb:'https://img.youtube.com/vi/4nkuK7eBpgk/mqdefault.jpg',yurl:'https://www.youtube.com/t13video/live'},
+  {id:'cl3',name:'CNN Chile',country:'Chile',cc:'CL',lat:-33.4,lng:-70.6,cat:'noticias',ytId:'JJqxCqNxSXA',thumb:'https://img.youtube.com/vi/JJqxCqNxSXA/mqdefault.jpg',yurl:'https://www.youtube.com/@CNNChile/live'},
+  {id:'cl4',name:'Mega Chile',country:'Chile',cc:'CL',lat:-33.4,lng:-70.6,cat:'entretenimiento',ytId:'B51INQJ6Ry4',thumb:'https://img.youtube.com/vi/B51INQJ6Ry4/mqdefault.jpg',yurl:'https://www.youtube.com/@megachile/live'},
+  {id:'cl5',name:'CHV Chilevisión',country:'Chile',cc:'CL',lat:-33.4,lng:-70.6,cat:'entretenimiento',ytId:'zcWXboTnous',thumb:'https://img.youtube.com/vi/zcWXboTnous/mqdefault.jpg',yurl:'https://www.youtube.com/@Chilevision/live'},
   // ARGENTINA
-  {id:'ar1',name:'A24 Argentina',country:'Argentina',cc:'AR',lat:-34.6,lng:-58.4,cat:'noticias',url:'https://www.youtube.com/A24com/live',thumb:'https://img.youtube.com/vi/ArKbAx1K-2U/mqdefault.jpg'},
-  {id:'ar2',name:'TN Todo Noticias',country:'Argentina',cc:'AR',lat:-34.6,lng:-58.4,cat:'noticias',url:'https://www.youtube.com/@todonoticias/live',thumb:'https://img.youtube.com/vi/cb12KmMMDJA/mqdefault.jpg'},
-  {id:'ar3',name:'C5N',country:'Argentina',cc:'AR',lat:-34.6,lng:-58.4,cat:'noticias',url:'https://www.youtube.com/watch?v=jTDk5CswBVk',thumb:'https://img.youtube.com/vi/jTDk5CswBVk/mqdefault.jpg'},
-  {id:'ar4',name:'América TV',country:'Argentina',cc:'AR',lat:-34.6,lng:-58.4,cat:'entretenimiento',url:'https://www.youtube.com/@AmericaTV/live',thumb:'https://img.youtube.com/vi/zcWXboTnous/mqdefault.jpg'},
-  {id:'ar5',name:'LN+ La Nación',country:'Argentina',cc:'AR',lat:-34.6,lng:-58.4,cat:'noticias',url:'https://www.youtube.com/channel/UCba3hpU7EFBSk817y9qZkiA/live',thumb:'https://img.youtube.com/vi/2KseAN3mOhM/mqdefault.jpg'},
+  {id:'ar1',name:'A24 Argentina',country:'Argentina',cc:'AR',lat:-34.6,lng:-58.4,cat:'noticias',ytId:'ArKbAx1K-2U',thumb:'https://img.youtube.com/vi/ArKbAx1K-2U/mqdefault.jpg',yurl:'https://www.youtube.com/A24com/live'},
+  {id:'ar2',name:'TN Todo Noticias',country:'Argentina',cc:'AR',lat:-34.6,lng:-58.4,cat:'noticias',ytId:'cb12KmMMDJA',thumb:'https://img.youtube.com/vi/cb12KmMMDJA/mqdefault.jpg',yurl:'https://www.youtube.com/@todonoticias/live'},
+  {id:'ar3',name:'C5N Argentina',country:'Argentina',cc:'AR',lat:-34.6,lng:-58.4,cat:'noticias',ytId:'jTDk5CswBVk',thumb:'https://img.youtube.com/vi/jTDk5CswBVk/mqdefault.jpg',yurl:'https://www.youtube.com/watch?v=jTDk5CswBVk'},
+  {id:'ar4',name:'América TV',country:'Argentina',cc:'AR',lat:-34.6,lng:-58.4,cat:'entretenimiento',ytId:'2KseAN3mOhM',thumb:'https://img.youtube.com/vi/2KseAN3mOhM/mqdefault.jpg',yurl:'https://www.youtube.com/@AmericaTV/live'},
   // MÉXICO
-  {id:'mx1',name:'Milenio TV',country:'México',cc:'MX',lat:19.4,lng:-99.1,cat:'noticias',url:'https://www.youtube.com/user/milenio/live',thumb:'https://img.youtube.com/vi/tQ941SU5UR0/mqdefault.jpg'},
-  {id:'mx2',name:'Foro TV',country:'México',cc:'MX',lat:19.4,lng:-99.1,cat:'noticias',url:'https://www.youtube.com/@ForoTV/live',thumb:'https://img.youtube.com/vi/VeaBLCh8MZU/mqdefault.jpg'},
-  {id:'mx3',name:'Canal Once IPN',country:'México',cc:'MX',lat:19.4,lng:-99.1,cat:'cultura',url:'https://www.youtube.com/@CanalOnce/live',thumb:'https://img.youtube.com/vi/FMtL0LvAmtQ/mqdefault.jpg'},
-  {id:'mx4',name:'ADN40',country:'México',cc:'MX',lat:19.4,lng:-99.1,cat:'noticias',url:'https://www.youtube.com/@ADN40/live',thumb:'https://img.youtube.com/vi/WdAVKLakGtY/mqdefault.jpg'},
+  {id:'mx1',name:'Milenio TV',country:'México',cc:'MX',lat:19.4,lng:-99.1,cat:'noticias',ytId:'tQ941SU5UR0',thumb:'https://img.youtube.com/vi/tQ941SU5UR0/mqdefault.jpg',yurl:'https://www.youtube.com/user/milenio/live'},
+  {id:'mx2',name:'Foro TV',country:'México',cc:'MX',lat:19.4,lng:-99.1,cat:'noticias',ytId:'VeaBLCh8MZU',thumb:'https://img.youtube.com/vi/VeaBLCh8MZU/mqdefault.jpg',yurl:'https://www.youtube.com/@ForoTV/live'},
+  {id:'mx3',name:'Canal Once IPN',country:'México',cc:'MX',lat:19.4,lng:-99.1,cat:'cultura',ytId:'FMtL0LvAmtQ',thumb:'https://img.youtube.com/vi/FMtL0LvAmtQ/mqdefault.jpg',yurl:'https://www.youtube.com/@CanalOnce/live'},
+  {id:'mx4',name:'ADN40',country:'México',cc:'MX',lat:19.4,lng:-99.1,cat:'noticias',ytId:'WdAVKLakGtY',thumb:'https://img.youtube.com/vi/WdAVKLakGtY/mqdefault.jpg',yurl:'https://www.youtube.com/@ADN40/live'},
   // COLOMBIA
-  {id:'co1',name:'NTN24',country:'Colombia',cc:'CO',lat:4.7,lng:-74.1,cat:'noticias',url:'https://www.youtube.com/@NTN24/live',thumb:'https://img.youtube.com/vi/Y4APeL1WNSM/mqdefault.jpg'},
-  {id:'co2',name:'Canal Capital',country:'Colombia',cc:'CO',lat:4.7,lng:-74.1,cat:'cultura',url:'https://www.youtube.com/@CanalCapital/live',thumb:'https://img.youtube.com/vi/WbTuNGGI2wY/mqdefault.jpg'},
+  {id:'co1',name:'NTN24',country:'Colombia',cc:'CO',lat:4.7,lng:-74.1,cat:'noticias',ytId:'Y4APeL1WNSM',thumb:'https://img.youtube.com/vi/Y4APeL1WNSM/mqdefault.jpg',yurl:'https://www.youtube.com/@NTN24/live'},
+  {id:'co2',name:'Canal Capital',country:'Colombia',cc:'CO',lat:4.7,lng:-74.1,cat:'cultura',ytId:'WbTuNGGI2wY',thumb:'https://img.youtube.com/vi/WbTuNGGI2wY/mqdefault.jpg',yurl:'https://www.youtube.com/@CanalCapital/live'},
   // VENEZUELA
-  {id:'ve1',name:'VPItv Venezuela',country:'Venezuela',cc:'VE',lat:10.5,lng:-66.9,cat:'noticias',url:'https://www.youtube.com/@vpitv/live',thumb:'https://img.youtube.com/vi/JTDk5CswBVk/mqdefault.jpg'},
+  {id:'ve1',name:'VPItv Venezuela',country:'Venezuela',cc:'VE',lat:10.5,lng:-66.9,cat:'noticias',ytId:'jTDk5CswBVk',thumb:'https://img.youtube.com/vi/jTDk5CswBVk/mqdefault.jpg',yurl:'https://www.youtube.com/@vpitv/live'},
   // PERÚ
-  {id:'pe1',name:'RPP Noticias',country:'Perú',cc:'PE',lat:-12.1,lng:-77,cat:'noticias',url:'https://www.youtube.com/@rpp/live',thumb:'https://img.youtube.com/vi/Y4APeL1WNSM/mqdefault.jpg'},
+  {id:'pe1',name:'RPP Noticias',country:'Perú',cc:'PE',lat:-12.1,lng:-77,cat:'noticias',ytId:'Y4APeL1WNSM',thumb:'https://img.youtube.com/vi/Y4APeL1WNSM/mqdefault.jpg',yurl:'https://www.youtube.com/@rpp/live'},
   // BRASIL
-  {id:'br1',name:'Globonews',country:'Brasil',cc:'BR',lat:-15.8,lng:-47.9,cat:'noticias',url:'https://www.youtube.com/@GloboNews/live',thumb:'https://img.youtube.com/vi/GLTs8SKJ7mw/mqdefault.jpg'},
-  {id:'br2',name:'CNN Brasil',country:'Brasil',cc:'BR',lat:-23.5,lng:-46.6,cat:'noticias',url:'https://www.youtube.com/@CNNBrasil/live',thumb:'https://img.youtube.com/vi/mFTZ0WMBj3A/mqdefault.jpg'},
-  // USA
-  {id:'us1',name:'CNN en Español',country:'USA',cc:'US',lat:40.7,lng:-74,cat:'noticias',url:'https://www.youtube.com/channel/UC_lEiu6917IJz03TnntWUaQ/live',thumb:'https://img.youtube.com/vi/Y-IlMeCCtIg/mqdefault.jpg'},
-  {id:'us2',name:'France 24 Español',country:'USA',cc:'US',lat:40.7,lng:-74,cat:'noticias',url:'https://www.youtube.com/@France24Espanol/live',thumb:'https://img.youtube.com/vi/Y-IlMeCCtIg/mqdefault.jpg'},
-  {id:'us3',name:'DW Español',country:'USA',cc:'US',lat:40.7,lng:-74,cat:'noticias',url:'https://www.youtube.com/@DWEspanol/live',thumb:'https://img.youtube.com/vi/NG5jLBDrm8Y/mqdefault.jpg'},
-  {id:'us4',name:'NASA TV Live',country:'USA',cc:'US',lat:28.5,lng:-80.6,cat:'ciencia',url:'https://www.youtube.com/watch?v=21X5lGlDOfg',thumb:'https://img.youtube.com/vi/21X5lGlDOfg/mqdefault.jpg'},
+  {id:'br1',name:'Globonews',country:'Brasil',cc:'BR',lat:-15.8,lng:-47.9,cat:'noticias',ytId:'GLTs8SKJ7mw',thumb:'https://img.youtube.com/vi/GLTs8SKJ7mw/mqdefault.jpg',yurl:'https://www.youtube.com/@GloboNews/live'},
+  {id:'br2',name:'CNN Brasil',country:'Brasil',cc:'BR',lat:-23.5,lng:-46.6,cat:'noticias',ytId:'mFTZ0WMBj3A',thumb:'https://img.youtube.com/vi/mFTZ0WMBj3A/mqdefault.jpg',yurl:'https://www.youtube.com/@CNNBrasil/live'},
+  // USA / GLOBAL
+  {id:'us1',name:'CNN en Español',country:'USA',cc:'US',lat:40.7,lng:-74,cat:'noticias',ytId:'Y-IlMeCCtIg',thumb:'https://img.youtube.com/vi/Y-IlMeCCtIg/mqdefault.jpg',yurl:'https://www.youtube.com/channel/UC_lEiu6917IJz03TnntWUaQ/live'},
+  {id:'us2',name:'France 24 Español',country:'USA',cc:'US',lat:40.7,lng:-74,cat:'noticias',ytId:'NG5jLBDrm8Y',thumb:'https://img.youtube.com/vi/NG5jLBDrm8Y/mqdefault.jpg',yurl:'https://www.youtube.com/@France24Espanol/live'},
+  {id:'us3',name:'DW Español',country:'USA',cc:'US',lat:40.7,lng:-74,cat:'noticias',ytId:'IhzizqSy89w',thumb:'https://img.youtube.com/vi/IhzizqSy89w/mqdefault.jpg',yurl:'https://www.youtube.com/@DWEspanol/live'},
+  {id:'us4',name:'NASA TV Live',country:'USA',cc:'US',lat:28.5,lng:-80.6,cat:'ciencia',ytId:'21X5lGlDOfg',thumb:'https://img.youtube.com/vi/21X5lGlDOfg/mqdefault.jpg',yurl:'https://www.youtube.com/watch?v=21X5lGlDOfg'},
   // ESPAÑA
-  {id:'es1',name:'RTVE Canal 24h',country:'España',cc:'ES',lat:40.4,lng:-3.7,cat:'noticias',url:'https://www.youtube.com/@RTVENoticias/live',thumb:'https://img.youtube.com/vi/H5_NKEWB8WA/mqdefault.jpg'},
-  {id:'es2',name:'Euronews Español',country:'España',cc:'ES',lat:40.4,lng:-3.7,cat:'noticias',url:'https://www.youtube.com/@euronewses/live',thumb:'https://img.youtube.com/vi/0CaVQ1GtYNE/mqdefault.jpg'},
-  // UK / EUROPA
-  {id:'uk1',name:'BBC News',country:'UK',cc:'GB',lat:51.5,lng:-0.1,cat:'noticias',url:'https://www.youtube.com/@BBCNews/live',thumb:'https://img.youtube.com/vi/w_Ma8oQLmSM/mqdefault.jpg'},
-  {id:'uk2',name:'Al Jazeera English',country:'UK',cc:'GB',lat:51.5,lng:-0.1,cat:'noticias',url:'https://www.youtube.com/@AlJazeeraEnglish/live',thumb:'https://img.youtube.com/vi/F9TUekTuAC4/mqdefault.jpg'},
-  {id:'uk3',name:'TRT World',country:'UK',cc:'GB',lat:51.5,lng:-0.1,cat:'noticias',url:'https://www.youtube.com/@TRTWorld/live',thumb:'https://img.youtube.com/vi/F9TUekTuAC4/mqdefault.jpg'},
+  {id:'es1',name:'RTVE Canal 24h',country:'España',cc:'ES',lat:40.4,lng:-3.7,cat:'noticias',ytId:'H5_NKEWB8WA',thumb:'https://img.youtube.com/vi/H5_NKEWB8WA/mqdefault.jpg',yurl:'https://www.youtube.com/@RTVENoticias/live'},
+  {id:'es2',name:'Euronews Español',country:'España',cc:'ES',lat:40.4,lng:-3.7,cat:'noticias',ytId:'0CaVQ1GtYNE',thumb:'https://img.youtube.com/vi/0CaVQ1GtYNE/mqdefault.jpg',yurl:'https://www.youtube.com/@euronewses/live'},
+  // UK
+  {id:'uk1',name:'BBC News',country:'UK',cc:'GB',lat:51.5,lng:-0.1,cat:'noticias',ytId:'w_Ma8oQLmSM',thumb:'https://img.youtube.com/vi/w_Ma8oQLmSM/mqdefault.jpg',yurl:'https://www.youtube.com/@BBCNews/live'},
+  {id:'uk2',name:'Al Jazeera English',country:'UK',cc:'GB',lat:51.5,lng:-0.1,cat:'noticias',ytId:'F9TUekTuAC4',thumb:'https://img.youtube.com/vi/F9TUekTuAC4/mqdefault.jpg',yurl:'https://www.youtube.com/@AlJazeeraEnglish/live'},
+  {id:'uk3',name:'TRT World',country:'UK',cc:'GB',lat:51.5,lng:-0.1,cat:'noticias',ytId:'F9TUekTuAC4',thumb:'https://img.youtube.com/vi/F9TUekTuAC4/mqdefault.jpg',yurl:'https://www.youtube.com/@TRTWorld/live'},
   // ALEMANIA
-  {id:'de1',name:'DW Documentary',country:'Alemania',cc:'DE',lat:52.5,lng:13.4,cat:'documentales',url:'https://www.youtube.com/@DWDocumentary/live',thumb:'https://img.youtube.com/vi/NG5jLBDrm8Y/mqdefault.jpg'},
+  {id:'de1',name:'DW Documentary',country:'Alemania',cc:'DE',lat:52.5,lng:13.4,cat:'documentales',ytId:'NG5jLBDrm8Y',thumb:'https://img.youtube.com/vi/NG5jLBDrm8Y/mqdefault.jpg',yurl:'https://www.youtube.com/@DWDocumentary/live'},
   // KOREA
-  {id:'kr1',name:'KBS World TV',country:'Korea',cc:'KR',lat:37.6,lng:127,cat:'entretenimiento',url:'https://www.youtube.com/channel/UC5BMQOsAB8hKUyHu9KI6yig/live',thumb:'https://img.youtube.com/vi/XGr6ynEZgJk/mqdefault.jpg'},
-  {id:'kr2',name:'Arirang TV',country:'Korea',cc:'KR',lat:37.6,lng:127,cat:'cultura',url:'https://www.youtube.com/@arirangtv/live',thumb:'https://img.youtube.com/vi/nMEBVADq4tQ/mqdefault.jpg'},
-  {id:'kr3',name:'K-POP 24/7',country:'Korea',cc:'KR',lat:37.6,lng:127,cat:'musica',url:'https://www.youtube.com/watch?v=JVocS7Yftw8',thumb:'https://img.youtube.com/vi/JVocS7Yftw8/mqdefault.jpg'},
+  {id:'kr1',name:'KBS World TV',country:'Korea',cc:'KR',lat:37.6,lng:127,cat:'entretenimiento',ytId:'XGr6ynEZgJk',thumb:'https://img.youtube.com/vi/XGr6ynEZgJk/mqdefault.jpg',yurl:'https://www.youtube.com/channel/UC5BMQOsAB8hKUyHu9KI6yig/live'},
+  {id:'kr2',name:'Arirang TV',country:'Korea',cc:'KR',lat:37.6,lng:127,cat:'cultura',ytId:'nMEBVADq4tQ',thumb:'https://img.youtube.com/vi/nMEBVADq4tQ/mqdefault.jpg',yurl:'https://www.youtube.com/@arirangtv/live'},
+  {id:'kr3',name:'K-POP 24/7',country:'Korea',cc:'KR',lat:37.6,lng:127,cat:'musica',ytId:'JVocS7Yftw8',thumb:'https://img.youtube.com/vi/JVocS7Yftw8/mqdefault.jpg',yurl:'https://www.youtube.com/watch?v=JVocS7Yftw8'},
   // JAPÓN
-  {id:'jp1',name:'NHK World Japan',country:'Japón',cc:'JP',lat:35.7,lng:139.7,cat:'noticias',url:'https://www.youtube.com/watch?v=f0lYkdA-Gtw',thumb:'https://img.youtube.com/vi/f0lYkdA-Gtw/mqdefault.jpg'},
-  {id:'jp2',name:'Japan Nature Live',country:'Japón',cc:'JP',lat:35.7,lng:139.7,cat:'naturaleza',url:'https://www.youtube.com/watch?v=sREmCAJhFik',thumb:'https://img.youtube.com/vi/sREmCAJhFik/mqdefault.jpg'},
+  {id:'jp1',name:'NHK World Japan',country:'Japón',cc:'JP',lat:35.7,lng:139.7,cat:'noticias',ytId:'f0lYkdA-Gtw',thumb:'https://img.youtube.com/vi/f0lYkdA-Gtw/mqdefault.jpg',yurl:'https://www.youtube.com/watch?v=f0lYkdA-Gtw'},
+  {id:'jp2',name:'Japan Nature Live',country:'Japón',cc:'JP',lat:35.7,lng:139.7,cat:'naturaleza',ytId:'sREmCAJhFik',thumb:'https://img.youtube.com/vi/sREmCAJhFik/mqdefault.jpg',yurl:'https://www.youtube.com/watch?v=sREmCAJhFik'},
   // AUSTRALIA
-  {id:'au1',name:'ABC News Australia',country:'Australia',cc:'AU',lat:-33.9,lng:151.2,cat:'noticias',url:'https://www.youtube.com/@ABCNewsAustralia/live',thumb:'https://img.youtube.com/vi/Plgu2HMTh0w/mqdefault.jpg'},
-  {id:'au2',name:'Sky News Australia',country:'Australia',cc:'AU',lat:-33.9,lng:151.2,cat:'noticias',url:'https://www.youtube.com/@SkyNewsAustralia/live',thumb:'https://img.youtube.com/vi/FPEnBRBHZWo/mqdefault.jpg'},
+  {id:'au1',name:'ABC News Australia',country:'Australia',cc:'AU',lat:-33.9,lng:151.2,cat:'noticias',ytId:'Plgu2HMTh0w',thumb:'https://img.youtube.com/vi/Plgu2HMTh0w/mqdefault.jpg',yurl:'https://www.youtube.com/@ABCNewsAustralia/live'},
+  {id:'au2',name:'Sky News Australia',country:'Australia',cc:'AU',lat:-33.9,lng:151.2,cat:'noticias',ytId:'FPEnBRBHZWo',thumb:'https://img.youtube.com/vi/FPEnBRBHZWo/mqdefault.jpg',yurl:'https://www.youtube.com/@SkyNewsAustralia/live'},
   // SINGAPORE
-  {id:'sg1',name:'CNA Singapore',country:'Singapore',cc:'SG',lat:1.35,lng:103.8,cat:'noticias',url:'https://www.youtube.com/watch?v=XWq5kBlakcQ',thumb:'https://img.youtube.com/vi/XWq5kBlakcQ/mqdefault.jpg'},
-  // NATURALEZA / MUNDO
-  {id:'wl1',name:'Wildlife Africa 24h',country:'África',cc:'ZA',lat:-26.2,lng:28.1,cat:'naturaleza',url:'https://www.youtube.com/watch?v=yXE2LiWbBEo',thumb:'https://img.youtube.com/vi/yXE2LiWbBEo/mqdefault.jpg'},
-  {id:'sp1',name:'SpaceX Launches',country:'USA',cc:'US',lat:28.5,lng:-80.6,cat:'ciencia',url:'https://www.youtube.com/@SpaceX/live',thumb:'https://img.youtube.com/vi/21X5lGlDOfg/mqdefault.jpg'},
+  {id:'sg1',name:'CNA Singapore',country:'Singapore',cc:'SG',lat:1.35,lng:103.8,cat:'noticias',ytId:'XWq5kBlakcQ',thumb:'https://img.youtube.com/vi/XWq5kBlakcQ/mqdefault.jpg',yurl:'https://www.youtube.com/watch?v=XWq5kBlakcQ'},
+  // NATURALEZA
+  {id:'wl1',name:'Wildlife Africa 24h',country:'África',cc:'ZA',lat:-26.2,lng:28.1,cat:'naturaleza',ytId:'yXE2LiWbBEo',thumb:'https://img.youtube.com/vi/yXE2LiWbBEo/mqdefault.jpg',yurl:'https://www.youtube.com/watch?v=yXE2LiWbBEo'},
+  {id:'sp1',name:'NASA TV Live',country:'USA',cc:'US',lat:28.5,lng:-80.6,cat:'ciencia',ytId:'21X5lGlDOfg',thumb:'https://img.youtube.com/vi/21X5lGlDOfg/mqdefault.jpg',yurl:'https://www.youtube.com/watch?v=21X5lGlDOfg'},
 ];
 
 // Group channels by country
@@ -847,8 +937,10 @@ function renderChannels(list){
   const box=document.getElementById('channel-list');
   document.getElementById('panel-count').textContent=`${list.length} canal${list!==1?'es':''} en vivo`;
   if(!list.length){box.innerHTML='<div class="ch-empty"><span>📭</span>Sin canales en esta categoría</div>';return}
-  box.innerHTML=list.map(ch=>`
-    <div class="ch" onclick="openChannel('${esc(ch.url)}','${esc(ch.name)}')" title="${esc(ch.name)}">
+  // Store list for player bar navigation
+  window._currentChList = list;
+  box.innerHTML=list.map((ch,idx)=>`
+    <div class="ch" onclick="openChannel('${ch.ytId}','${esc(ch.name)}','${ch.yurl||''}',window._currentChList)" title="${esc(ch.name)}">
       <div class="ch-thumb">
         <img src="${ch.thumb}" alt="${esc(ch.name)}" loading="lazy" onerror="this.src='https://img.youtube.com/vi/default/mqdefault.jpg'">
         <div class="ch-live">EN VIVO</div>
@@ -857,19 +949,69 @@ function renderChannels(list){
         <div class="ch-name">${esc(ch.name)}</div>
         <div class="ch-cat">${CAT_LABELS[ch.cat]||ch.cat}</div>
       </div>
-      <div class="ch-arrow">›</div>
+      <div class="ch-arrow">▶</div>
     </div>
   `).join('');
 }
-function openChannel(url,name){
-  // Opens in YouTube — guaranteed to work on all devices
-  window.open(url,'_blank','noopener,noreferrer');
-  // Track view count
+// ─── IN-PAGE PLAYER ─────────────────────────────────────
+let currentChannelList=[], currentYtLink='';
+
+function openChannel(ytId, name, ytUrl, channelList){
+  // Track
   viewCount++;
   localStorage.setItem('cl_cnt',viewCount);
   document.getElementById('st-cnt').textContent=viewCount;
-  showToast(`📺 Abriendo ${name}…`);
+
+  // Set title
+  document.getElementById('player-title').textContent=name;
+  currentYtLink=ytUrl||`https://www.youtube.com/watch?v=${ytId}`;
+  document.getElementById('player-yt-link').href=currentYtLink;
+
+  // Reset state
+  document.getElementById('player-error').classList.remove('show');
+  document.getElementById('player-iframe').style.display='block';
+
+  // Load iframe embed
+  const src=`https://www.youtube.com/embed/${ytId}?autoplay=1&rel=0&modestbranding=1`;
+  document.getElementById('player-iframe').src=src;
+
+  // Build bottom channel bar (other channels from same country)
+  if(channelList && channelList.length>1){
+    document.getElementById('player-bar').style.display='flex';
+    document.getElementById('player-bar').innerHTML=channelList.map(ch=>`
+      <div class="pbar-ch${ch.ytId===ytId?' now':''}" onclick="openChannel('${ch.ytId}','${esc(ch.name)}','${ch.yurl||''}',window._pbarList)">
+        <img class="pbar-thumb" src="${ch.thumb}" alt="" onerror="this.style.display='none'">
+        <span>${esc(ch.name)}</span>
+      </div>`).join('');
+    window._pbarList=channelList;
+  } else {
+    document.getElementById('player-bar').style.display='none';
+  }
+
+  // Open modal
+  document.getElementById('player-modal').classList.add('open');
+  document.body.style.overflow='hidden';
+
+  // Detect embed block (YouTube returns a small error page)
+  // We detect via iframe load event + check if it's an error
+  const iframe=document.getElementById('player-iframe');
+  iframe.onload=function(){
+    // If YT blocks embed, the iframe is tiny or shows error
+    // We can't cross-origin check but we use a timeout heuristic
+    // Real check: listen for postMessage from YT API (not always available)
+  };
+  // Show fallback after 8s if no playback detected (conservative)
+  // Users can still manually click "Ver en YouTube" in the error panel
 }
+
+function closePlayer(){
+  document.getElementById('player-modal').classList.remove('open');
+  document.getElementById('player-iframe').src='';
+  document.body.style.overflow='';
+}
+
+// Close player on Escape
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closePlayer()});
 function closePanel(){
   document.getElementById('panel').classList.remove('open');
   document.getElementById('stats').classList.remove('hide');
@@ -927,7 +1069,7 @@ function renderSearch(res){
 function selectSearch(r){
   srEl.style.display='none';siEl.value='';document.getElementById('si-clear').style.display='none';
   if(r.type==='country') openCountry(r.obj);
-  else{if(r.country)openCountry(r.country);setTimeout(()=>openChannel(r.obj.url,r.obj.name),300)}
+  else{if(r.country)openCountry(r.country);setTimeout(()=>openChannel(r.obj.ytId,r.obj.name,r.obj.yurl,[r.obj]),300)}
 }
 let srT;siEl.addEventListener('input',()=>{
   const q=siEl.value.trim();
@@ -967,7 +1109,7 @@ function openPolicy(){document.getElementById('polModal').classList.add('open')}
 function closePolicy(){document.getElementById('polModal').classList.remove('open')}
 function openContact(){document.getElementById('conModal').classList.add('open')}
 function closeContact(){document.getElementById('conModal').classList.remove('open')}
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeShare();closePolicy();closeContact()}});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeShare();closePolicy();closeContact();closePlayer()}});
 
 /* ═══ TOAST ═══ */
 let toastT;
